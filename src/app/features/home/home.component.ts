@@ -1,10 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { Footer } from '../../shared/components/Footer/footer/footer';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Footer],
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements AfterViewInit {
