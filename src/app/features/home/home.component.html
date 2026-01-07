@@ -1,26 +1,46 @@
 <section id="hero"
-  class="min-h-screen flex flex-col justify-start items-center bg-gradient-to-b from-gray-50 to-white text-center px-6 border-b border-gray-200 pt-6">
+  class="min-h-screen flex flex-col justify-start items-center bg-gradient-to-b from-gray-50 to-white text-center px-6 border-b border-gray-200 pt-6"
+  data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-once="false">
 
-  <!-- NOMBRE -->
-  <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 animate-fade-in-up">
-    Luis Steven Vargas Rodriguez
-  </h1>
 
-  <!-- TYPEWRITER -->
-  <h2 class="text-xl md:text-2xl font-semibold text-blue-600 mb-8 min-h-[6rem]">
+
+<!-- TYPEWRITER -->
+<h2
+  class="flex justify-center items-baseline gap-3
+         text-black mb-8 min-h-[6rem]">
+
+  <!-- Texto estático -->
+  <span
+  class="text-3xl md:text-4xl font-extrabold tracking-tight text-blue-600
+         animate-fade-in-up">
+  I’m
+</span>
+
+
+  <!-- Texto dinámico -->
+  <span
+    class="text-xl md:text-2xl font-semibold text-gray-600">
     <span id="typewriter"></span>
-    <span class="border-r-2 border-blue-600 animate-pulse ml-1"></span>
-  </h2>
+    <span class="border-r-2 border-b-black animate-pulse ml-1"></span>
+  </span>
+
+</h2>
+
 
   <!-- FOTO + TARJETA -->
-  <div class="relative mb-0 mt-16 animate-fade-in-up">
+  <div class="relative mb-0 mt-16 animate-fade-in-up gsap-fade" data-aos="fade-up" data-aos-delay="100" data-aos-anchor-placement="top-bottom" data-aos-once="false">
     <!-- Card -->
-    <div class="bg-white rounded-2xl shadow-lg px-10 pt-32 pb-10 border border-gray-200">
+    <div class="bg-white rounded-2xl shadow-lg px-10 pt-32 pb-10 border border-gray-200 gsap-fade" data-aos="fade-down" data-aos-delay="200" data-aos-anchor-placement="top-bottom" data-aos-once="false">
 
-      <!-- Imagen -->
+     <!-- Imagen -->
       <img src="assets/images/Principal.jpeg" alt="Profile photo" class="w-64 h-64 rounded-full object-cover absolute -top-36 left-1/2 -translate-x-1/2
            ring-4 ring-white shadow-md
            transition-transform duration-500 hover:scale-105" />
+           <!-- NOMBRE -->
+  <h5 class="text-2xl md:text-4xl font-handwritten text-gray-900 mb-4 animate-fade-in-up break-words leading-tight" data-aos="fade-right" data-aos-delay="400" data-aos-anchor-placement="top-bottom" data-aos-once="false">
+    Luis Steven Vargas Rodriguez
+  </h5>
+  <link rel="stylesheet" href="../../shared/components/navbar/navbar-handwritten-font.css">
 
       <!-- Texto dentro de la tarjeta -->
       <p class="text-sm text-gray-600 max-w-md mt-6">
@@ -36,19 +56,20 @@
   <a
     href="mailto:luisstevenvargasr@gmail.com"
     class="flex items-center gap-2
-           px-3 py-1.5 rounded-full
-           text-sm text-gray-600
-           border border-gray-200
-           hover:bg-blue-50 hover:text-blue-600 hover:border-blue-400
+           px-4 py-2 rounded-full
+           text-sm text-gray-800
+           border border-white
+           bg-white/60 backdrop-blur
+           hover:bg-blue-50 hover:text-blue-700 hover:border-blue-500
            transition-all duration-300">
 
     <!-- Icon Email -->
     <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-4 h-4"
+         class="w-4 h-4 shrink-0"
          fill="none"
          viewBox="0 0 24 24"
          stroke="currentColor"
-         stroke-width="2">
+         stroke-width="1.8">
       <path stroke-linecap="round" stroke-linejoin="round"
             d="M3 8l9 6 9-6M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" />
     </svg>
@@ -64,14 +85,15 @@
     target="_blank"
     rel="noopener noreferrer"
     class="flex items-center gap-2
-           px-3 py-1.5 rounded-full
-           text-sm text-gray-600
-           border border-gray-200
-           hover:bg-green-50 hover:text-green-600 hover:border-green-500
+           px-4 py-2 rounded-full
+           text-sm text-gray-800
+           border border-white
+           bg-white/60 backdrop-blur
+           hover:bg-green-50 hover:text-green-700 hover:border-green-500
            transition-all duration-300">
 
     <!-- Icon WhatsApp -->
-    <svg xmlns="http://www.w3.org/2000/svg"
+       <svg xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 32 32"
          class="w-4 h-4 fill-current">
       <path d="M16 2.667c-7.364 0-13.333 5.97-13.333 13.333
@@ -106,58 +128,39 @@
 </div>
 
 
+</div>
+
+
 
   </div>
-    </div>
 
 
-  <div class="flex items-center justify-center gap-4 mt-8 mb-4">
-
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/stevenvargas_r/" target="_blank" title="Instagram" class="w-9 h-9 flex items-center justify-center rounded-full
-            bg-gray-100 text-gray-600
-            hover:bg-pink-500 hover:text-white
-            transition-all duration-300">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5ZM12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm5.75-.88a1.12 1.12 0 1 1-2.25 0 1.12 1.12 0 0 1 2.25 0ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+  <div class="flex items-center justify-center gap-3 mt-6 mb-2">
+    <!-- Redes sociales: logos pequeños, centrados y en círculo -->
+    <a href="https://www.instagram.com/stevenvargas_r/" target="_blank" title="Instagram"
+      class="social-icon bg-white text-pink-500 border border-pink-200 hover:bg-pink-500 hover:text-white">
+      <svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5ZM12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm5.75-.88a1.12 1.12 0 1 1-2.25 0 1.12 1.12 0 0 1 2.25 0ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
       </svg>
     </a>
-
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/steven.vargasrodriguez.90/" target="_blank" title="Facebook" class="w-9 h-9 flex items-center justify-center rounded-full
-            bg-gray-100 text-gray-600
-            hover:bg-blue-600 hover:text-white
-            transition-all duration-300">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M22 12a10 10 0 1 0-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.29.2 2.29.2v2.52h-1.29c-1.27 0-1.67.79-1.67 1.6V12h2.84l-.45 2.91h-2.39v7.04A10 10 0 0 0 22 12Z" />
+    <a href="https://www.facebook.com/steven.vargasrodriguez.90/" target="_blank" title="Facebook"
+      class="social-icon bg-white text-blue-600 border border-blue-200 hover:bg-blue-600 hover:text-white">
+      <svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M22 12a10 10 0 1 0-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.29.2 2.29.2v2.52h-1.29c-1.27 0-1.67.79-1.67 1.6V12h2.84l-.45 2.91h-2.39v7.04A10 10 0 0 0 22 12Z" />
       </svg>
     </a>
-
-    <!-- LinkedIn -->
     <a href="https://www.linkedin.com/in/luis-steven-vargas-rodriguez-1b0221199/" target="_blank" title="LinkedIn"
-      class="w-9 h-9 flex items-center justify-center rounded-full
-            bg-gray-100 text-gray-600
-            hover:bg-blue-700 hover:text-white
-            transition-all duration-300">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM.5 8h4v16h-4V8Zm7.5 0h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.95c0-1.9-.03-4.35-2.65-4.35-2.65 0-3.05 2.07-3.05 4.2V24h-4V8Z" />
+      class="social-icon bg-white text-blue-700 border border-blue-300 hover:bg-blue-700 hover:text-white">
+      <svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM.5 8h4v16h-4V8Zm7.5 0h3.8v2.2h.05c.53-1 1.82-2.2 3.75-2.2 4 0 4.75 2.63 4.75 6.05V24h-4v-7.95c0-1.9-.03-4.35-2.65-4.35-2.65 0-3.05 2.07-3.05 4.2V24h-4V8Z" />
       </svg>
     </a>
-
-    <!-- GitHub -->
-    <a href="https://github.com/LSvargas25" target="_blank" title="GitHub" class="w-9 h-9 flex items-center justify-center rounded-full
-            bg-gray-100 text-gray-600
-            hover:bg-gray-900 hover:text-white
-            transition-all duration-300">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.38-1.34-1.75-1.34-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23.96-.27 1.98-.41 3-.41 1.02 0 2.04.14 3 .41 2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.47 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12Z" />
+    <a href="https://github.com/LSvargas25" target="_blank" title="GitHub"
+      class="social-icon bg-white text-gray-900 border border-gray-300 hover:bg-gray-900 hover:text-white">
+      <svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.38-1.34-1.75-1.34-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23.96-.27 1.98-.41 3-.41 1.02 0 2.04.14 3 .41 2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.47 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12Z" />
       </svg>
     </a>
-
   </div>
 
 
@@ -199,14 +202,14 @@
 
 </section>
 <!-- ================= PROFILE ================= -->
-<section id="profile" class="py-12 bg-gray-50 border-b border-gray-200 scroll-px-60 ">
+<section id="profile" class="py-12 bg-gray-50 border-b border-gray-200 scroll-px-60 " data-aos="fade-up" data-aos-delay="100">
 
-  <div class="max-w-6xl mx-auto">
+  <div class="max-w-6xl mx-auto gsap-fade">
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
 
       <!-- ================= TEXT CARD ================= -->
-      <div class="md:col-span-2 bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+      <div class="md:col-span-2 bg-white rounded-2xl shadow-lg p-8 border border-gray-200 gsap-fade" data-aos="fade-right" data-aos-delay="200">
         <h3 class="text-2xl font-semibold mb-4 text-center text-gray-900">
           Professional Profile
         </h3>
@@ -220,13 +223,14 @@
       </div>
 
       <!-- ================= PHOTO ================= -->
-      <div class="flex justify-end">
+      <div class="flex justify-end gsap-fade" data-aos="zoom-in" data-aos-delay="300">
         <img src="assets/images/papi.jpeg" alt="Profile Photo" class="w-72 h-72 md:w-80 md:h-80
            object-cover
            rounded-full
            shadow-xl
            transition-transform duration-500
-           hover:scale-105" />
+           hover:scale-105
+           w-96 h-96 md:w-[28rem] md:h-[28rem]" data-aos="flip-left" data-aos-delay="350" />
       </div>
 
     </div>
@@ -236,139 +240,169 @@
 
 
 
-<!-- ================= EXPERIENCE ================= -->
-<section id="experience" class="py-16 bg-white border-b border-gray-200 px-6">
-  <div class="max-w-4xl mx-auto">
-    <h3 class="text-2xl font-semibold mb-8 text-gray-900">Work Experience</h3>
-
-    <div class="relative border-l-2 border-blue-200 pl-8 space-y-10">
-
-      <div>
-        <span class="absolute -left-4 mt-1 w-3 h-3 bg-blue-600 rounded-full border-2 border-white"></span>
-        <h4 class="font-bold text-lg text-gray-900">
-          Freelance Software Developer
-          <span class="text-sm text-gray-500">(2023 – Present)</span>
-        </h4>
-        <ul class="list-disc ml-6 text-gray-700 text-sm mt-2 space-y-1">
-          <li>Designed and developed custom software solutions for multiple business domains.</li>
-          <li>Built inventory, administrative, and operational management systems.</li>
-          <li>Managed full software lifecycle while completing academic studies.</li>
-        </ul>
-      </div>
-
-      <div>
-        <span class="absolute -left-4 mt-1 w-3 h-3 bg-blue-600 rounded-full border-2 border-white"></span>
-        <h4 class="font-bold text-lg text-gray-900">
-          Software Engineer / IT Solutions – Soluciones Expande
-          <span class="text-sm text-gray-500">(2025 – 2026)</span>
-        </h4>
-        <ul class="list-disc ml-6 text-gray-700 text-sm mt-2 space-y-1">
-          <li>Developed internal enterprise systems for construction and logistics companies.</li>
-          <li>Implemented inventory and administrative platforms.</li>
-          <li>Translated business needs into technical solutions.</li>
-        </ul>
-      </div>
-
-      <div>
-        <span class="absolute -left-4 mt-1 w-3 h-3 bg-blue-600 rounded-full border-2 border-white"></span>
-        <h4 class="font-bold text-lg text-gray-900">
-          Customer Service / Business Assistant – Varsa Arquitectos
-          <span class="text-sm text-gray-500">(2022 – 2024)</span>
-        </h4>
-        <ul class="list-disc ml-6 text-gray-700 text-sm mt-2 space-y-1">
-          <li>Provided administrative and customer service support.</li>
-          <li>Gained strong understanding of business workflows later applied to software design.</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= SKILLS ================= -->
-<section id="skills" class="py-16 bg-gray-50 border-b border-gray-200 px-6">
-  <div class="max-w-4xl mx-auto">
-    <h3 class="text-2xl font-semibold mb-6 text-gray-900">Skills</h3>
-
-    <div class="grid md:grid-cols-2 gap-8">
-      <div>
-        <h4 class="font-semibold text-lg mb-3 text-blue-700">Technical Skills</h4>
-        <ul class="flex flex-wrap gap-2 text-sm">
-          <li class="skill">C# / .NET</li>
-          <li class="skill">Angular</li>
-          <li class="skill">SQL Server</li>
-          <li class="skill">MongoDB</li>
-          <li class="skill">REST API Design</li>
-          <li class="skill">Clean Architecture</li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="font-semibold text-lg mb-3 text-blue-700">Soft Skills</h4>
-        <ul class="flex flex-wrap gap-2 text-sm">
-          <li class="soft-skill">Critical Thinking</li>
-          <li class="soft-skill">Attention to Detail</li>
-          <li class="soft-skill">Team Collaboration</li>
-          <li class="soft-skill">Continuous Learning</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- ================= EDUCATION ================= -->
-<section id="education" class="py-16 bg-white border-b border-gray-200 px-6">
+<section class="py-4 bg-gray-50 border-b border-gray-200 px-6">
   <div class="max-w-6xl mx-auto">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+    <!-- GRID PRINCIPAL -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-10 gsap-fade" data-aos="fade-up" data-aos-delay="100">
 
-      <!-- ================= PHOTO LEFT ================= -->
-      <div class="flex justify-start">
-        <img src="assets/images/titule.jpg" alt="Education Photo" class="w-72 h-72 md:w-80 md:h-80
-                 object-cover
-                 rounded-full
-                 shadow-xl
-                 transition-transform duration-500
-                 hover:scale-105" />
-      </div>
+      <!-- ================= TECHNICAL SKILLS ================= -->
+      <div>
+       <h4
+  class="font-semibold text-center text-lg mb-6 text-black
+         relative ">
+  Technical Skills
+  <span
+    class="absolute left-1/2 -translate-x-1/2 -bottom-1
+           w-2/3 h-[2px] bg-blue-600 rounded-full">
+  </span>
+</h4>
 
-      <!-- ================= TEXT CARD (STYLED LIKE PROFILE) ================= -->
-      <div class="md:col-span-2 bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
-        <h3 class="text-2xl font-semibold mb-6 text-center text-gray-900">
-          Education
-        </h3>
 
-        <div class="space-y-4 text-center">
-          <div>
-            <h4 class="font-bold text-lg text-gray-800 ">
-              Bachelor’s Degree in Computer Engineering
-              <span class="text-sm text-gray-500">(2020 – 2024)</span>
-            </h4>
-            <p class="text-sm text-gray-700">Castro Carazo University</p>
+        <!-- BACKEND -->
+        <div class="mb-6 flex items-center  -translate-x-7  gap-x-4 -ml-14">
+          <span   class="font-semibold text-gray-500 text-base min-w-[80px] -mt-8 -translate-x-4">
+            Backend
+          </span>
+
+          <div class="flex gap-7 flex-nowrap">
+            <ng-container *ngFor="let skill of backendSkills">
+              <div class="flex flex-col items-center gap-2">
+                <div
+                  class="w-11 h-11 rounded-full bg-white shadow-md border border-gray-200
+                         flex items-center justify-center
+                         transition-transform duration-300 hover:scale-105">
+                  <img
+                    [src]="skill.logo"
+                    [alt]="skill.name"
+                    class="w-6 h-6 object-contain"
+                    loading="lazy"
+                    (error)="onSkillImgError(skill, $event)" />
+                </div>
+                <span class="text-xs text-gray-700 text-center leading-tight mt-0.5">
+                  {{ skill.name }}
+                </span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- FRONTEND -->
+        <div class="mb-6 flex items-center  -ml-6 translate-x-1">
+  <span   class="font-semibold text-gray-500 text-base min-w-[80px] -mt-6  -translate-x-20">
+                    Frontend
+          </span>
+
+          <div class="flex gap-6 flex-wrap">
+            <ng-container *ngFor="let skill of frontendSkills">
+              <div class="flex flex-col items-center gap-2">
+                <div
+                  class="w-11 h-11 rounded-full bg-white shadow-md border border-gray-200
+                         flex items-center justify-center
+                         transition-transform duration-300 hover:scale-105">
+                  <img
+                    [src]="skill.logo"
+                    [alt]="skill.name"
+                    class="w-6 h-6 object-contain"
+                    loading="lazy"
+                    (error)="onSkillImgError(skill, $event)" />
+                </div>
+
+                <span class="text-xs text-gray-700 text-center leading-tight mt-0.5">
+                  {{ skill.name }}
+                </span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- TOOLS -->
+        <div class="mb-6 flex items-center gap-x-10 -ml-6 -translate-x-8">
+          <span   class="font-semibold  text-gray-500 text-base min-w-[80px] -mt-6 -translate-x-10">
+            Tools
+          </span>
+
+          <div class="flex gap-6 flex-wrap">
+            <ng-container *ngFor="let skill of toolsSkills">
+              <div class="flex flex-col items-center gap-2">
+                <div
+                  class="w-11 h-11 rounded-full bg-white shadow-md border border-gray-200
+                         flex items-center justify-center
+                         transition-transform duration-300 hover:scale-105">
+                  <img
+                    [src]="skill.logo"
+                    [alt]="skill.name"
+                    class="w-6 h-6 object-contain"
+                    loading="lazy"
+                    (error)="onSkillImgError(skill, $event)" />
+                </div>
+
+                <span class="text-xs text-gray-700 text-center leading-tight mt-0.5">
+                  {{ skill.name }}
+                </span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- DATABASE -->
+    <div class="mb-6 flex items-center -ml-10 gap-x-1 ">
+          <span   class="font-semibold  text-gray-500 text-base min-w-[80px] -translate-x-14 -mt-6">
+            Database
+          </span>
+           <div class="flex flex-1 justify-center gap-6 flex-wrap -translate-x-8">
+
+
+            <ng-container *ngFor="let skill of databaseSkills">
+              <div class="flex flex-col items-center gap-1">
+                <div
+                  class="w-11 h-11 rounded-full bg-white shadow-md border border-gray-200
+                         flex items-center justify-center
+                         transition-transform duration-300 hover:scale-105">
+                  <img
+                    [src]="skill.logo"
+                    [alt]="skill.name"
+                    class="w-6 h-6 object-contain"
+                    loading="lazy"
+                    (error)="onSkillImgError(skill, $event)" />
+                </div>
+
+                <span class="text-xs text-gray-700 text-center leading-tight">
+                  {{ skill.name }}
+                </span>
+              </div>
+            </ng-container>
           </div>
 
-          <div>
-            <h4 class="font-bold text-lg text-gray-800">
-              Bachelor’s Degree in Computer Science – Application Development
-              <span class="text-sm text-gray-500">(2024 – 2025)</span>
-            </h4>
-            <p class="text-sm text-gray-700">Castro Carazo University</p>
-          </div>
+          <div></div>
         </div>
       </div>
 
-    </div>
+      <!-- ================= SOFT SKILLS ================= -->
+      <div class="md:pl-16">
+        <h4 class="font-semibold text-center text-lg mb-6 text-blue-700">
+          Soft Skills
+        </h4>
 
+        <ul class="text-sm text-gray-700 space-y-2">
+          <li>Critical Thinking</li>
+          <li>Attention to Detail</li>
+          <li>Continuous Learning</li>
+        </ul>
+      </div>
+
+    </div>
   </div>
 </section>
 
 
 <!-- ================= PROJECTS ================= -->
-<section id="projects" class="py-16 bg-gray-50 border-b border-gray-200 px-6">
-  <div class="max-w-5xl mx-auto">
+<section id="projects" class="py-16 bg-gray-50 border-b border-gray-200 px-6" data-aos="fade-up" data-aos-delay="100">
+  <div class="max-w-5xl mx-auto gsap-fade">
     <h3 class="text-2xl font-semibold mb-8 text-gray-900">Projects</h3>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded-xl shadow-sm">
+    <div class="grid md:grid-cols-2 gap-6 gsap-fade" data-aos="fade-up" data-aos-delay="200">
+      <div class="bg-white p-6 rounded-xl shadow-sm gsap-fade" data-aos="fade-right" data-aos-delay="250">
         <h4 class="font-bold text-lg mb-2">Inventory Management System</h4>
         <p class="text-gray-600 text-sm mb-2">
           Backend-oriented system built with .NET and Angular.
@@ -376,7 +410,7 @@
         <a href="#" class="text-blue-600 text-sm hover:underline">View on GitHub</a>
       </div>
 
-      <div class="bg-white p-6 rounded-xl shadow-sm">
+      <div class="bg-white p-6 rounded-xl shadow-sm gsap-fade" data-aos="fade-left" data-aos-delay="300">
         <h4 class="font-bold text-lg mb-2">Administrative Platform</h4>
         <p class="text-gray-600 text-sm mb-2">
           Business-oriented application focused on scalability and clean architecture.
@@ -388,8 +422,8 @@
 </section>
 
 <!-- ================= CONTACT ================= -->
-<section id="contact" class="py-16 bg-white px-6">
-  <div class="max-w-3xl mx-auto text-center">
+<section id="contact" class="py-16 bg-white px-6" data-aos="fade-up" data-aos-delay="100">
+  <div class="max-w-3xl mx-auto text-center gsap-fade">
     <h3 class="text-2xl font-semibold mb-4 text-gray-900">Contact</h3>
 
     <p class="text-gray-700 text-sm mb-3">

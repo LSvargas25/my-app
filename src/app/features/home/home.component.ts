@@ -1,7 +1,15 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { Footer } from '../../shared/components/Footer/footer/footer';
+import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Footer } from '../../shared/components/Footer/footer/footer';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+
+type Skill = {
+  name: string;
+  logo: string;          // principal
+  fallbackLogo: string;  // respaldo
+};
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -9,9 +17,172 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements AfterViewInit {
+  skills: Skill[] = [
+    // Backend / .NET
+    {
+      name: 'C#',
+      logo: 'https://cdn.simpleicons.org/csharp/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/csharp.svg'
+    },
+    {
+      name: '.NET',
+      logo: 'https://cdn.simpleicons.org/dotnet/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/dotnet.svg'
+    },
+    {
+      name: 'ASP.NET Core',
+      logo: 'https://cdn.simpleicons.org/dotnet/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/dotnet.svg'
+    },
+
+    // Frontend
+    {
+      name: 'Angular',
+      logo: 'https://cdn.simpleicons.org/angular/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/angular.svg'
+    },
+    {
+      name: 'TypeScript',
+      logo: 'https://cdn.simpleicons.org/typescript/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/typescript.svg'
+    },
+
+    // Databases
+    {
+      name: 'SQL Server',
+      logo: 'https://cdn.simpleicons.org/microsoftsqlserver/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/microsoftsqlserver.svg'
+    },
+    {
+      name: 'MongoDB',
+      logo: 'https://cdn.simpleicons.org/mongodb/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mongodb.svg'
+    },
+
+    // Web basics
+    {
+      name: 'HTML5',
+      logo: 'https://cdn.simpleicons.org/html5/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/html5.svg'
+    },
+    {
+      name: 'CSS3',
+      // OJO: el slug correcto es "css" (no css3)
+      logo: 'https://cdn.simpleicons.org/css/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/css3.svg'
+    },
+    {
+      name: 'JavaScript',
+      logo: 'https://cdn.simpleicons.org/javascript/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/javascript.svg'
+    },
+    {
+      name: 'Tailwind CSS',
+      logo: 'https://cdn.simpleicons.org/tailwindcss/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tailwindcss.svg'
+    },
+
+    // Mobile
+    {
+      name: 'Xamarin.Forms',
+      logo: 'https://cdn.simpleicons.org/xamarin/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/xamarin.svg'
+    },
+
+    // Backend extra
+    {
+      name: 'PHP',
+      logo: 'https://cdn.simpleicons.org/php/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/php.svg'
+    },
+    {
+      name: 'Laravel',
+      logo: 'https://cdn.simpleicons.org/laravel/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/laravel.svg'
+    },
+
+    // DevOps
+    {
+      name: 'Docker',
+      logo: 'https://cdn.simpleicons.org/docker/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg'
+    },
+
+    // VCS / Tools
+    {
+      name: 'Git',
+      logo: 'https://cdn.simpleicons.org/git/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/git.svg'
+    },
+    {
+      name: 'GitHub',
+      logo: 'https://cdn.simpleicons.org/github/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg'
+    },
+    {
+      name: 'Postman',
+      logo: 'https://cdn.simpleicons.org/postman/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/postman.svg'
+    },
+    {
+      name: 'Swagger',
+      logo: 'https://cdn.simpleicons.org/swagger/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/swagger.svg'
+    },
+
+    // IDEs
+    {
+      name: 'Visual Studio',
+      logo: 'https://cdn.simpleicons.org/visualstudio/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/visualstudio.svg'
+    },
+    {
+      name: 'VS Code',
+      logo: 'https://cdn.simpleicons.org/visualstudiocode/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/visualstudiocode.svg'
+    }
+  ];
+
+  // Getters para agrupar skills por categoría
+  get frontendSkills() {
+    return this.skills.filter(s => [
+      'Angular', 'TypeScript', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'
+    ].includes(s.name));
+  }
+
+  get backendSkills() {
+    return this.skills.filter(s => [
+      'C#', '.NET', 'ASP.NET Core', 'PHP', 'Laravel', 'Xamarin.Forms', 'Docker'
+    ].includes(s.name));
+  }
+
+  get databaseSkills() {
+    return this.skills.filter(s => [
+      'SQL Server', 'MongoDB'
+    ].includes(s.name));
+  }
+
+  get toolsSkills() {
+    return this.skills.filter(s => [
+      'Git', 'GitHub', 'Postman', 'Swagger', 'Visual Studio', 'VS Code'
+    ].includes(s.name));
+  }
+
+  /**
+   * Si el logo principal falla, cambia al fallback automáticamente.
+   */
+  onSkillImgError(skill: Skill, ev: Event): void {
+    const img = ev.target as HTMLImageElement;
+
+    // Evita loop infinito si también falla el fallback
+    if (img.src === skill.fallbackLogo) return;
+
+    img.src = skill.fallbackLogo;
+  }
+
 
   // -----------------------------
-  // TYPEWRITER CONFIGURATION
+  // TYPEWRITER CONFIG
   // -----------------------------
   words: string[] = [
     'Software Developer',
@@ -28,12 +199,40 @@ export class HomeComponent implements AfterViewInit {
   deletingSpeed = 60;
   pauseAfterTyping = 1200;
 
+  gsapRegistered = false;
+
+  constructor(private el: ElementRef) {}
+
   // -----------------------------
   // LIFECYCLE
   // -----------------------------
   ngAfterViewInit(): void {
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    if (typeof window !== 'undefined') {
       this.startTypewriter();
+
+      if (!this.gsapRegistered) {
+        gsap.registerPlugin(ScrollTrigger);
+        this.gsapRegistered = true;
+      }
+
+      const blocks = this.el.nativeElement.querySelectorAll('.gsap-fade');
+
+      blocks.forEach((block: HTMLElement) => {
+        gsap.fromTo(
+          block,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            scrollTrigger: {
+              trigger: block,
+              start: 'top 80%',
+              end: 'bottom 20%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      });
     }
   }
 
@@ -47,17 +246,13 @@ export class HomeComponent implements AfterViewInit {
     const currentWord = this.words[this.currentWordIndex];
 
     if (!this.isDeleting) {
-      // Typing
       element.textContent = currentWord.substring(0, this.currentCharIndex + 1);
       this.currentCharIndex++;
 
       if (this.currentCharIndex === currentWord.length) {
-        setTimeout(() => {
-          this.isDeleting = true;
-        }, this.pauseAfterTyping);
+        setTimeout(() => (this.isDeleting = true), this.pauseAfterTyping);
       }
     } else {
-      // Deleting
       element.textContent = currentWord.substring(0, this.currentCharIndex - 1);
       this.currentCharIndex--;
 

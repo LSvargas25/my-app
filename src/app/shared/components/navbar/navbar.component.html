@@ -1,26 +1,34 @@
-<nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur z-50 shadow-sm border-b">
+<nav class="fixed top-0 left-0 w-full bg-black z-50 shadow-lg border-b border-gray-800" data-aos="fade-down">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-4 h-16">
 
     <!-- PERFIL -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3" data-aos="fade-right" data-aos-delay="100">
 
-      <!-- FOTO PERFIL -->
-      <div
-        class="relative w-10 h-10 rounded-full transition-all duration-500"
-        [ngClass]="{
-          'ring-2 ring-blue-400 ring-offset-2 shadow-lg shadow-blue-400/40 scale-105': highlightProfile,
-          'ring-1 ring-gray-300': !highlightProfile
-        }"
-      >
+      <!-- FOTO PERFIL (GLOW ANIMADO) -->
+      <div class="relative w-16 h-16 shrink-0" data-aos="zoom-in" data-aos-delay="200">
+
+        <!-- Glow animado -->
+        <div
+          class="absolute inset-0 rounded-full
+                 bg-white/20 blur-md
+                 animate-[zoomGlow_4s_ease-in-out_infinite]">
+        </div>
+
+        <!-- Imagen -->
         <img
           src="assets/images/Principal.jpeg"
           alt="Luis Steven Vargas"
-          class="w-full h-full rounded-full object-cover"
+          class="relative w-full h-full rounded-full object-cover profile-img-enhanced transition-transform duration-300"
+          [ngClass]="{
+            'scale-105': highlightProfile
+          }"
         />
+         <link rel="stylesheet" href="navbar-profile-enhanced.css">
+         <link rel="stylesheet" href="navbar-handwritten-font.css">
       </div>
 
       <!-- NOMBRE -->
-      <span class="font-bold text-lg tracking-tight">
+       <span class="font-handwritten text-white text-xl md:text-2xl font-normal tracking-tight" data-aos="fade-left" data-aos-delay="300">
         Luis Steven Vargas
       </span>
     </div>
@@ -33,11 +41,11 @@
           (click)="$event.preventDefault(); scrollToSection(section.id)"
           [ngClass]="{
             'text-blue-400 border-b-2 border-blue-400 pb-1': activeSection === section.id,
-            'hover:text-blue-400': activeSection !== section.id
+            'text-gray-300 hover:text-white': activeSection !== section.id
           }"
           class="transition-colors duration-200 cursor-pointer font-medium"
         >
-          {{section.label}}
+          {{ section.label }}
         </a>
       </li>
     </ul>

@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
     { id: 'profile', label: 'Profile' },
     { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
+    { id: 'about-me', label: 'About me' },
     { id: 'contact', label: 'Contact' }
   ];
 
@@ -50,7 +51,9 @@ export class NavbarComponent implements OnInit {
   scrollToSection(id: string) {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const yOffset = -70; // Altura del navbar fijo
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }
 }
