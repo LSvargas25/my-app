@@ -4,168 +4,262 @@ import { Footer } from '../../shared/components/Footer/footer/footer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+type SoftSkill = {
+  name: string;
+  icon: string;
+};
+
+type Expertise = {
+  name: string;
+  iconPath: string;   // ruta en assets
+  colorClass: string;
+  delayClass?: string;
+};
+
 
 type Skill = {
   name: string;
-  logo: string;          // principal
-  fallbackLogo: string;  // respaldo
+  logo: string; // principal
+  fallbackLogo: string; // respaldo
 };
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, Footer],
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
 })
 export class HomeComponent implements AfterViewInit {
+
+expertiseItems: Expertise[] = [
+  {
+    name: 'Backend Engineering',
+    iconPath: 'assets/images/Ico1.png',
+    colorClass: 'text-blue-600',
+  },
+  {
+    name: 'System Design & Architecture',
+    iconPath: 'assets/images/Ico2.png',
+    colorClass: 'text-cyan-600',
+    delayClass: 'delay-150',
+  },
+  {
+    name: 'Clean Architecture & SOLID',
+    iconPath: 'assets/images/Ico3.png',
+    colorClass: 'text-sky-600',
+    delayClass: 'delay-300',
+  },
+];
+
+
+  softSkills: SoftSkill[] = [
+    {
+      name: 'Customer Focus',
+      icon: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/salesforce.svg',
+    },
+
+    {
+      name: 'Critical Thinking',
+      icon: 'https://cdn.simpleicons.org/abstract/000000',
+    },
+    {
+      name: 'Attention to Detail',
+      icon: 'https://cdn.simpleicons.org/checkmarx/000000',
+    },
+    {
+      name: 'Problem Solving',
+      icon: 'https://cdn.simpleicons.org/target/000000',
+    },
+    {
+      name: 'Continuous Learning',
+      icon: 'https://cdn.simpleicons.org/codecademy/000000',
+    },
+    {
+      name: 'Team Collaboration',
+      icon: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/microsoftteams.svg',
+    },
+    {
+      name: 'Communication Skills',
+      icon: 'https://cdn.simpleicons.org/googlechat/000000',
+    },
+    {
+      name: 'Adaptability',
+      icon: 'https://cdn.simpleicons.org/airbyte/000000',
+    },
+    {
+      name: 'Time Management',
+      icon: 'https://cdn.simpleicons.org/clockify/000000',
+    },
+    {
+      name: 'Responsibility',
+      icon: 'https://cdn.simpleicons.org/trustpilot/000000',
+    },
+    {
+      name: 'Work Ethic',
+      icon: 'https://cdn.simpleicons.org/opensourceinitiative/000000',
+    },
+    {
+      name: 'Analytical Mindset',
+      icon: 'https://cdn.simpleicons.org/databricks/000000',
+    },
+  ];
+
   skills: Skill[] = [
     // Backend / .NET
     {
       name: 'C#',
       logo: 'https://cdn.simpleicons.org/csharp/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/csharp.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/csharp.svg',
     },
     {
       name: '.NET',
       logo: 'https://cdn.simpleicons.org/dotnet/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/dotnet.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/dotnet.svg',
     },
     {
       name: 'ASP.NET Core',
       logo: 'https://cdn.simpleicons.org/dotnet/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/dotnet.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/dotnet.svg',
     },
 
     // Frontend
     {
       name: 'Angular',
       logo: 'https://cdn.simpleicons.org/angular/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/angular.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/angular.svg',
     },
     {
       name: 'TypeScript',
       logo: 'https://cdn.simpleicons.org/typescript/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/typescript.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/typescript.svg',
     },
-
     // Databases
     {
       name: 'SQL Server',
       logo: 'https://cdn.simpleicons.org/microsoftsqlserver/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/microsoftsqlserver.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/microsoftsqlserver.svg',
+    },
+    {
+      name: 'Oracle',
+      logo: 'https://cdn.simpleicons.org/oracle/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/oracle.svg',
     },
     {
       name: 'MongoDB',
       logo: 'https://cdn.simpleicons.org/mongodb/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mongodb.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mongodb.svg',
+    },
+    {
+      name: 'NoSQL',
+      // Representación genérica del paradigma NoSQL
+      logo: 'https://cdn.simpleicons.org/apachecassandra/000000',
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/apachecassandra.svg',
     },
 
     // Web basics
     {
       name: 'HTML5',
       logo: 'https://cdn.simpleicons.org/html5/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/html5.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/html5.svg',
     },
     {
       name: 'CSS3',
       // OJO: el slug correcto es "css" (no css3)
       logo: 'https://cdn.simpleicons.org/css/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/css3.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/css3.svg',
     },
     {
       name: 'JavaScript',
       logo: 'https://cdn.simpleicons.org/javascript/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/javascript.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/javascript.svg',
     },
     {
       name: 'Tailwind CSS',
       logo: 'https://cdn.simpleicons.org/tailwindcss/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tailwindcss.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tailwindcss.svg',
     },
 
     // Mobile
     {
       name: 'Xamarin.Forms',
       logo: 'https://cdn.simpleicons.org/xamarin/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/xamarin.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/xamarin.svg',
     },
 
     // Backend extra
     {
       name: 'PHP',
       logo: 'https://cdn.simpleicons.org/php/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/php.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/php.svg',
     },
     {
       name: 'Laravel',
       logo: 'https://cdn.simpleicons.org/laravel/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/laravel.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/laravel.svg',
     },
 
     // DevOps
     {
       name: 'Docker',
       logo: 'https://cdn.simpleicons.org/docker/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg',
     },
 
     // VCS / Tools
     {
       name: 'Git',
       logo: 'https://cdn.simpleicons.org/git/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/git.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/git.svg',
     },
     {
       name: 'GitHub',
       logo: 'https://cdn.simpleicons.org/github/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg',
     },
     {
       name: 'Postman',
       logo: 'https://cdn.simpleicons.org/postman/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/postman.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/postman.svg',
     },
     {
       name: 'Swagger',
       logo: 'https://cdn.simpleicons.org/swagger/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/swagger.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/swagger.svg',
     },
 
     // IDEs
     {
       name: 'Visual Studio',
       logo: 'https://cdn.simpleicons.org/visualstudio/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/visualstudio.svg'
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/visualstudio.svg',
     },
     {
       name: 'VS Code',
       logo: 'https://cdn.simpleicons.org/visualstudiocode/000000',
-      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/visualstudiocode.svg'
-    }
+      fallbackLogo: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/visualstudiocode.svg',
+    },
   ];
 
   // Getters para agrupar skills por categoría
   get frontendSkills() {
-    return this.skills.filter(s => [
-      'Angular', 'TypeScript', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'
-    ].includes(s.name));
+    return this.skills.filter((s) =>
+      ['Angular', 'TypeScript', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind CSS'].includes(s.name)
+    );
   }
 
   get backendSkills() {
-    return this.skills.filter(s => [
-      'C#', '.NET', 'ASP.NET Core', 'PHP', 'Laravel', 'Xamarin.Forms', 'Docker'
-    ].includes(s.name));
+    return this.skills.filter((s) =>
+      ['C#', '.NET', 'ASP.NET Core', 'PHP', 'Laravel', 'Xamarin.Forms', 'Docker'].includes(s.name)
+    );
   }
 
   get databaseSkills() {
-    return this.skills.filter(s => [
-      'SQL Server', 'MongoDB'
-    ].includes(s.name));
+    return this.skills.filter((s) => ['SQL Server', 'Oracle', 'MongoDB', 'NoSQL'].includes(s.name));
   }
 
   get toolsSkills() {
-    return this.skills.filter(s => [
-      'Git', 'GitHub', 'Postman', 'Swagger', 'Visual Studio', 'VS Code'
-    ].includes(s.name));
+    return this.skills.filter((s) =>
+      ['Git', 'GitHub', 'Postman', 'Swagger', 'Visual Studio', 'VS Code'].includes(s.name)
+    );
   }
 
   /**
@@ -180,7 +274,6 @@ export class HomeComponent implements AfterViewInit {
     img.src = skill.fallbackLogo;
   }
 
-
   // -----------------------------
   // TYPEWRITER CONFIG
   // -----------------------------
@@ -188,7 +281,7 @@ export class HomeComponent implements AfterViewInit {
     'Software Developer',
     'Frontend Developer',
     'Backend Developer',
-    'Database Developer'
+    'Database Developer',
   ];
 
   currentWordIndex = 0;
@@ -228,8 +321,8 @@ export class HomeComponent implements AfterViewInit {
               trigger: block,
               start: 'top 80%',
               end: 'bottom 20%',
-              toggleActions: 'play none none reverse'
-            }
+              toggleActions: 'play none none reverse',
+            },
           }
         );
       });
@@ -258,8 +351,7 @@ export class HomeComponent implements AfterViewInit {
 
       if (this.currentCharIndex === 0) {
         this.isDeleting = false;
-        this.currentWordIndex =
-          (this.currentWordIndex + 1) % this.words.length;
+        this.currentWordIndex = (this.currentWordIndex + 1) % this.words.length;
       }
     }
 

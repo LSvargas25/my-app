@@ -4,13 +4,20 @@
 @tailwind utilities;
 
 
+
 @keyframes zoomGlow {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+    box-shadow: 0 0 20px 0 rgba(37,99,235,0.35), 0 0 0 0 rgba(37,99,235,0.15);
   }
   50% {
     transform: scale(1.08);
-    box-shadow: 0 0 35px rgba(255,255,255,0.9);
+    box-shadow: 0 0 45px 10px rgba(37,99,235,0.55), 0 0 0 8px rgba(37,99,235,0.18);
   }
+}
+
+.expertise-circle {
+  animation: zoomGlow 2.2s infinite ease-in-out;
+  /* Sombra base azul para fallback */
+  box-shadow: 0 0 20px 0 rgba(37,99,235,0.18);
 }
