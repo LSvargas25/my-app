@@ -1,5 +1,9 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PokedexModal } from '../../shared/components/Modals/pokedex-modal/pokedex-modal';
+import { ExpandeModal } from '../../shared/components/Modals/expande-modal/expande-modal';
+import { FitHouseModal } from '../../shared/components/Modals/fit-house-modal/fit-house-modal';
+import { VcBikeServiceModal } from '../../shared/components/Modals/vc-bike-service-modal/vc-bike-service-modal';
 import { Footer } from '../../shared/components/Footer/footer/footer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -25,10 +29,33 @@ type Skill = {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Footer],
+  imports: [CommonModule, Footer, PokedexModal, ExpandeModal, FitHouseModal, VcBikeServiceModal],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements AfterViewInit {
+    // private lastScrollTop = 0;
+    // private scrollListener?: () => void;
+  private projectsObserver?: IntersectionObserver;
+
+  showPokedexModal = false;
+  showExpandeModal = false;
+  showFitHouseModal = false;
+  showVcBikeServiceModal = false;
+
+  openModal(modal: 'pokedex' | 'expande' | 'fit' | 'vcbike') {
+    this.closeAllModals();
+    if (modal === 'pokedex') this.showPokedexModal = true;
+    if (modal === 'expande') this.showExpandeModal = true;
+    if (modal === 'fit') this.showFitHouseModal = true;
+    if (modal === 'vcbike') this.showVcBikeServiceModal = true;
+  }
+
+  closeAllModals() {
+    this.showPokedexModal = false;
+    this.showExpandeModal = false;
+    this.showFitHouseModal = false;
+    this.showVcBikeServiceModal = false;
+  }
 
 expertiseItems: Expertise[] = [
   {
@@ -326,8 +353,28 @@ expertiseItems: Expertise[] = [
           }
         );
       });
+
+      // --- Cerrar modal si el propio modal deja de ser visible en el viewport ---
+      // --- Cerrar modal solo si el área de Projects NO es visible en absoluto ---
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        this.projectsObserver = new IntersectionObserver(
+          (entries) => {
+            if (entries[0] && entries[0].intersectionRatio === 0) {
+              this.closeAllModals();
+            }
+          },
+          { threshold: 0 }
+        );
+        this.projectsObserver.observe(projectsSection);
+      }
     }
   }
+    ngOnDestroy(): void {
+      if (this.projectsObserver) {
+        this.projectsObserver.disconnect();
+      }
+    }
 
   // -----------------------------
   // TYPEWRITER LOGIC

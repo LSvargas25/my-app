@@ -272,30 +272,253 @@
   </div>
 </section>
 
+
 <!-- ================= PROJECTS ================= -->
-<section id="projects" class="py-16 bg-gray-50 border-b border-gray-200 px-6" data-aos="fade-up"
-        data-aos-delay="100">
-        <div class="max-w-5xl mx-auto gsap-fade">
-          <h3 class="text-2xl font-semibold mb-8 text-gray-900">Projects</h3>
+<section
+  id="projects"
+  class="py-16 bg-gray-50 border-b border-gray-200 px-6"
+  data-aos="fade-up"
+  data-aos-delay="100"
+>
+  <div class="max-w-6xl mx-auto gsap-fade">
 
-          <div class="grid md:grid-cols-2 gap-6 gsap-fade" data-aos="fade-up" data-aos-delay="200">
-            <div class="bg-white p-6 rounded-xl shadow-sm gsap-fade" data-aos="fade-right" data-aos-delay="250">
-              <h4 class="font-bold text-lg mb-2">Inventory Management System</h4>
-              <p class="text-gray-600 text-sm mb-2">
-                Backend-oriented system built with .NET and Angular.
-              </p>
-              <a href="#" class="text-blue-600 text-sm hover:underline">View on GitHub</a>
-            </div>
+    <!-- TITLE -->
+    <h4 class="font-semibold text-center text-lg relative">
+      Projects
+      <span
+        class="absolute left-1/2 -translate-x-1/2 -bottom-1
+               w-2/3 h-[2px] bg-blue-600">
+      </span>
+    </h4>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm gsap-fade" data-aos="fade-left" data-aos-delay="300">
-              <h4 class="font-bold text-lg mb-2">Administrative Platform</h4>
-              <p class="text-gray-600 text-sm mb-2">
-                Business-oriented application focused on scalability and clean architecture.
-              </p>
-              <a href="#" class="text-blue-600 text-sm hover:underline">View on GitHub</a>
-            </div>
-          </div>
+    <!-- GRID -->
+    <div
+      class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-10 gsap-fade"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+
+      <!-- ================= CARD 1 ================= -->
+      <div class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center text-center project-card cursor-pointer" (click)="openModal('pokedex')">
+
+        <div class="w-26 h-26 rounded-full flex items-center justify-center mb-3 -mt-4 project-icon-glow pokedex-glow">
+          <img
+            src="assets/images/Pokedex.png"
+            alt="Pokedex"
+            class="w-24 h-24 object-cover rounded-full border-2 border-white shadow"
+          />
         </div>
+
+        <h4 class="font-bold text-lg mb-2">Pokedex</h4>
+
+        <p class="text-gray-600 text-sm mb-4 max-w-xs">
+          An interactive experience inspired by the original Pokédex, where users complete challenges to unlock Pokémon through progressive gameplay.
+        </p>
+
+        <!-- TECHNOLOGIES -->
+        <div class="flex flex-col items-center gap-2 mb-2">
+
+          <div class="flex justify-center gap-3">
+            <img src="https://cdn.simpleicons.org/mongodb"
+                 alt="MongoDB"
+                 title="MongoDB"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="/assets/icons/Angular.png"
+                 alt="Angular"
+                 title="Angular"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+
+          <div class="flex justify-center gap-3">
+            <img src="https://cdn.simpleicons.org/node.js"
+                 alt="Node.js"
+                 title="Node.js"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="https://cdn.simpleicons.org/typescript"
+                 alt="TypeScript"
+                 title="TypeScript"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="https://cdn.simpleicons.org/sass"
+                 alt="SCSS"
+                 title="SCSS"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= CARD 2 ================= -->
+      <div class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center text-center project-card cursor-pointer" (click)="openModal('expande')">
+
+        <div class="w-26 h-26 rounded-full flex items-center justify-center mb-3 -mt-4 project-icon-glow expande-glow">
+          <img
+            src="assets/images/Expande.png"
+            alt="Expande"
+            class="w-24 h-24 object-cover rounded-full border-2 border-white shadow"
+          />
+        </div>
+
+        <h4 class="font-bold text-lg mb-2">Expande</h4>
+
+        <p class="text-gray-600 text-sm mb-4 max-w-xs">
+          A scalable enterprise platform focused on tracking, analyzing, and centralizing critical business actions across multiple operations.
+        </p>
+
+        <!-- TECHNOLOGIES -->
+        <div class="flex flex-col items-center gap-2 mb-2">
+
+          <div class="flex justify-center gap-3">
+            <img src="/assets/icons/Angular.png"
+                 alt="Angular"
+                 title="Angular"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="https://cdn.simpleicons.org/tailwindcss"
+                 alt="Tailwind CSS"
+                 title="Tailwind CSS"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="/assets/icons/csharp.png"
+                 alt="C#"
+                 title="C#"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+
+          <div class="flex justify-center gap-3">
+            <img src="https://cdn.simpleicons.org/dotnet"
+                 alt="ASP.NET Core"
+                 title="ASP.NET Core Web API"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="/assets/icons/sql.png"
+                 alt="SQL Server"
+                 title="SQL Server"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= CARD 3 ================= -->
+      <div class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center text-center project-card cursor-pointer" (click)="openModal('fit')">
+
+        <div class="w-26 h-26 rounded-full flex items-center justify-center mb-3 -mt-4 project-icon-glow fithouse-glow">
+          <img
+            src="assets/images/FitHouse.png"
+            alt="FitHouse"
+            class="w-24 h-24 object-cover rounded-full border-2 border-white shadow"
+          />
+        </div>
+
+        <h4 class="font-bold text-lg mb-2">FitHouse</h4>
+
+        <p class="text-gray-600 text-sm mb-4 max-w-xs">
+          A mobile solution designed to guide gym members through structured workouts, improving consistency and long-term engagement.
+        </p>
+
+        <!-- TECHNOLOGIES -->
+        <div class="flex flex-col items-center gap-2 mb-2">
+
+          <div class="flex justify-center gap-3">
+            <img src="/assets/icons/Xamarin.png"
+                 alt="Xamarin.Forms"
+                 title="Xamarin.Forms"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="/assets/icons/csharp.png"
+                 alt="C#"
+                 title="C#"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+
+          <div class="flex justify-center gap-3">
+            <img src="/assets/icons/sql.png"
+                 alt="SQL Server"
+                 title="SQL Server"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= CARD 4 ================= -->
+      <div class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center text-center project-card cursor-pointer" (click)="openModal('vcbike')">
+<!-- MODALS -->
+<div *ngIf="showPokedexModal" class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="fixed inset-0 z-50 flex items-center justify-center" (click)="closeAllModals()"></div>
+  <div class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh] flex flex-col overflow-y-auto z-50 modal-observe" (click)="$event.stopPropagation()">
+    <button (click)="closeAllModals()" class="absolute top-2 right-2 text-2xl font-bold text-gray-500 hover:text-red-500 z-50">&times;</button>
+    <app-pokedex-modal></app-pokedex-modal>
+  </div>
+</div>
+<div *ngIf="showExpandeModal" class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="fixed inset-0 z-50 flex items-center justify-center" (click)="closeAllModals()"></div>
+  <div class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh] flex flex-col overflow-y-auto z-50 modal-observe" (click)="$event.stopPropagation()">
+    <button (click)="closeAllModals()" class="absolute top-2 right-2 text-2xl font-bold text-gray-500 hover:text-red-500 z-50">&times;</button>
+    <app-expande-modal></app-expande-modal>
+  </div>
+</div>
+<div *ngIf="showFitHouseModal" class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="fixed inset-0 z-50 flex items-center justify-center" (click)="closeAllModals()"></div>
+  <div class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh] flex flex-col overflow-y-auto z-50 modal-observe" (click)="$event.stopPropagation()">
+    <button (click)="closeAllModals()" class="absolute top-2 right-2 text-2xl font-bold text-gray-500 hover:text-red-500 z-50">&times;</button>
+    <app-fit-house-modal></app-fit-house-modal>
+  </div>
+</div>
+<div *ngIf="showVcBikeServiceModal" class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="fixed inset-0 z-50 flex items-center justify-center" (click)="closeAllModals()"></div>
+  <div class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh] flex flex-col overflow-y-auto z-50 modal-observe" (click)="$event.stopPropagation()">
+    <button (click)="closeAllModals()" class="absolute top-2 right-2 text-2xl font-bold text-gray-500 hover:text-red-500 z-50">&times;</button>
+    <app-vc-bike-service-modal></app-vc-bike-service-modal>
+  </div>
+</div>
+
+        <div class="w-26 h-26 rounded-full flex items-center justify-center mb-3 -mt-4 project-icon-glow vcbike-glow">
+          <img
+            src="assets/images/VCBikeService.png"
+            alt="VCBikeService"
+            class="w-24 h-24 object-cover rounded-full border-2 border-white shadow"
+          />
+        </div>
+
+        <h4 class="font-bold text-lg mb-2">VCBikeService</h4>
+
+        <p class="text-gray-600 text-sm mb-4 max-w-xs">
+          A comprehensive management system built to streamline operations for a real-world bicycle service business.
+        </p>
+
+        <!-- TECHNOLOGIES -->
+        <div class="flex flex-col items-center gap-2 mb-2">
+
+          <div class="flex justify-center gap-3">
+            <img src="/assets/icons/WinForms.png"
+                 alt="Windows Forms"
+                 title="Windows Forms"
+                 class="w-7 h-7 object-contain skill-icon" />
+
+            <img src="/assets/icons/csharp.png"
+                 alt="C#"
+                 title="C#"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+
+          <div class="flex justify-center gap-3">
+               <div class="flex justify-center gap-3">
+            <img src="/assets/icons/sql.png"
+                 alt="SQL Server"
+                 title="SQL Server"
+                 class="w-7 h-7 object-contain skill-icon" />
+          </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- ================= CONTACT ================= -->
