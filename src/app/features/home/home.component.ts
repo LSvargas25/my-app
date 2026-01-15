@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PokedexModal } from '../../shared/components/Modals/pokedex-modal/pokedex-modal';
-import { ExpandeModal } from '../../shared/components/Modals/expande-modal/expande-modal';
+import { PokedexModal } from '../../shared/components/Modals/pokedex-modal/pokedex-modal'; import { ExpandeModal } from '../../shared/components/Modals/expande-modal/expande-modal';
 import { FitHouseModal } from '../../shared/components/Modals/fit-house-modal/fit-house-modal';
 import { VcBikeServiceModal } from '../../shared/components/Modals/vc-bike-service-modal/vc-bike-service-modal';
 import { Footer } from '../../shared/components/Footer/footer/footer';

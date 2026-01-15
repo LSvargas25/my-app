@@ -1,4 +1,26 @@
 /* ======================================================
+   PROJECT MODALS – Always Color Icons in Modals
+====================================================== */
+.project-modal-color-icons .skill-icon,
+.project-modal-color-icons .soft-skill-icon {
+  filter: none !important;
+}
+
+.project-modal-color-icons .skill-icon:hover,
+.project-modal-color-icons .soft-skill-icon:hover {
+  filter: none !important;
+  transform: scale(1.18);
+  z-index: 2;
+}
+/* Fondo de imagen para el modal de la pokedex */
+.pokedex-modal-bg {
+  background-image: url('/assets/images/Pika.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: #fff; /* o el color que prefieras para los bordes */
+}
+/* ======================================================
    BASE – Animación común para íconos de proyectos
 ====================================================== */
 .project-icon-glow {
