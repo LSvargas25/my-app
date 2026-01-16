@@ -9,6 +9,7 @@ import { Component, ElementRef, ViewChild, AfterViewInit, Renderer2, OnDestroy, 
 export class PokedexModal implements AfterViewInit, OnDestroy {
   @ViewChild('modalRoot', { static: true }) modalRoot!: ElementRef<HTMLElement>;
   @Output() closed = new EventEmitter<void>();
+  @ViewChild('modalOuter', { static: true }) modalOuter!: ElementRef<HTMLElement>;
   private originalBodyOverflow = '';
   private originalHtmlOverflow = '';
   private originalBodyPaddingRight = '';
@@ -42,6 +43,19 @@ export class PokedexModal implements AfterViewInit, OnDestroy {
       elements.forEach(el => this.observer!.observe(el));
     }
 
+    // Redirigir el scroll del fondo al modal central
+    if (this.modalOuter && this.modalRoot) {
+      const outer = this.modalOuter.nativeElement;
+      const inner = this.modalRoot.nativeElement;
+      outer.addEventListener('wheel', (e: WheelEvent) => {
+        // Solo redirigir si el scroll no está sobre el modal central
+        if (e.target === outer) {
+          inner.scrollTop += e.deltaY;
+          e.preventDefault();
+        }
+      }, { passive: false });
+    }
+
     // 2. Lock page scroll (body/html)
     const body = document.body;
     const html = document.documentElement;
@@ -64,6 +78,7 @@ export class PokedexModal implements AfterViewInit, OnDestroy {
     this.renderer.setStyle(html, 'overflow', this.originalHtmlOverflow || '');
     this.renderer.setStyle(body, 'paddingRight', this.originalBodyPaddingRight || '');
     if (this.observer) this.observer.disconnect();
+    // Limpieza del listener de scroll si es necesario (opcional)
   }
 
   closeModal() {

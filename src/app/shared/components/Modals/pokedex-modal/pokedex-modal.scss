@@ -1,13 +1,14 @@
 /* ===== Modal Outer/Inner for scroll and backdrop ===== */
-.pokedex-modal-outer {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(10, 16, 24, 0.72);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: auto;
+  .pokedex-modal-outer {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    /* Fondo oscuro, semitransparente para cubrir la página */
+    background: rgba(10, 16, 24, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
 }
 .pokedex-modal-center-wrap {
   position: relative;
@@ -19,20 +20,21 @@
   width: 100%;
   margin: 48px 0;
 }
-.pokedex-modal-inner {
-  max-height: 82vh;
-  max-width: 640px;
-  min-width: 320px;
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: visible;
-  background: none;
-  border-radius: 18px;
-  box-shadow: 0 8px 48px 0 #0007;
-  position: relative;
-  /* Hide scrollbar cross-browser */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  .pokedex-modal-inner {
+    max-height: 82vh;
+    max-width: 640px;
+    min-width: 320px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: visible;
+    /* Fondo sólido para el modal central, puedes ajustar el color si lo deseas */
+    background: #232b36;
+    border-radius: 18px;
+    box-shadow: 0 8px 48px 0 #0007;
+    position: relative;
+    /* Hide scrollbar cross-browser */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
 }
 .pokedex-modal-inner::-webkit-scrollbar {
   display: none;
