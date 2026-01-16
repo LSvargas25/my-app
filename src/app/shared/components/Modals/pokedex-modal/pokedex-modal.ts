@@ -1,80 +1,81 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, Renderer2, OnDestroy, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pokedex-modal',
   imports: [],
   templateUrl: './pokedex-modal.html',
-  styleUrl: './pokedex-modal.scss',
+  styleUrls: ['./pokedex-modal.scss'],
 })
-export class PokedexModal implements AfterViewInit {
+export class PokedexModal implements AfterViewInit, OnDestroy {
   @ViewChild('modalRoot', { static: true }) modalRoot!: ElementRef<HTMLElement>;
+  @Output() closed = new EventEmitter<void>();
+  private originalBodyOverflow = '';
+  private originalHtmlOverflow = '';
+  private originalBodyPaddingRight = '';
+  private scrollBarWidth = 0;
+  private observer: IntersectionObserver | null = null;
+  constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit() {
-    // Query elements in the order specified
-    const root = this.modalRoot?.nativeElement || document.querySelector('[app-pokedex-modal], .pokedex-modal, .modal-root') || document.body;
-    // Fallback to document if ViewChild fails
-    const selectors = [
-      'h4', // Header title
-      'section', // Hero image section
-      'h1', // Hero title
-      'p', // Hero description
-      'span.pokedex-badge', // Pokédex badge (add class in HTML if needed)
-      '.tech-stack-card', // Technology stack cards
-      '.architecture-card', // Architecture cards
-      '.source-code-btn' // Source code buttons
-    ];
-
-    // Flatten all elements in order
-    let elements: HTMLElement[] = [];
-    selectors.forEach(sel => {
-      const found = root.querySelectorAll(sel);
-      elements = elements.concat(Array.from(found) as HTMLElement[]);
-    });
-
-    // Set initial state
-    elements.forEach((el, i) => {
-      el.style.opacity = '0';
-      el.style.transform = this.getInitialTransform(i);
-    });
-
-    // Animate in with stagger
-    this.animateIn(elements, {
-      duration: 500,
-      delayStep: 120,
-      easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-    });
-  }
-
-  animateIn(elements: HTMLElement[], options: { duration: number; delayStep: number; easing: string }) {
-    elements.forEach((el, i) => {
-      const delay = i * options.delayStep;
-      const isHero = el.tagName === 'SECTION' || el.tagName === 'H1';
-      const keyframes = [
-        {
-          opacity: 0,
-          transform: isHero
-            ? 'translateY(30px) scale(0.96)'
-            : 'translateY(20px)'
-        },
-        {
-          opacity: 1,
-          transform: 'translateY(0) scale(1)'
-        }
-      ];
-      el.animate(keyframes, {
-        duration: options.duration,
-        delay,
-        easing: options.easing,
-        fill: 'forwards'
+    // 1. Scroll reveal logic (igual que antes)
+    const root = this.modalRoot?.nativeElement;
+    if (root) {
+      const elements = Array.from(root.querySelectorAll('.fade-in-on-scroll')) as HTMLElement[];
+      elements.forEach(el => {
+        el.classList.add('scroll-hidden');
+        el.classList.remove('scroll-reveal');
       });
-    });
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-reveal');
+            entry.target.classList.remove('scroll-hidden');
+          } else {
+            entry.target.classList.remove('scroll-reveal');
+            entry.target.classList.add('scroll-hidden');
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.18
+      });
+      elements.forEach(el => this.observer!.observe(el));
+    }
+
+    // 2. Lock page scroll (body/html)
+    const body = document.body;
+    const html = document.documentElement;
+    this.originalBodyOverflow = body.style.overflow;
+    this.originalHtmlOverflow = html.style.overflow;
+    this.originalBodyPaddingRight = body.style.paddingRight;
+    this.scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    this.renderer.setStyle(body, 'overflow', 'hidden');
+    this.renderer.setStyle(html, 'overflow', 'hidden');
+    if (this.scrollBarWidth > 0) {
+      this.renderer.setStyle(body, 'paddingRight', `${this.scrollBarWidth}px`);
+    }
   }
 
-  getInitialTransform(index: number): string {
-    // Hero image/hero title scale, others just translateY
-    if (index === 1 || index === 2) {
-      return 'translateY(30px) scale(0.96)';
-    }
-    return 'translateY(20px)';
+  ngOnDestroy() {
+    // Restore scroll state
+    const body = document.body;
+    const html = document.documentElement;
+    this.renderer.setStyle(body, 'overflow', this.originalBodyOverflow || '');
+    this.renderer.setStyle(html, 'overflow', this.originalHtmlOverflow || '');
+    this.renderer.setStyle(body, 'paddingRight', this.originalBodyPaddingRight || '');
+    if (this.observer) this.observer.disconnect();
   }
+
+  closeModal() {
+    this.closed.emit();
+  }
+
+  onBackdropClick(event: MouseEvent) {
+    // Only close if click is on the backdrop, not inside modal
+    if (event.target && (event.target as HTMLElement).classList.contains('pokedex-modal-outer')) {
+      this.closeModal();
+    }
+  }
+
+  // Animación manual eliminada, todo es scroll reveal
 }

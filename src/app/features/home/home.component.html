@@ -490,7 +490,7 @@
 <!-- MODALS (moved to end of template for true overlay) -->
 <div *ngIf="showPokedexModal" class="fixed inset-0 z-[9999] flex items-center justify-center">
   <div class="fixed inset-0 bg-black/50 z-[9999]" (click)="closeAllModals()"></div>
-  <div class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh] flex flex-col overflow-y-auto z-[10000] modal-observe" (click)="$event.stopPropagation()">
+  <div class="bg-transparent p-0 rounded-2xl relative max-w-3xl w-[90vw] h-[80vh] flex flex-col overflow-y-auto z-[10000] modal-observe" (click)="$event.stopPropagation()">
     <button (click)="closeAllModals()" class="absolute top-2 right-2 text-2xl font-bold text-gray-500 hover:text-red-500 z-[10001]">&times;</button>
     <app-pokedex-modal></app-pokedex-modal>
   </div>

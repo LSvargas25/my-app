@@ -1,9 +1,22 @@
+<div class="pokedex-modal-outer" (mousedown)="onBackdropClick($event)">
+  <button type="button" class="pokedex-modal-close" (click)="closeModal()" aria-label="Cerrar modal">
+    <span aria-hidden="true">&#10005;</span>
+  </button>
+  <div #modalRoot class="pokedex-modal-inner" (mousedown)="$event.stopPropagation()">
+<header
+  class="mb-10 mt-8 ml-8 mr-8 rounded-lg px-9 pt-3 pb-3
+    bg-gradient-to-r from-red-600 via-cyan-400 to-red-600
+    text-black shadow-md pokedex-header-glow animate-pokedex-glow fade-in-on-scroll scroll-hidden"
+  data-aos="fade-down" data-aos-duration="900">
 
-<header class="mb-8">
-  <h4 class="font-semibold text-center text-lg relative mb-2">
+  <h4 class="mb-2 font-semibold text-center text-lg relative pokedex-title">
     Pokedex – Pokémon Battle Game
-    <span class="block text-gray-500 text-sm mt-1 mb-2">Full-Stack Game Project</span>
-    <span class="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2/3 h-[2px] flex">
+
+    <span class="block text-white text-sm mb-2 pokedex-subtitle">
+      Full-Stack Game Project
+    </span>
+
+    <span class="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2/3 h-[2px] flex mt-3">
       <span class="block w-1/2 h-full bg-black"></span>
       <span class="block w-1/2 h-full bg-red-600"></span>
     </span>
@@ -11,107 +24,383 @@
 </header>
 
 
-<section class="relative w-full min-h-[320px] md:min-h-[420px] flex items-center justify-center overflow-hidden rounded-xl mb-12 shadow-lg pokedex-modal-hero">
-  <img src="/assets/images/Game.png" alt="Pokémon Game" class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none" />
+<section class="relative mx-20 ml-6 mr-6 mt-2 min-h-[320px] md:min-h-[420px] flex items-center justify-center overflow-hidden rounded-xl mb-12 shadow-lg pokedex-modal-hero group fade-in-on-scroll scroll-hidden"
+  data-aos="fade-up" data-aos-duration="900">
+  <img src="/assets/images/Game.png" alt="Pokémon Game" class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none pokedex-hero-img transition-all duration-500" />
   <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-red-900/60"></div>
   <div class="pokedex-parallax"></div>
   <div class="pokedex-particles">
     <div class="pokedex-particle p1"></div>
     <div class="pokedex-particle p2"></div>
+
+
+<style>
+.pokedex-modal-hero .pokedex-hero-img {
+  transition: transform 0.5s cubic-bezier(.4,2,.3,1), box-shadow 0.5s cubic-bezier(.4,2,.3,1), filter 0.5s;
+}
+.pokedex-modal-hero.group:hover .pokedex-hero-img {
+  transform: scale(1.045) rotateZ(-2deg);
+  box-shadow: 0 0 32px 8px #00fff7cc, 0 0 48px 16px #ff0059cc;
+  filter: brightness(1.12) saturate(1.18);
+  z-index: 1;
+}
+</style>
     <div class="pokedex-particle p3"></div>
     <div class="pokedex-particle p4"></div>
   </div>
   <div class="pokedex-hud-overlay"></div>
-  <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-8 w-full">
-    <h1 class="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-2 animate-fade-in">
+  <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-8 w-full pokedex-hero-texts">
+    <h1 class="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-2 animate-fade-in pokedex-hero-title">
       Interactive Pokémon Game
     </h1>
-    <p class="text-base md:text-lg text-gray-200 font-medium mb-4 animate-fade-in delay-100">
+    <p class="text-base md:text-lg text-gray-200 font-medium mb-4 animate-fade-in delay-100 pokedex-hero-desc">
       Battle system based on Pokémon abilities and levels
     </p>
-    <span class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-cyan-400 to-red-600 text-white text-xs md:text-sm font-semibold shadow-md neon-glow animate-fade-in delay-200">
+    <span class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-red-600 via-cyan-400 to-red-600 text-white text-xs md:text-sm font-semibold shadow-md neon-glow animate-fade-in delay-200 pokedex-hero-badge">
       Inspired by the original Pokédex design
     </span>
   </div>
+<style>
+.pokedex-modal-hero.group:hover .pokedex-hero-title {
+  color: #1a202c !important; /* gray-900 */
+  text-shadow: 0 2px 8px #fff, 0 0 2px #fff;
+}
+.pokedex-modal-hero.group:hover .pokedex-hero-desc {
+  color: #2d3748 !important; /* gray-800 */
+  text-shadow: 0 2px 8px #fff, 0 0 2px #fff;
+}
+.pokedex-modal-hero.group:hover .pokedex-hero-badge {
+  color: #1a202c !important;
+  background: linear-gradient(90deg, #fff 60%, #e53e3e 100%) !important;
+  box-shadow: 0 2px 12px #fff8;
+}
+</style>
 </section>
 
 
 
 <!-- ================= TECHNOLOGY STACK ================= -->
-<section class="mt-14 mb-12 project-modal-color-icons">
-  <h5 class="text-lg font-semibold text-center mb-3">Technology Stack</h5>
-  <div class="text-xs text-gray-500 text-center mb-8">Frontend & Backend Technologies</div>
-  <div class="flex flex-col md:flex-row gap-10 md:gap-16 justify-center items-stretch">
-    <!-- Frontend -->
-    <div class="flex-1 bg-gray-50 rounded-xl shadow p-7 flex flex-col items-center">
-      <div class="text-sm font-semibold text-gray-700 mb-4">Frontend</div>
-      <div class="flex justify-center gap-6 mb-1">
-        <img src="/assets/icons/Angular.png" alt="Angular" title="Angular" class="w-7 h-7 object-contain skill-icon" />
-        <img src="https://cdn.simpleicons.org/html5" alt="HTML5" title="HTML5" class="w-7 h-7 object-contain skill-icon" />
-       <img src="/assets/icons/Css.png" alt="CSS3" title="CSS3" class="h-8 w-8 object-contain" />
-				 <img src="https://cdn.simpleicons.org/javascript" alt="JavaScript" title="JavaScript" class="w-7 h-7 object-contain skill-icon" />
+<section class="mt-10 mb-12 fade-in-on-scroll scroll-hidden">
+  <h5 class="text-2xl font-extrabold text-center mb-2 tracking-tight text-cyan-400 drop-shadow pokedex-title">
+    Technology Stack
+  </h5>
+  <div class="text-sm text-gray-400 text-center mb-8">
+    Frontend & Backend Technologies
+  </div>
+  <div class="flex flex-col md:flex-row gap-8 md:gap-12 justify-center items-stretch px-2 md:px-8">
+    <!-- FRONTEND STACK -->
+    <div class="pokedex-stack-card pokedex-stack-card-frontend flex-1 bg-gradient-to-br from-cyan-900/60 via-cyan-800/40 to-cyan-900/60
+      rounded-2xl border border-cyan-400/30 shadow-xl p-8
+      flex flex-col items-center backdrop-blur-md relative group transition-all fade-in-on-scroll scroll-hidden"
+      data-aos="fade-up" data-aos-delay="150" data-aos-duration="900">
+
+      <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
+                  rounded-full bg-cyan-600/90 text-white text-xs font-bold shadow
+                  group-hover:scale-105 transition">
+        Frontend
+      </div>
+
+      <div class="flex justify-center gap-7 mt-6 mb-2">
+        <!-- Angular -->
+        <div class="relative flex flex-col items-center group">
+          <img src="/assets/icons/Angular.png" alt="Angular"
+               class="w-10 h-10 object-contain drop-shadow-lg pokedex-tech-icon" />
+          <span class="tech-tooltip bg-cyan-800/90">Angular</span>
+        </div>
+
+        <!-- HTML -->
+        <div class="relative flex flex-col items-center group">
+          <img src="https://cdn.simpleicons.org/html5" alt="HTML5"
+               class="w-10 h-10 object-contain drop-shadow-lg pokedex-tech-icon" />
+          <span class="tech-tooltip bg-orange-600/90">HTML5</span>
+        </div>
+
+        <!-- CSS -->
+        <div class="relative flex flex-col items-center group">
+          <img src="/assets/icons/Css.png" alt="CSS3"
+               class="w-11 h-11 object-contain drop-shadow-lg pokedex-tech-icon" />
+          <span class="tech-tooltip bg-blue-700/90">CSS3</span>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="relative flex flex-col items-center group">
+          <img src="https://cdn.simpleicons.org/javascript" alt="JavaScript"
+               class="w-10 h-10 object-contain drop-shadow-lg pokedex-tech-icon" />
+          <span class="tech-tooltip bg-yellow-500/90 text-black">JavaScript</span>
+        </div>
       </div>
     </div>
-    <!-- Backend -->
-    <div class="flex-1 bg-gray-50 rounded-xl shadow p-7 flex flex-col items-center">
-      <div class="text-sm font-semibold text-gray-700 mb-4">Backend</div>
-      <div class="flex justify-center gap-6 mb-1">
-        <img src="https://cdn.simpleicons.org/node.js" alt="Node.js" title="Node.js" class="w-7 h-7 object-contain skill-icon" />
-        <img src="https://cdn.simpleicons.org/express" alt="Express" title="Express" class="w-7 h-7 object-contain skill-icon" />
-        <img src="https://cdn.simpleicons.org/mongodb" alt="MongoDB" title="MongoDB" class="w-7 h-7 object-contain skill-icon" />
-        <img src="https://cdn.simpleicons.org/mongoose" alt="Mongoose" title="Mongoose" class="w-7 h-7 object-contain skill-icon" />
-         </div>
+
+
+    <!-- BACKEND STACK -->
+    <div class="pokedex-stack-card flex-1 bg-gradient-to-br from-red-900/60 via-red-800/40 to-red-900/60
+      rounded-2xl border border-red-400/30 shadow-xl p-8
+      flex flex-col items-center backdrop-blur-md relative group transition-all fade-in-on-scroll scroll-hidden"
+      data-aos="fade-up" data-aos-delay="300" data-aos-duration="900">
+
+
+<style>
+  .pokedex-stack-card {
+    transition: transform 0.35s cubic-bezier(.4,2,.3,1), box-shadow 0.35s cubic-bezier(.4,2,.3,1), filter 0.35s;
+  }
+  .pokedex-stack-card:hover {
+    transform: translateY(8px) scale(1.035) rotateZ(1deg);
+    box-shadow: 0 8px 32px 0 rgba(0,255,255,0.18), 0 2px 16px 0 rgba(255,0,80,0.18), 0 0 0 4px rgba(0,255,255,0.08);
+    filter: brightness(1.08) saturate(1.15) drop-shadow(0 0 12px #0ff8);
+    z-index: 2;
+  }
+  .pokedex-stack-card:active {
+    transform: scale(0.98) translateY(-2px);
+    box-shadow: 0 2px 8px 0 rgba(0,255,255,0.10);
+  }
+  .pokedex-stack-card-frontend:hover {
+    transform: translateY(-8px) scale(1.035) rotateZ(-1deg);
+    box-shadow: 0 8px 32px 0 rgba(0,255,255,0.18), 0 2px 16px 0 rgba(255,0,80,0.18), 0 0 0 4px rgba(0,255,255,0.08);
+    filter: brightness(1.08) saturate(1.15) drop-shadow(0 0 12px #0ff8);
+    z-index: 2;
+  }
+</style>
+
+      <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
+                  rounded-full bg-red-600/90 text-white text-xs font-bold shadow
+                  group-hover:scale-105 transition">
+        Backend
+      </div>
+
+      <div class="flex justify-center gap-7 mt-6 mb-2">
+        <!-- Node -->
+        <div class="relative flex flex-col items-center group">
+          <img src="https://cdn.simpleicons.org/node.js" alt="Node.js"
+               class="w-10 h-10 object-contain drop-shadow-lg pokedex-tech-icon" />
+          <span class="tech-tooltip bg-green-700/90">Node.js</span>
+        </div>
+
+        <!-- Express -->
+        <div class="relative flex flex-col items-center group">
+          <img src="https://cdn.simpleicons.org/express" alt="Express"
+               class="w-10 h-10 object-contain drop-shadow-lg pokedex-tech-icon" />
+          <span class="tech-tooltip bg-gray-800/90">Express</span>
+        </div>
+
+        <!-- MongoDB -->
+        <div class="relative flex flex-col items-center group">
+          <img src="https://cdn.simpleicons.org/mongodb" alt="MongoDB"
+               class="w-10 h-10 object-contain drop-shadow-lg pokedex-tech-icon" />
+          <span class="tech-tooltip bg-green-900/90">MongoDB</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= ARCHITECTURE OVERVIEW ================= -->
-<section class="mb-12">
-  <h5 class="text-lg font-semibold text-center mb-8 mt-12">Architecture Overview</h5>
-  <div class="flex flex-col md:flex-row gap-10 md:gap-16 justify-center">
-    <!-- Backend Architecture -->
-    <div class="flex-1 bg-white rounded-xl shadow p-8 pokedex-architecture-card">
-      <div class="text-sm font-semibold text-gray-700 mb-4">Backend Architecture</div>
-      <ul class="list-disc list-inside text-gray-700 text-sm space-y-2">
-        <li>RESTful API</li>
-        <li>Mongoose models for Pokémon entities</li>
-        <li>Service-based logic for battles and progression</li>
-        <li>Separation of controllers, services, and data access</li>
-      </ul>
-    </div>
-    <!-- Frontend Architecture -->
-    <div class="flex-1 bg-white rounded-xl shadow p-8 pokedex-architecture-card">
-      <div class="text-sm font-semibold text-gray-700 mb-4">Frontend Architecture</div>
-      <ul class="list-disc list-inside text-gray-700 text-sm space-y-2">
-        <li>Angular components per feature</li>
+<section class="mb-12 mt-30 px-2 md:px-8 fade-in-on-scroll scroll-hidden" data-aos="fade-up" data-aos-delay="200" data-aos-duration="900">
+  <h5 class="text-2xl font-extrabold text-center mb-2 tracking-tight text-cyan-400 drop-shadow pokedex-title"
+      data-aos="fade-up" data-aos-duration="800">
+    Architecture Overview
+  </h5>
+  <p class="text-gray-400 text-center mb-10 mt-0" data-aos="fade-up" data-aos-delay="120">
+    High-level overview of the structural decisions and separation of concerns across the application.
+  </p>
+
+  <div class="flex flex-col md:flex-row gap-8 md:gap-14 justify-center items-stretch">
+
+    <!-- FRONTEND ARCHITECTURE -->
+        <div class="pokedex-arch-card flex-1 bg-gradient-to-br from-cyan-900/60 via-cyan-800/40 to-cyan-900/60
+          rounded-2xl border border-cyan-400/30 shadow-xl p-8
+          flex flex-col items-center backdrop-blur-md relative group transition-all fade-in-on-scroll scroll-hidden"
+        data-aos="zoom-in-up" data-aos-delay="150" data-aos-duration="900">
+
+      <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
+                  rounded-full bg-cyan-600/90 text-white text-xs font-bold shadow">
+        Frontend Architecture
+      </div>
+
+      <ul class="list-disc list-inside text-white text-base space-y-3 ">
+        <li><span class="font-semibold text-white">Angular components per feature</span></li>
         <li>API service layer</li>
         <li>Reusable UI components</li>
         <li>Clean separation between logic and presentation</li>
       </ul>
     </div>
+
+    <!-- BACKEND ARCHITECTURE -->
+        <div class="pokedex-arch-card pokedex-arch-card-backend flex-1 bg-gradient-to-br from-red-900/60 via-red-800/40 to-red-900/60
+      rounded-2xl border border-red-400/30 shadow-xl p-8
+      flex flex-col items-center backdrop-blur-md relative group transition-all fade-in-on-scroll scroll-hidden"
+        data-aos="zoom-in-up" data-aos-delay="300" data-aos-duration="900">
+
+      <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
+                  rounded-full bg-red-600/90 text-white text-xs font-bold shadow">
+        Backend Architecture
+      </div>
+
+      <ul class="list-disc list-inside text-white  text-base space-y-3 ">
+        <li><span class="font-semibold text-red-200">RESTful API</span></li>
+        <li>Mongoose models for Pokémon entities</li>
+        <li>Service-based logic for battles and progression</li>
+        <li>Separation of controllers, services, and data access</li>
+      </ul>
+    </div>
   </div>
+
+  <style>
+    .pokedex-arch-card {
+      transition: transform 0.35s cubic-bezier(.4,2,.3,1), box-shadow 0.35s cubic-bezier(.4,2,.3,1), filter 0.35s;
+    }
+    .pokedex-arch-card:hover {
+      transform: translateY(-8px) scale(1.035) rotateZ(-1deg);
+      box-shadow: 0 8px 32px 0 rgba(0,255,255,0.18), 0 2px 16px 0 rgba(255,0,80,0.18), 0 0 0 4px rgba(0,255,255,0.08);
+      filter: brightness(1.08) saturate(1.15) drop-shadow(0 0 12px #0ff8);
+      z-index: 2;
+    }
+    .pokedex-arch-card:active {
+      transform: scale(0.98) translateY(2px);
+      box-shadow: 0 2px 8px 0 rgba(255,255,255,0.10);
+    }
+    .pokedex-arch-card-backend:hover {
+      transform: translateY(8px) scale(1.035) rotateZ(1deg);
+      box-shadow: 0 8px 32px 0 rgba(0,255,255,0.18), 0 2px 16px 0 rgba(255,0,80,0.18), 0 0 0 4px rgba(0,255,255,0.08);
+      filter: brightness(1.08) saturate(1.15) drop-shadow(0 0 12px #0ff8);
+      z-index: 2;
+    }
+  </style>
 </section>
 
+<!-- Tooltip helper -->
+<style>
+  .tech-tooltip {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .group:hover .tech-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0.25rem);
+  }
+</style>
+
+
+
 <!-- ================= SOURCE CODE ================= -->
-<section class="mt-16 mb-2">
-  <h5 class="text-lg font-semibold text-center mb-4">Source Code</h5>
-  <div class="text-sm text-gray-600 text-center mb-8">
-    Explore the full implementation of this project, including both frontend and backend code, on GitHub.
+<section class="mt-20 mb-12 px-2 md:px-8 fade-in-on-scroll scroll-hidden">
+  <div class="max-w-2xl mx-auto bg-gradient-to-br from-cyan-900/70 via-black/70 to-red-900/70 border-2 border-cyan-400/30 rounded-2xl shadow-2xl p-8 flex flex-col items-center backdrop-blur-md relative group animate-fade-in fade-in-on-scroll scroll-hidden" data-aos="zoom-in" data-aos-duration="900">
+    <h5 class="text-2xl font-extrabold text-center mb-3 tracking-tight text-cyan-300 drop-shadow pokedex-title" data-aos="fade-up" data-aos-delay="100">Source Code</h5>
+    <div class="text-base text-cyan-100 text-center mb-8 max-w-xl" data-aos="fade-up" data-aos-delay="200">
+      Explore the full implementation of this project, including both frontend and backend code, on GitHub.
+    </div>
+    <div class="flex flex-col md:flex-row gap-7 justify-center items-center w-full fade-in-on-scroll scroll-hidden" data-aos="fade-up" data-aos-delay="300">
+      <!-- Frontend Repo -->
+      <a href="https://github.com/LSvargas25/PokedexFronted" target="_blank"
+        class="pokedex-repo-btn flex items-center gap-3 px-7 py-4 rounded-xl border-2 border-cyan-400/40 bg-gradient-to-r from-cyan-800/80 via-cyan-700/60 to-cyan-900/80 hover:from-cyan-600 hover:to-cyan-800 transition-all text-white font-bold shadow-lg text-lg w-full md:w-auto justify-center fade-in-on-scroll scroll-hidden" data-aos="zoom-in-up" data-aos-delay="400">
+        <img src="https://cdn.simpleicons.org/github/fff" alt="GitHub" class="w-6 h-6" />
+        Frontend
+      </a>
+      <!-- Backend Repo -->
+      <a href="https://github.com/LSvargas25/pokedex-backend" target="_blank"
+        class="pokedex-repo-btn flex items-center gap-3 px-7 py-4 rounded-xl border-2 border-red-400/40 bg-gradient-to-r from-red-800/80 via-red-700/60 to-red-900/80 hover:from-red-600 hover:to-red-800 transition-all text-white font-bold shadow-lg text-lg w-full md:w-auto justify-center fade-in-on-scroll scroll-hidden" data-aos="zoom-in-up" data-aos-delay="500">
+        <img src="https://cdn.simpleicons.org/github/fff" alt="GitHub" class="w-6 h-6" />
+        Backend
+      </a>
+    </div>
   </div>
-  <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-    <!-- Frontend Repo -->
-    <a href="https://github.com/LSvargas25/PokedexFronted" target="_blank"
-       class="flex items-center gap-2 px-5 py-3 rounded-lg border bg-gray-50 hover:bg-gray-100 transition-colors text-gray-800 font-medium shadow-sm w-full md:w-auto justify-center">
-      <img src="https://cdn.simpleicons.org/github/444" alt="GitHub" class="w-5 h-5" />
-      Frontend
-    </a>
-    <!-- Backend Repo -->
-    <a href="https://github.com/LSvargas25/pokedex-backend" target="_blank"
-       class="flex items-center gap-2 px-5 py-3 rounded-lg border bg-gray-50 hover:bg-gray-100 transition-colors text-gray-800 font-medium shadow-sm w-full md:w-auto justify-center">
-      <img src="https://cdn.simpleicons.org/github/444" alt="GitHub" class="w-5 h-5" />
-      Backend
-    </a>
-  </div>
+
+  <style>
+    .pokedex-repo-btn {
+      box-shadow: 0 2px 16px 0 #00fff733, 0 1px 8px 0 #ff005933;
+      transition: transform 0.25s cubic-bezier(.4,2,.3,1), box-shadow 0.25s cubic-bezier(.4,2,.3,1), filter 0.25s;
+    }
+    .pokedex-repo-btn:hover {
+      transform: scale(1.045) translateY(-4px) rotateZ(-1deg);
+      box-shadow: 0 8px 32px 0 #00fff7cc, 0 2px 16px 0 #ff0059cc;
+      filter: brightness(1.10) saturate(1.18);
+      z-index: 2;
+    }
+  </style>
 </section>
+
+<style>
+  /* ===== Scroll Reveal Utility Classes ===== */
+  .scroll-hidden {
+    opacity: 0 !important;
+    transform: translateY(32px) scale(0.98) !important;
+    will-change: opacity, transform;
+    transition: opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1);
+  }
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    will-change: opacity, transform;
+    transition: opacity 0.7s cubic-bezier(.4,2,.3,1), transform 0.7s cubic-bezier(.4,2,.3,1);
+  }
+@keyframes pokedex-glow {
+  0% {
+    box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff0059, 0 0 0 0 #fff0;
+    filter: brightness(1.05) saturate(1.1);
+  }
+  50% {
+    box-shadow: 0 0 32px 12px #00fff7cc, 0 0 48px 16px #ff0059cc, 0 0 8px 2px #fff5;
+    filter: brightness(1.18) saturate(1.25);
+  }
+  100% {
+    box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff0059, 0 0 0 0 #fff0;
+    filter: brightness(1.05) saturate(1.1);
+  }
+}
+.animate-pokedex-glow {
+  animation: pokedex-glow 2.2s ease-in-out infinite;
+}
+</style>
+
+<script>
+  // AOS: volver a animar en cada scroll
+  if (window.AOS) {
+    AOS.init({
+      once: false, // Animar cada vez que el elemento entra en viewport
+      mirror: true // Animar al salir también
+    });
+  }
+
+  // Refresca AOS cada vez que se abre el modal para asegurar animaciones
+  function refreshAOSOnModalOpen() {
+    if (window.AOS && typeof window.AOS.refreshHard === 'function') {
+      setTimeout(() => {
+        window.AOS.refreshHard();
+      }, 200); // Espera a que el DOM del modal esté visible
+    }
+  }
+
+  // IntersectionObserver para animar los cards del modal cada vez que aparecen en viewport
+  (function() {
+    function animateOnScroll(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }
+    const observer = new IntersectionObserver(animateOnScroll, {
+      threshold: 0.2
+    });
+    document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  })();
+</script>
+</div>
 
 
