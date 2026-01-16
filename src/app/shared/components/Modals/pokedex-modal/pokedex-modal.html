@@ -1,7 +1,52 @@
-<div #modalOuter class="pokedex-modal-outer" (mousedown)="onBackdropClick($event)">
-  <button type="button" class="pokedex-modal-close" (click)="closeModal()" aria-label="Cerrar modal">
-    <span aria-hidden="true">&#10005;</span>
-  </button>
+<div class="pokedex-modal-outer" (mousedown)="onBackdropClick($event)">
+ <img src="/assets/images/Pikachu.png"
+    alt="Pikachu"
+    class="pokedex-deco-sprite pokedex-deco-pikachu"
+    draggable="false"
+    aria-hidden="true"
+    style="pointer-events:none; opacity:0.18; position:fixed; left:calc(50% - 520px); top:calc(50% - 220px); width:90px; z-index:1001; user-select:none; filter:drop-shadow(0 2px 12px #ffe06688);" />
+  <img src="/assets/images/Charizard.png"
+    alt="Charizard"
+    class="pokedex-deco-sprite pokedex-deco-charmander"
+    draggable="false"
+    aria-hidden="true"
+    style="pointer-events:none; opacity:0.16; position:fixed; right:calc(50% - 520px); top:calc(50% - 200px); width:120px; z-index:1001; user-select:none; filter:drop-shadow(0 2px 18px #ff6f6188);" />
+  <img src="/assets/images/Bulbasaur.png"
+    alt="Bulbasaur"
+    class="pokedex-deco-sprite pokedex-deco-bulbasaur"
+    draggable="false"
+    aria-hidden="true"
+    style="pointer-events:none; opacity:0.13; position:fixed; left:calc(50% - 600px); bottom:calc(50% - 180px); width:70px; z-index:1001; user-select:none; filter:drop-shadow(0 2px 10px #7ed95788);" />
+  <img src="/assets/images/krokorok.png"
+    alt="Krokorok"
+    class="pokedex-deco-sprite pokedex-deco-krokorok"
+    draggable="false"
+    aria-hidden="true"
+    style="pointer-events:none; opacity:0.11; position:fixed; right:calc(50% - 600px); bottom:calc(50% - 160px); width:68px; z-index:1001; user-select:none; filter:drop-shadow(0 2px 10px #e2b97b88);" />
+    <img src="/assets/images/Pikachu.png"
+      alt="Pikachu"
+      class="pokedex-deco-sprite pokedex-deco-pikachu"
+      draggable="false"
+      aria-hidden="true"
+      style="pointer-events:none; opacity:0.18; position:absolute; left:508px; top:32px; width:110px; z-index:1; user-select:none; filter:drop-shadow(0 2px 12px #ffe06688);" />
+    <img src="/assets/images/Charizard.png"
+      alt="Charizard"
+      class="pokedex-deco-sprite pokedex-deco-charmander"
+      draggable="false"
+      aria-hidden="true"
+      style="pointer-events:none; opacity:0.16; position:absolute; right:54px; top:80px; width:140px; z-index:1; user-select:none; filter:drop-shadow(0 2px 18px #ff6f6188);" />
+    <img src="/assets/images/Bulbasaur.png"
+      alt="Bulbasaur"
+      class="pokedex-deco-sprite pokedex-deco-bulbasaur"
+      draggable="false"
+      aria-hidden="true"
+      style="pointer-events:none; opacity:0.13; position:absolute; left:68px; bottom:100px; width:90px; z-index:1; user-select:none; filter:drop-shadow(0 2px 10px #7ed95788);" />
+    <img src="/assets/images/Krokorok.png"
+      alt="Krokorok"
+      class="pokedex-deco-sprite pokedex-deco-krokorok"
+      draggable="false"
+      aria-hidden="true"
+      style="pointer-events:none; opacity:0.11; position:absolute; right:12px; bottom:-32px; width:88px; z-index:1; user-select:none; filter:drop-shadow(0 2px 10px #e2b97b88);" />
   <div #modalRoot class="pokedex-modal-inner" (mousedown)="$event.stopPropagation()">
 <header
   class="mb-10 mt-8 ml-8 mr-8 rounded-lg px-9 pt-3 pb-3
@@ -206,12 +251,12 @@
   <div class="flex flex-col md:flex-row gap-8 md:gap-14 justify-center items-stretch">
 
     <!-- FRONTEND ARCHITECTURE -->
-        <div class="pokedex-arch-card flex-1 bg-gradient-to-br from-cyan-900/60 via-cyan-800/40 to-cyan-900/60
+        <div class=" text-center pokedex-arch-card flex-1 bg-gradient-to-br from-cyan-900/60 via-cyan-800/40 to-cyan-900/60
           rounded-2xl border border-cyan-400/30 shadow-xl p-8
           flex flex-col items-center backdrop-blur-md relative group transition-all fade-in-on-scroll scroll-hidden"
         data-aos="zoom-in-up" data-aos-delay="150" data-aos-duration="900">
 
-      <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
+      <div class="text-center absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
                   rounded-full bg-cyan-600/90 text-white text-xs font-bold shadow">
         Frontend Architecture
       </div>
@@ -230,7 +275,7 @@
       flex flex-col items-center backdrop-blur-md relative group transition-all fade-in-on-scroll scroll-hidden"
         data-aos="zoom-in-up" data-aos-delay="300" data-aos-duration="900">
 
-      <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
+      <div class="text-center absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1
                   rounded-full bg-red-600/90 text-white text-xs font-bold shadow">
         Backend Architecture
       </div>

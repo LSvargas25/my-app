@@ -1,14 +1,51 @@
+.pokedex-deco-sprite {
+    position: fixed;
+    z-index: 1001;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 0 18px #fff8) drop-shadow(0 0 32px #00e5ff66);
+    border-radius: 50%;
+    box-shadow: 0 0 24px 8px #00e5ff44, 0 0 48px 16px #fff2;
+    background: radial-gradient(ellipse at center, rgba(0,229,255,0.18) 0%, rgba(255,255,255,0.12) 60%, transparent 100%);
+    transition: filter 0.3s, box-shadow 0.3s;
+    animation: pokedexBubblePulse 3.2s ease-in-out infinite;
+  }
+
+@keyframes pokedexBubblePulse {
+  0%, 100% { box-shadow: 0 0 24px 8px #00e5ff44, 0 0 48px 16px #fff2; filter: brightness(1.08); }
+  50% { box-shadow: 0 0 36px 16px #00e5ff66, 0 0 64px 24px #fff4; filter: brightness(1.18); }
+}
 /* ===== Modal Outer/Inner for scroll and backdrop ===== */
   .pokedex-modal-outer {
+      position: relative;
+      /* Efecto de luz animada en el borde externo */
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 32px;
+        pointer-events: none;
+        z-index: 1002;
+        background: radial-gradient(ellipse at center, rgba(0,229,255,0.32) 0%, rgba(229,57,53,0.18) 60%, transparent 100%);
+        box-shadow:
+          0 0 48px 16px rgba(0,229,255,0.18),
+          0 0 64px 24px rgba(229,57,53,0.12);
+        opacity: 0.68;
+        animation: modalOuterGlowPulse 5s ease-in-out infinite;
+      }
+    @keyframes modalOuterGlowPulse {
+      0%, 100% { opacity: 0.68; filter: blur(0px); }
+      50% { opacity: 0.88; filter: blur(3px); }
+    }
     position: fixed;
     inset: 0;
     z-index: 1000;
     /* Fondo oscuro, semitransparente para cubrir la página */
-    background: rgba(10, 16, 24, 0.88);
+    background: rgba(10, 16, 24, 10);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: auto;
+    overflow: hidden;
 }
 .pokedex-modal-center-wrap {
   position: relative;
@@ -21,12 +58,44 @@
   margin: 48px 0;
 }
   .pokedex-modal-inner {
+        position: relative;
+        z-index: 1010;
+        /* Efecto de borde luminoso igual al card del título */
+        box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff0059;
+        border: 2.5px solid transparent;
+        background-clip: padding-box;
+        border-radius: 18px;
+        animation: pokedex-glow 2.2s ease-in-out infinite;
+      position: relative;
+      z-index: 1010;
+      box-shadow: 0 0 0 0 transparent;
+      /* Efecto de luz animada en el borde */
+      &::after {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border-radius: 22px;
+        pointer-events: none;
+        z-index: 1011;
+        background: radial-gradient(ellipse at center, rgba(0,229,255,0.38) 0%, rgba(229,57,53,0.22) 60%, transparent 100%);
+        box-shadow:
+          0 0 32px 8px rgba(0,229,255,0.22),
+          0 0 48px 12px rgba(229,57,53,0.18);
+        opacity: 0.82;
+        animation: modalGlowPulse 4.5s ease-in-out infinite;
+      }
+    }
+    @keyframes modalGlowPulse {
+      0%, 100% { opacity: 0.82; filter: blur(0px); }
+      50% { opacity: 1; filter: blur(2px); }
+    }
+.pokedex-modal-inner {
     max-height: 82vh;
     max-width: 640px;
     min-width: 320px;
     width: 100%;
     overflow-y: auto;
-    overflow-x: visible;
+    overflow-x: hidden;
     /* Fondo sólido para el modal central, puedes ajustar el color si lo deseas */
     background: #232b36;
     border-radius: 18px;
@@ -42,12 +111,12 @@
 
 /* ===== Close Button (SVG) ===== */
 .pokedex-modal-close {
-  position: absolute;
-  top: -18px;
-  right: -18px;
-  z-index: 1100;
-  width: 44px;
-  height: 44px;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 2000;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border: none;
   background: none;
@@ -56,17 +125,24 @@
   justify-content: center;
   cursor: pointer;
   transition: opacity 0.18s, transform 0.18s;
-  opacity: 0.88;
+  opacity: 0.95;
 }
-.pokedex-modal-close svg {
-  display: block;
-  width: 38px;
-  height: 38px;
+.pokedex-close-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(120deg, #232b36 60%, #00e5ff 100%);
+  box-shadow: 0 2px 12px #00e5ff88, 0 0 8px #fff8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.pokedex-modal-close:hover,
-.pokedex-modal-close:focus {
-  opacity: 1;
-  transform: scale(1.08);
+.pokedex-close-x {
+  color: #fff;
+  font-size: 2.1rem;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 2px 8px #00e5ff88, 0 0 2px #fff8;
 }
 /* ===== Scroll Reveal Utility Classes ===== */
 .scroll-hidden {
