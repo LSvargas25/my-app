@@ -1,3 +1,38 @@
+/* EXPANDE MODAL: Brand overlay, strong and premium */
+.expande-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: auto;
+  /* Mucho más opaco y oscuro, pero con branding */
+  background:
+    linear-gradient(120deg, rgba(218,197,162,0.92) 0%, rgba(236,218,184,0.90) 60%, rgba(243,233,211,0.88) 100%),
+    #DAC5A2;
+  box-shadow: 0 0 0 9999px rgba(218,197,162,0.98); /* fallback para oscurecer */
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+body.expande-modal-open,
+html.expande-modal-open {
+  overflow: hidden !important;
+  height: 100%;
+  position: relative;
+  touch-action: none;
+}
+
+/* Expande modal container: soft brand color, no white */
+.expande-modal-container {
+  background: #F4F1E9 !important;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 8px 32px 0 rgba(17,24,46,0.45),
+    0 0 0 2px rgba(218,197,162,0.10),
+    0 0 32px 0 rgba(218,197,162,0.12);
+  position: relative;
+  z-index: 10000;
+  overflow: hidden;
+}
 /* Eliminar fondo blanco y padding de wrappers externos de modales (Angular Material, custom, etc) */
 ::ng-deep .mat-dialog-container,
 ::ng-deep .mat-mdc-dialog-surface,

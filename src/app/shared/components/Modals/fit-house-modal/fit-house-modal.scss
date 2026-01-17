@@ -1,0 +1,22 @@
+
+
+.fit-house-modal-outer {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	background: rgba(10, 16, 24, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.fit-house-modal-inner {
+	max-height: 90vh;
+	overflow-y: auto;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
+}
+.fit-house-modal-inner::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera */
+}

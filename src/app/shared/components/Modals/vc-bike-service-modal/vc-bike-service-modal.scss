@@ -1,0 +1,27 @@
+
+.vc-bike-service-modal-outer {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	background: rgba(10, 16, 24, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.vc-bike-service-modal-inner {
+	max-height: 90vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.modal-scrollable-content {
+	overflow-y: auto;
+	max-height: 90vh;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
+}
+.modal-scrollable-content::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera */
+}

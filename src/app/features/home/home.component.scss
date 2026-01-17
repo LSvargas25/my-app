@@ -1,4 +1,86 @@
-/* Redes sociales Home: logos pequeños, circulares y presentables */
+/* ======================================================
+   OCULTAR SCROLLBAR EN MODALES
+====================================================== */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* ======================================================
+   MODAL CLOSE BUTTON – PREMIUM / ENTERPRISE
+   (NO cambia posición, solo visual)
+====================================================== */
+.modal-close-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 600;
+
+  color: #ffffff;
+  cursor: pointer;
+
+  background: radial-gradient(
+    ellipse at top left,
+    #1f2937,
+    #020617
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    0 0 0 rgba(251, 191, 36, 0);
+
+  backdrop-filter: blur(6px);
+
+  transition:
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+/* Hover */
+.modal-close-btn:hover {
+  color: #fbbf24; /* amber-400 */
+
+  box-shadow:
+    0 0 14px rgba(251, 191, 36, 0.45),
+    0 0 32px rgba(251, 191, 36, 0.25),
+    0 12px 36px rgba(0, 0, 0, 0.75);
+
+  transform: scale(1.08);
+}
+
+/* Active */
+.modal-close-btn:active {
+  transform: scale(0.95);
+  box-shadow:
+    0 0 10px rgba(251, 191, 36, 0.35),
+    0 6px 18px rgba(0, 0, 0, 0.65);
+}
+
+/* Focus accesible */
+.modal-close-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(251, 191, 36, 0.45),
+    0 0 24px rgba(251, 191, 36, 0.35);
+}
+
+/* ======================================================
+   REDES SOCIALES – ICONOS
+====================================================== */
 .social-icon {
   width: 2.25rem;
   height: 2.25rem;
@@ -9,22 +91,26 @@
   border-width: 1.5px;
   font-size: 1.1rem;
   transition: all 0.2s;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
   margin: 0;
   padding: 0;
 }
+
 .icon-svg {
   width: 1.15rem;
   height: 1.15rem;
   display: block;
 }
+
 .social-icon:hover {
   transform: translateY(-2px) scale(1.08);
-  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.10);
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.10);
   z-index: 1;
 }
-/* Estilos para HomeComponent */
 
+/* ======================================================
+   HOME
+====================================================== */
 .home-container {
   padding: 2rem;
   background: #f9fafb;
@@ -35,44 +121,12 @@
   font-weight: bold;
   color: #333;
 }
-/* ================= SKILL CARDS ================= */
 
-.skill-card {
-  @apply w-24 h-24
-         rounded-full
-         bg-white
-         border border-gray-200
-         shadow-sm
-         flex flex-col
-         items-center
-         justify-center
-         gap-2
-         cursor-pointer
-         transition-all
-         duration-300
-         hover:shadow-md;
-}
+/* ======================================================
+   SKILL CARDS
+====================================================== */
 
-.skill-icon {
-  @apply w-8 h-8
-         transition-all
-         duration-300
-         group-hover:scale-125;
-}
-
-.skill-text {
-  @apply text-xs
-         font-medium
-         text-gray-700
-         text-center
-         transition-all
-         duration-300
-         group-hover:opacity-0
-         group-hover:h-0;
-}
-
-/* ================= SKILL CARDS ================= */
-
+/* Base */
 .skill-card {
   @apply w-20 h-20
          rounded-xl
@@ -88,7 +142,7 @@
          hover:shadow-md;
 }
 
-/* Normalizamos TODOS los íconos */
+/* Iconos */
 .skill-icon {
   width: 28px;
   height: 28px;
@@ -96,7 +150,7 @@
   transition: transform 0.3s ease;
 }
 
-/* Texto pequeño y controlado */
+/* Texto */
 .skill-text {
   font-size: 0.65rem;
   line-height: 1;
@@ -115,8 +169,9 @@
   transform: translateY(4px);
 }
 
- /* ================= EXPERTISE CIRCLES ================= */
-
+/* ======================================================
+   EXPERTISE CIRCLES
+====================================================== */
 .expertise-circle {
   width: 120px;
   height: 120px;
@@ -134,11 +189,8 @@
   padding: 0.75rem;
 }
 
-
-
-
 .expertise-text {
-  font-size: 0.75rem;   /* clave */
+  font-size: 0.75rem;
   font-weight: 600;
   color: #374151;
   line-height: 1.15;
@@ -147,7 +199,6 @@
   white-space: normal;
   word-break: break-word;
 }
-
 
 /* Diferenciación visual */
 .expertise-highlight {
