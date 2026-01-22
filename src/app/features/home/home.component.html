@@ -519,7 +519,7 @@
   </button>
 
   <div
-    class="bg-transparent p-0 rounded-2xl relative max-w-3xl w-[90vw] h-[80vh]
+    class="bg-transparent p-0 rounded-2xl relative max-w-3xl w-[90vw] h-[90vh]
            flex flex-col overflow-y-auto z-[10000] modal-observe hide-scrollbar"
     (click)="$event.stopPropagation()"
   >
@@ -529,6 +529,7 @@
 
 <!-- ================= EXPANDE MODAL ================= -->
 <div *ngIf="showExpandeModal" class="fixed inset-0 z-[9999] flex items-center justify-center">
+  <!-- BACKDROP GLOBAL -->
   <div class="expande-modal-backdrop" (click)="closeAllModals()"></div>
 
   <!-- CLOSE BUTTON -->
@@ -544,26 +545,21 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
       backdrop-filter: blur(6px);
     "
-    onmouseover="
-      this.style.boxShadow='0 0 14px rgba(251,191,36,0.45), 0 0 32px rgba(251,191,36,0.25), 0 12px 36px rgba(0,0,0,0.75)';
-      this.style.color='#fbbf24';
-    "
-    onmouseout="
-      this.style.boxShadow='0 8px 24px rgba(0,0,0,0.6)';
-      this.style.color='white';
-    "
   >
     &times;
   </button>
 
+  <!-- MODAL FRAME (TAMAÑO + SCROLL) -->
   <div
-    class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh]
-           flex flex-col overflow-y-auto z-[10000] modal-observe hide-scrollbar"
+    class="bg-transparent p-0 rounded-2xl relative
+           max-w-3xl w-[90vw] h-[80vh]
+           flex flex-col overflow-y-auto z-[10000] hide-scrollbar"
     (click)="$event.stopPropagation()"
   >
-    <app-expande-modal></app-expande-modal>
+    <app-expande-modal (closed)="closeAllModals()"></app-expande-modal>
   </div>
 </div>
+
 
 <!-- ================= FITHOUSE MODAL ================= -->
 <div *ngIf="showFitHouseModal" class="fixed inset-0 z-[9999] flex items-center justify-center">

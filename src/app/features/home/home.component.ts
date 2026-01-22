@@ -352,21 +352,30 @@ expertiseItems: Expertise[] = [
           }
         );
       });
+    const projectsSection = document.getElementById('projects');
 
-      // --- Cerrar modal si el propio modal deja de ser visible en el viewport ---
-      // --- Cerrar modal solo si el área de Projects NO es visible en absoluto ---
-      const projectsSection = document.getElementById('projects');
-      if (projectsSection) {
-        this.projectsObserver = new IntersectionObserver(
-          (entries) => {
-            if (entries[0] && entries[0].intersectionRatio === 0) {
-              this.closeAllModals();
-            }
-          },
-          { threshold: 0 }
-        );
-        this.projectsObserver.observe(projectsSection);
+if (projectsSection) {
+  this.projectsObserver = new IntersectionObserver(
+    (entries) => {
+      const isAnyModalOpen =
+        this.showPokedexModal ||
+        this.showExpandeModal ||
+        this.showFitHouseModal ||
+        this.showVcBikeServiceModal;
+
+      // Si hay un modal abierto, NO cerramos nada
+      if (isAnyModalOpen) return;
+
+      if (entries[0] && entries[0].intersectionRatio === 0) {
+        this.closeAllModals();
       }
+    },
+    { threshold: 0 }
+  );
+
+  this.projectsObserver.observe(projectsSection);
+}
+
     }
   }
     ngOnDestroy(): void {

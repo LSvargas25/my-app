@@ -1,0 +1,65 @@
+<div #modalRoot class="expande-modal-inner" (mousedown)="$event.stopPropagation()">
+
+  <!-- HEADER -->
+  <header
+    class="mb-10 mx-8 mt-6  rounded-xl
+           px-9 pt-3 pb-3
+           bg-gradient-to-r from-yellow-300 via-yellow-100 to-yellow-300
+           text-yellow-900 shadow-md"
+  >
+    <h4 class="mb-2 font-semibold text-center text-lg relative">
+      Expande – Brand Experience Platform
+    </h4>
+  </header>
+
+  <!-- ARCH CARD -->
+  <section class="w-full flex justify-center mb-10 px-6">
+    <div class="expande-arch-card relative">
+      <span class="expande-arch-badge">Enterprise Card</span>
+
+      <div class="w-full h-24 flex items-center justify-center
+                  text-yellow-900 font-semibold text-lg opacity-80">
+        <span class="opacity-70">(Reusable Card Block – Add Content Here)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="flex flex-col gap-4 w-full max-w-md mx-auto mb-8 px-6">
+    <div class="bg-yellow-100 rounded-xl p-4 shadow text-center">
+      <span class="font-semibold text-yellow-800">Feature 1</span>
+      <p class="text-sm text-yellow-700">
+        Describe a key feature or highlight here.
+      </p>
+    </div>
+
+    <div class="bg-yellow-50 rounded-xl p-4 shadow text-center">
+      <span class="font-semibold text-yellow-800">Feature 2</span>
+      <p class="text-sm text-yellow-700">
+        Add more details about your project or brand.
+      </p>
+    </div>
+  </section>
+
+  <!-- ACTIONS -->
+  <div class="mt-6 mb-10 flex gap-4 justify-center">
+    <a
+      href="#"
+      class="px-6 py-2 rounded-lg
+             bg-yellow-700 text-white font-bold
+             shadow hover:bg-yellow-800 transition"
+    >
+      Visit Website
+    </a>
+
+    <a
+      href="#"
+      class="px-6 py-2 rounded-lg
+             bg-yellow-400 text-yellow-900 font-bold
+             shadow hover:bg-yellow-300 transition"
+    >
+      See Code
+    </a>
+  </div>
+
+</div>
