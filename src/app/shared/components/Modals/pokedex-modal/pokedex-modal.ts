@@ -247,92 +247,76 @@ export class PokedexModal implements AfterViewInit, OnDestroy {
   constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit() {
-    // 1. Scroll reveal logic (igual que antes)
-    const root = this.modalRoot?.nativeElement;
-    if (root) {
-      // Siempre hacer scroll al principio al abrir el modal
-      root.scrollTop = 0;
-      const elements = Array.from(root.querySelectorAll('.fade-in-on-scroll')) as HTMLElement[];
-      elements.forEach(el => {
-        el.classList.add('scroll-hidden');
-        el.classList.remove('scroll-reveal');
-      });
-      this.observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-reveal');
-            entry.target.classList.remove('scroll-hidden');
-          } else {
-            entry.target.classList.remove('scroll-reveal');
-            entry.target.classList.add('scroll-hidden');
-          }
+    if (typeof window !== 'undefined') {
+      // 1. Scroll reveal logic (igual que antes)
+      const root = this.modalRoot?.nativeElement;
+      if (root) {
+        // Siempre hacer scroll al principio al abrir el modal
+        root.scrollTop = 0;
+        const elements = Array.from(root.querySelectorAll('.fade-in-on-scroll')) as HTMLElement[];
+        elements.forEach(el => {
+          el.classList.add('scroll-hidden');
+          el.classList.remove('scroll-reveal');
         });
-      }, {
-        root: null,
-        threshold: 0.18
+        this.observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('scroll-reveal');
+              entry.target.classList.remove('scroll-hidden');
+            } else {
+              entry.target.classList.remove('scroll-reveal');
+              entry.target.classList.add('scroll-hidden');
+            }
+          });
+        }, {
+          root: null,
+          threshold: 0.18
+        });
+        elements.forEach(el => this.observer!.observe(el));
+      }
+
+      // Redirigir el scroll del fondo al modal central
+      if (this.modalOuter && this.modalRoot) {
+        const outer = this.modalOuter.nativeElement;
+        const inner = this.modalRoot.nativeElement;
+        outer.addEventListener('wheel', (e: WheelEvent) => {
+          if (e.target === outer) {
+            inner.scrollTop += e.deltaY;
+            e.preventDefault();
+          }
+        }, { passive: false });
+      }
+
+      // ===================== Decorative Pokémon Sprite System (NEW) =====================
+      spawnDecorativePokemonSprites({
+        images: [
+          { src: '/assets/images/Bulbasaur.png', alt: 'Bulbasaur' },
+          { src: '/assets/images/Pikachu.png', alt: 'Pikachu' },
+          { src: '/assets/images/Charizard.png', alt: 'Charizard' },
+          { src: 'assets/images/Bulbasaur.png', alt: 'Bulbasaur' },
+          { src: 'assets/images/Charizard.png', alt: 'Charizard' },
+          { src: 'assets/images/Nidoquen.png', alt: 'Nidoquen' },
+          { src: 'assets/images/Piplup.png', alt: 'Piplup' },
+          { src: 'assets/images/Pokedex.png', alt: 'Pokedex' },
+          { src: 'assets/images/Squirt.png', alt: 'Squirt' },
+        ],
+        minSize: 54,
+        maxSize: 110,
+        minOpacity: 0.22,
+        maxOpacity: 0.50,
+        density: 60,
+        zIndex: 1001,
+        safePadding: 24,
       });
-      elements.forEach(el => this.observer!.observe(el));
-    }
-
-    // Redirigir el scroll del fondo al modal central
-    if (this.modalOuter && this.modalRoot) {
-      const outer = this.modalOuter.nativeElement;
-      const inner = this.modalRoot.nativeElement;
-      outer.addEventListener('wheel', (e: WheelEvent) => {
-        if (e.target === outer) {
-          inner.scrollTop += e.deltaY;
-          e.preventDefault();
-        }
-      }, { passive: false });
-    }
-
-
-    // ===================== Decorative Pokémon Sprite System (NEW) =====================
-    spawnDecorativePokemonSprites({
-      images: [
-        { src: '/assets/images/Bulbasaur.png', alt: 'Bulbasaur' },
-        { src: '/assets/images/Pikachu.png', alt: 'Pikachu' },
-        { src: '/assets/images/Charizard.png', alt: 'Charizard' },
-        { src: 'assets/images/Bulbasaur.png', alt: 'Bulbasaur' },
-        { src: 'assets/images/Charizard.png', alt: 'Charizard' },
-        { src: 'assets/images/Nidoquen.png', alt: 'Nidoquen' },
-        { src: 'assets/images/Piplup.png', alt: 'Piplup' },
-        { src: 'assets/images/Pokedex.png', alt: 'Pokedex' },
-        { src: 'assets/images/Squirt.png', alt: 'Squirt' },
-      ],
-           minSize: 54,
-           maxSize: 110,
-           minOpacity: 0.22,
-           maxOpacity: 0.50,
-           density: 60,
-           zIndex: 1001,
-           safePadding: 24,
-    });
-
-    // 2. Lock page scroll (body/html)
-    const body = document.body;
-    const html = document.documentElement;
-    this.originalBodyOverflow = body.style.overflow;
-    this.originalHtmlOverflow = html.style.overflow;
-    this.originalBodyPaddingRight = body.style.paddingRight;
-    this.scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-    this.renderer.setStyle(body, 'overflow', 'hidden');
-    this.renderer.setStyle(html, 'overflow', 'hidden');
-    if (this.scrollBarWidth > 0) {
-      this.renderer.setStyle(body, 'paddingRight', `${this.scrollBarWidth}px`);
     }
   }
 
   ngOnDestroy() {
-    // Restore scroll state
-    const body = document.body;
-    const html = document.documentElement;
-    this.renderer.setStyle(body, 'overflow', this.originalBodyOverflow || '');
-    this.renderer.setStyle(html, 'overflow', this.originalHtmlOverflow || '');
-    this.renderer.setStyle(body, 'paddingRight', this.originalBodyPaddingRight || '');
-    if (this.observer) this.observer.disconnect();
-    // Clean up decorative sprite system
-    if (globalPokemonSpriteCleanup) globalPokemonSpriteCleanup();
+    if (typeof window !== 'undefined') {
+      if (this.observer) this.observer.disconnect();
+      // Clean up decorative sprite system
+      if (globalPokemonSpriteCleanup) globalPokemonSpriteCleanup();
+    }
   }
 
   closeModal() {

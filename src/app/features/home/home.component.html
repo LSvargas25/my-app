@@ -2,9 +2,10 @@
 <section
   id="hero"
   class="min-h-screen flex flex-col justify-start items-center
-         bg-gradient-to-b from-gray-50 to-white
-         text-center px-6 border-b border-gray-200 pt-6"
-  data-aos="fade-up">
+    bg-gradient-to-b from-gray-50 to-white
+    text-center px-6 border-b border-gray-200 pt-6
+    animate-fade-in"
+>
 
   <!-- TYPEWRITER -->
   <h2 class="flex justify-center items-baseline gap-3 text-black mb-8 min-h-[6rem]">
@@ -486,156 +487,37 @@
     </div>
   </div>
 </section>
+
 <!-- ================= MODALS ================= -->
 
-<!-- ================= POKEDEX MODAL ================= -->
-<div *ngIf="showPokedexModal" class="fixed inset-0 z-[9999] flex items-center justify-center">
-  <div class="expande-modal-backdrop" (click)="closeAllModals()"></div>
+<app-base-project-modal
+  [isOpen]="showPokedexModal"
+  (closed)="closeAllModals()"
+>
+  <app-pokedex-modal></app-pokedex-modal>
+</app-base-project-modal>
 
-  <!-- CLOSE BUTTON -->
-  <button
-    (click)="closeAllModals()"
-    class="fixed top-12 right-80 z-[10001]
-           w-12 h-12 flex items-center justify-center
-           rounded-full text-3xl font-bold text-white
-           transition-all duration-300 hover:scale-110 active:scale-95"
-    style="
-      background: radial-gradient(circle at top left, #1f2937, #020617);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-    "
-    onmouseover="
-      this.style.boxShadow='0 0 14px rgba(251,191,36,0.45), 0 0 32px rgba(251,191,36,0.25), 0 12px 36px rgba(0,0,0,0.75)';
-      this.style.color='#fbbf24';
-    "
-    onmouseout="
-      this.style.boxShadow='0 8px 24px rgba(0,0,0,0.6)';
-      this.style.color='white';
-    "
-    aria-label="Close modal"
-  >
-    &times;
-  </button>
+<app-base-project-modal
+  [isOpen]="showExpandeModal"
+  (closed)="closeAllModals()"
+>
+  <app-expande-modal></app-expande-modal>
+</app-base-project-modal>
 
-  <div
-    class="bg-transparent p-0 rounded-2xl relative max-w-3xl w-[90vw] h-[90vh]
-           flex flex-col overflow-y-auto z-[10000] modal-observe hide-scrollbar"
-    (click)="$event.stopPropagation()"
-  >
-    <app-pokedex-modal></app-pokedex-modal>
-  </div>
-</div>
+<app-base-project-modal
+  [isOpen]="showFitHouseModal"
+  (closed)="closeAllModals()"
+>
+  <app-fit-house-modal></app-fit-house-modal>
+</app-base-project-modal>
 
-<!-- ================= EXPANDE MODAL ================= -->
-<div *ngIf="showExpandeModal" class="fixed inset-0 z-[9999] flex items-center justify-center">
-  <!-- BACKDROP GLOBAL -->
-  <div class="expande-modal-backdrop" (click)="closeAllModals()"></div>
+<app-base-project-modal
+  [isOpen]="showVcBikeServiceModal"
+  (closed)="closeAllModals()"
+>
+  <app-vc-bike-service-modal></app-vc-bike-service-modal>
+</app-base-project-modal>
 
-  <!-- CLOSE BUTTON -->
-  <button
-    (click)="closeAllModals()"
-    class="fixed top-16 right-80 z-[10001]
-           w-12 h-12 flex items-center justify-center
-           rounded-full text-3xl font-bold text-white
-           transition-all duration-300 hover:scale-110 active:scale-95"
-    style="
-      background: radial-gradient(circle at top left, #1f2937, #020617);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-    "
-  >
-    &times;
-  </button>
-
-  <!-- MODAL FRAME (TAMAÑO + SCROLL) -->
-  <div
-    class="bg-transparent p-0 rounded-2xl relative
-           max-w-3xl w-[90vw] h-[80vh]
-           flex flex-col overflow-y-auto z-[10000] hide-scrollbar"
-    (click)="$event.stopPropagation()"
-  >
-    <app-expande-modal (closed)="closeAllModals()"></app-expande-modal>
-  </div>
-</div>
-
-
-<!-- ================= FITHOUSE MODAL ================= -->
-<div *ngIf="showFitHouseModal" class="fixed inset-0 z-[9999] flex items-center justify-center">
-  <div class="fixed inset-0 bg-black/50 z-[9999]" (click)="closeAllModals()"></div>
-
-  <!-- CLOSE BUTTON -->
-  <button
-    (click)="closeAllModals()"
-    class="fixed top-16 right-80 z-[10001]
-           w-12 h-12 flex items-center justify-center
-           rounded-full text-3xl font-bold text-white
-           transition-all duration-300 hover:scale-110 active:scale-95"
-    style="
-      background: radial-gradient(circle at top left, #1f2937, #020617);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-    "
-    onmouseover="
-      this.style.boxShadow='0 0 14px rgba(251,191,36,0.45), 0 0 32px rgba(251,191,36,0.25), 0 12px 36px rgba(0,0,0,0.75)';
-      this.style.color='#fbbf24';
-    "
-    onmouseout="
-      this.style.boxShadow='0 8px 24px rgba(0,0,0,0.6)';
-      this.style.color='white';
-    "
-  >
-    &times;
-  </button>
-
-  <div
-    class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh]
-           flex flex-col overflow-y-auto z-[10000] modal-observe"
-    (click)="$event.stopPropagation()"
-  >
-    <app-fit-house-modal></app-fit-house-modal>
-  </div>
-</div>
-
-<!-- ================= VCBIKE MODAL ================= -->
-<div *ngIf="showVcBikeServiceModal" class="fixed inset-0 z-[9999] flex items-center justify-center">
-  <div class="fixed inset-0 bg-black/50 z-[9999]" (click)="closeAllModals()"></div>
-
-  <!-- CLOSE BUTTON -->
-  <button
-    (click)="closeAllModals()"
-    class="fixed top-16 right-80 z-[10001]
-           w-12 h-12 flex items-center justify-center
-           rounded-full text-3xl font-bold text-white
-           transition-all duration-300 hover:scale-110 active:scale-95"
-    style="
-      background: radial-gradient(circle at top left, #1f2937, #020617);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-    "
-    onmouseover="
-      this.style.boxShadow='0 0 14px rgba(251,191,36,0.45), 0 0 32px rgba(251,191,36,0.25), 0 12px 36px rgba(0,0,0,0.75)';
-      this.style.color='#fbbf24';
-    "
-    onmouseout="
-      this.style.boxShadow='0 8px 24px rgba(0,0,0,0.6)';
-      this.style.color='white';
-    "
-  >
-    &times;
-  </button>
-
-  <div
-    class="bg-white rounded-2xl shadow-2xl p-8 relative max-w-3xl w-[90vw] h-[80vh]
-           flex flex-col overflow-y-auto z-[10000] modal-observe"
-    (click)="$event.stopPropagation()"
-  >
-    <app-vc-bike-service-modal></app-vc-bike-service-modal>
-  </div>
-</div>
 
 
 <!-- ================= CONTACT ================= -->

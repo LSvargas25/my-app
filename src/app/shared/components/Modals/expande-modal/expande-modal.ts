@@ -21,31 +21,28 @@ export class ExpandeModal implements AfterViewInit, OnDestroy {
   constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit() {
-    // Lock background scroll and add backdrop class (like pokedex)
-    const body = document.body;
-    const html = document.documentElement;
-    this.originalBodyOverflow = body.style.overflow;
-    this.originalHtmlOverflow = html.style.overflow;
-    this.originalBodyPaddingRight = body.style.paddingRight;
-    this.scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-    this.renderer.setStyle(body, 'overflow', 'hidden');
-    this.renderer.setStyle(html, 'overflow', 'hidden');
-    if (this.scrollBarWidth > 0) {
-      this.renderer.setStyle(body, 'paddingRight', `${this.scrollBarWidth}px`);
-    }
-    // Always scroll modal to top on open
-    if (this.modalRoot) {
-      this.modalRoot.nativeElement.scrollTop = 0;
+    if (typeof window !== 'undefined') {
+      // No bloquear el scroll del fondo
+      // const body = document.body;
+      // const html = document.documentElement;
+      // this.originalBodyOverflow = body.style.overflow;
+      // this.originalHtmlOverflow = html.style.overflow;
+      // this.originalBodyPaddingRight = body.style.paddingRight;
+      // this.scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      // this.renderer.setStyle(body, 'overflow', 'hidden');
+      // this.renderer.setStyle(html, 'overflow', 'hidden');
+      // if (this.scrollBarWidth > 0) {
+      //   this.renderer.setStyle(body, 'paddingRight', `${this.scrollBarWidth}px`);
+      // }
+      // Always scroll modal to top on open
+      if (this.modalRoot) {
+        this.modalRoot.nativeElement.scrollTop = 0;
+      }
     }
   }
 
   ngOnDestroy() {
-    // Restore scroll and remove backdrop class (like pokedex)
-    const body = document.body;
-    const html = document.documentElement;
-    this.renderer.setStyle(body, 'overflow', this.originalBodyOverflow || '');
-    this.renderer.setStyle(html, 'overflow', this.originalHtmlOverflow || '');
-    this.renderer.setStyle(body, 'paddingRight', this.originalBodyPaddingRight || '');
+    // Ya no es necesario restaurar el scroll del fondo
   }
 
   onBackdropClick(event: MouseEvent) {

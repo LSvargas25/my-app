@@ -1,3 +1,11 @@
+/* Oculta la scrollbar pero permite el scroll */
+body::-webkit-scrollbar, html::-webkit-scrollbar {
+  display: none;
+}
+body, html {
+  -ms-overflow-style: none;  /* IE y Edge */
+  scrollbar-width: none;     /* Firefox */
+}
 /* EXPANDE MODAL: Brand overlay, strong and premium */
 .expande-modal-backdrop {
   position: fixed;
@@ -13,13 +21,6 @@
   transition: opacity 0.3s;
 }
 
-body.expande-modal-open,
-html.expande-modal-open {
-  overflow: hidden !important;
-  height: 100%;
-  position: relative;
-  touch-action: none;
-}
 
 /* Expande modal container: soft brand color, no white */
 .expande-modal-container {
@@ -31,7 +32,7 @@ html.expande-modal-open {
     0 0 32px 0 rgba(218,197,162,0.12);
   position: relative;
   z-index: 10000;
-  overflow: hidden;
+    overflow: auto;
 }
 /* Eliminar fondo blanco y padding de wrappers externos de modales (Angular Material, custom, etc) */
 ::ng-deep .mat-dialog-container,

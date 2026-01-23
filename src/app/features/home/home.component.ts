@@ -6,6 +6,7 @@ import { VcBikeServiceModal } from '../../shared/components/Modals/vc-bike-servi
 import { Footer } from '../../shared/components/Footer/footer/footer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { BaseProjectModalComponent } from '../../shared/components/Modals/base-project-modal/base-project-modal.component/base-project-modal.component';
 
 type SoftSkill = {
   name: string;
@@ -28,7 +29,7 @@ type Skill = {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Footer, PokedexModal, ExpandeModal, FitHouseModal, VcBikeServiceModal],
+  imports: [CommonModule, Footer, BaseProjectModalComponent, PokedexModal, ExpandeModal, FitHouseModal, VcBikeServiceModal],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements AfterViewInit {
