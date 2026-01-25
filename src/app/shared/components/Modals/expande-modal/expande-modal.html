@@ -1,12 +1,18 @@
-<div class="fixed inset-0 flex items-center justify-center bg-white/20 backdrop-blur z-50">
-  <div class="project-modal-panel hide-scrollbar overflow-y-auto expande-modal-scrollable">
+<div
+  class="fixed inset-0 flex items-center justify-center bg-white/20 backdrop-blur z-50"
+  (click)="onBackdropClick($event)"
+>
+  <div
+    #modalRoot
+    class="project-modal-panel hide-scrollbar overflow-y-auto expande-modal-scrollable"
+  >
 
     <!-- ================= HEADER ================= -->
-    <header class="text-center mb-16 mt-14">
+    <header appScrollReveal class="text-center mb-10 mt-14 scroll-fade-up">
       <div class="flex justify-center items-center gap-12 px-10">
 
         <!-- LEFT CONTENT -->
-        <div class="flex flex-col items-center text-center max-w-xl">
+        <div appScrollReveal class="flex flex-col items-center text-center max-w-xl scroll-fade-up">
           <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
             Soluciones Expande
           </h2>
@@ -15,14 +21,12 @@
             Enterprise Inventory, Sales & Branch Management System
           </p>
 
-          <!-- LINE -->
           <span
             class="mt-6 h-[2px] w-72 md:w-[30rem]
                    bg-gradient-to-r from-amber-300 via-amber-500 to-amber-300
                    rounded-full"
           ></span>
 
-          <!-- BADGE -->
           <span
             class="mt-5 inline-flex items-center gap-2 px-6 py-2
                    text-sm font-semibold rounded-full
@@ -33,11 +37,13 @@
           </span>
         </div>
 
-        <!-- LOGO RIGHT -->
+        <!-- LOGO -->
         <div
+          appScrollReveal
           class="w-56 h-56 rounded-full bg-white
                  flex items-center justify-center
-                 shadow-lg ring-2 ring-amber-300 shrink-0 expande-glow"
+                 shadow-lg ring-2 ring-amber-300 shrink-0
+                 expande-glow scroll-scale"
         >
           <img
             src="/assets/images/Expande.png"
@@ -52,54 +58,58 @@
     <!-- ================= CONTENT ================= -->
     <div class="px-6 md:px-12 pb-16">
 
-
-
       <!-- ================= HERO IMAGE ================= -->
-  <section
+   <section
+  appScrollReveal
   class="relative max-w-6xl mx-auto mb-24 rounded-3xl overflow-hidden
          bg-cover bg-center bg-no-repeat shadow-2xl
-         min-h-[45vh] md:min-h-[50vh]
-         flex items-center"
+         min-h-[45vh] md:min-h-[55vh]
+         flex items-end scroll-fade-up"
   style="background-image: url('/assets/images/Fondo.png');"
 >
+  <!-- Local contrast ONLY behind text -->
+  <div
+    class="absolute inset-0
+           bg-gradient-to-t
+           from-black/45 via-black/15 to-transparent"
+  ></div>
+
+  <!-- Content -->
+  <div class="relative z-10 px-6 md:px-14 py-12 max-w-4xl mx-auto text-center">
+    <p
+      class="text-white leading-relaxed
+             text-lg md:text-xl font-semibold
+             drop-shadow-[0_2px_6px_rgba(0,0,0,0.55)]"
+    >
+      <strong>Expande</strong> is a purpose-built enterprise platform engineered to support
+      real-world operations within the plastic decking industry. It seamlessly
+      centralizes
+      <strong>
+        branch management, inventory control, sales, and procurement
+      </strong>
+      into a unified, reliable system designed to deliver operational clarity,
+      scalability, and full business control.
+    </p>
+
+    <p
+      class="mt-6 text-white/90 leading-relaxed
+             text-base md:text-lg
+             drop-shadow-[0_2px_6px_rgba(0,0,0,0.55)]"
+    >
+      More than a management tool, Expande provides a strategic foundation that enhances
+      operational efficiency, strengthens decision-making, and enables businesses to
+      scale with confidence while maintaining full visibility over their processes
+      and data.
+    </p>
+  </div>
+</section>
 
 
-        <!-- OVERLAYS -->
-        <div class="absolute inset-0 bg-black/25"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
 
-        <!-- HERO CONTENT -->
-        <div class="relative z-10 px-6 md:px-14 py-20 text-center max-w-4xl mx-auto">
+      <!-- ================= CORE PLATFORM CAPABILITIES ================= -->
+     <!-- ================= CORE PLATFORM CAPABILITIES ================= -->
+<section appScrollReveal class="mb-10 -mt-8 scroll-fade-up">
 
-          <p
-            class="text-white leading-relaxed text-lg md:text-xl font-semibold
-                   drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
-          >
-            <strong>Expande</strong> is a purpose-built enterprise platform designed to support
-            real-world operations in the plastic decking industry. It centralizes
-            <strong>branches, inventory, sales, and procurement</strong> into a single,
-            reliable system built for clarity and control.
-          </p>
-
-          <p
-            class="mt-6 text-white/90 leading-relaxed text-lg md:text-xl
-                   drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
-          >
-            More than a management tool, Expande provides a strategic foundation that
-            enhances operational efficiency, strengthens decision-making, and enables
-            businesses to scale with confidence while maintaining full visibility
-            over their processes and data.
-          </p>
-
-        </div>
-      </section>
-
-
-
-
-     <section class="mb-10 -mt-8">
-
-  <!-- SECTION TITLE -->
   <h3 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">
     Core Platform Capabilities
   </h3>
@@ -110,26 +120,17 @@
     architectural robustness at its core.
   </p>
 
-  <!-- DECORATIVE LINE BELOW PARAGRAPH -->
   <span
     class="mb-10 block h-[2px] w-72 md:w-[30rem]
            bg-gradient-to-r from-amber-300 via-amber-500 to-amber-300
            rounded-full mx-auto"
   ></span>
 
-
-
-  <!-- FEATURES GRID -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
 
-    <!-- INVENTORY MANAGEMENT -->
-    <div
-      class="p-8 rounded-2xl border border-gray-200
-             bg-white shadow-sm
-             transition-all duration-300
-             hover:shadow-md hover:-translate-y-1"
-    >
-      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+    <!-- FEATURE 1 -->
+    <div appScrollReveal class="expande-feature-card scroll-fade-up">
+      <h4 class="text-xl font-semibold mb-3 text-center">
         Advanced Inventory Management
       </h4>
       <p class="text-gray-600 text-sm leading-relaxed text-center">
@@ -139,14 +140,9 @@
       </p>
     </div>
 
-    <!-- BRANCH MANAGEMENT -->
-    <div
-      class="p-8 rounded-2xl border border-gray-200
-             bg-white shadow-sm
-             transition-all duration-300
-             hover:shadow-md hover:-translate-y-1"
-    >
-      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+    <!-- FEATURE 2 -->
+    <div appScrollReveal class="expande-feature-card scroll-fade-up">
+      <h4 class="text-xl font-semibold mb-3 text-center">
         Multi-Branch Operations
       </h4>
       <p class="text-gray-600 text-sm leading-relaxed text-center">
@@ -156,14 +152,9 @@
       </p>
     </div>
 
-    <!-- SALES & PURCHASES -->
-    <div
-      class="p-8 rounded-2xl border border-gray-200
-             bg-white shadow-sm
-             transition-all duration-300
-             hover:shadow-md hover:-translate-y-1"
-    >
-      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+    <!-- FEATURE 3 -->
+    <div appScrollReveal class="expande-feature-card scroll-fade-up">
+      <h4 class="text-xl font-semibold mb-3 text-center">
         Sales & Purchasing Control
       </h4>
       <p class="text-gray-600 text-sm leading-relaxed text-center">
@@ -173,14 +164,9 @@
       </p>
     </div>
 
-    <!-- SCALABILITY & ARCHITECTURE -->
-    <div
-      class="p-8 rounded-2xl border border-gray-200
-             bg-white shadow-sm
-             transition-all duration-300
-             hover:shadow-md hover:-translate-y-1"
-    >
-      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+    <!-- FEATURE 4 -->
+    <div appScrollReveal class="expande-feature-card scroll-fade-up">
+      <h4 class="text-xl font-semibold mb-3 text-center">
         Scalable & Decoupled Architecture
       </h4>
       <p class="text-gray-600 text-sm leading-relaxed text-center">
@@ -191,269 +177,204 @@
       </p>
     </div>
 
-  </div> <!-- ================= TECHNOLOGY STACK – EXPANDE ================= -->
-<section class="py-24 bg-gradient-to-b from-[#FFF3D6] to-[#FFF8EB]">
-  <!-- TITLE -->
-  <div class="text-center mb-16">
-    <h3 class="text-4xl md:text-5xl font-extrabold text-amber-600 tracking-tight">
-      Technology Stack
-    </h3>
-    <p class="mt-3 text-gray-600 text-lg">
-      Enterprise Frontend & Backend Architecture
-    </p>
-  </div>
-
-  <!-- STACK GRID -->
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 px-6">
-
-    <!-- ================= FRONTEND ================= -->
-    <div
-      class="relative rounded-[2rem] p-10 bg-white
-             border border-amber-100
-             shadow-[0_20px_50px_rgba(245,158,11,0.15)]
-             backdrop-blur transition-all duration-500
-             hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(245,158,11,0.25)]"
-    >
-      <!-- LABEL -->
-      <span
-        class="absolute -top-4 left-1/2 -translate-x-1/2
-               px-8 py-1.5 text-sm font-semibold
-               bg-gradient-to-r from-amber-400 to-amber-500
-               text-white rounded-full shadow-md"
-      >
-        Frontend
-      </span>
-
-      <!-- ICON ROW -->
-      <div class="flex justify-center flex-wrap gap-10 mt-10">
-
-        <!-- TypeScript -->
-        <div class="tech-icon">
-          <img src="https://cdn.simpleicons.org/typescript" />
-          <span>TypeScript</span>
-        </div>
-
-        <!-- Angular -->
-        <div class="tech-icon">
-          <img src="/assets/icons/Angular.png" />
-          <span>Angular</span>
-        </div>
-
-        <!-- JavaScript -->
-        <div class="tech-icon">
-          <img src="https://cdn.simpleicons.org/javascript" />
-          <span>JavaScript</span>
-        </div>
-
-        <!-- Tailwind -->
-        <div class="tech-icon">
-          <img src="https://cdn.simpleicons.org/tailwindcss" />
-          <span>Tailwind CSS</span>
-        </div>
-
-        <!-- SCSS -->
-        <div class="tech-icon">
-          <img src="/assets/icons/scss.png" />
-          <span>SCSS</span>
-        </div>
-
-      </div>
+    <!-- FEATURE 5 (NEW) -->
+    <div appScrollReveal class="expande-feature-card scroll-fade-up">
+      <h4 class="text-xl font-semibold mb-3 text-center">
+        Enterprise Audit & Traceability
+      </h4>
+      <p class="text-gray-600 text-sm leading-relaxed text-center">
+        Comprehensive audit logging across all critical entities, capturing
+        user actions, timestamps, and data changes to support management
+        oversight, accountability, and operational transparency.
+      </p>
     </div>
 
-    <!-- ================= BACKEND ================= -->
-    <div
-      class="relative rounded-[2rem] p-10 bg-white
-             border border-gray-200
-             shadow-[0_20px_50px_rgba(0,0,0,0.12)]
-             transition-all duration-500
-             hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.20)]"
-    >
-      <!-- LABEL -->
-      <span
-        class="absolute -top-4 left-1/2 -translate-x-1/2
-               px-8 py-1.5 text-sm font-semibold
-               bg-gradient-to-r from-gray-800 to-gray-900
-               text-white rounded-full shadow-md"
-      >
-        Backend
-      </span>
-
-      <!-- ICON ROW -->
-      <div class="flex justify-center flex-wrap gap-12 mt-10">
-
-        <!-- C# -->
-        <div class="tech-icon">
-          <img src="/assets/icons/csharp.png" />
-          <span>C#</span>
-        </div>
-
-        <!-- .NET -->
-        <div class="tech-icon">
-          <img src="https://cdn.simpleicons.org/dotnet" />
-          <span>.NET</span>
-        </div>
-
-        <!-- SQL Server -->
-        <div class="tech-icon">
-          <img src="/assets/icons/sql.png" />
-          <span>SQL Server</span>
-        </div>
-
-      </div>
+    <!-- FEATURE 6 (NEW) -->
+    <div appScrollReveal class="expande-feature-card scroll-fade-up">
+      <h4 class="text-xl font-semibold mb-3 text-center">
+        Role-Based Access & Security
+      </h4>
+      <p class="text-gray-600 text-sm leading-relaxed text-center">
+        User and role management designed to enforce access control policies
+        across branches and modules, ensuring that each user operates strictly
+        within their assigned permissions.
+      </p>
     </div>
 
   </div>
 </section>
 
-<!-- ================= TECH ICON STYLES ================= -->
-<style>
-  .tech-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    transition: all 0.4s ease;
-    animation: floatIn 0.8s ease forwards;
-  }
 
-  .tech-icon img {
-    width: 52px;
-    height: 52px;
-    object-fit: contain;
-    filter: drop-shadow(0 8px 14px rgba(0,0,0,0.15));
-    transition: transform 0.4s ease, filter 0.4s ease;
-  }
+      <!-- ================= TECHNOLOGY STACK ================= -->
+      <section
+        appScrollReveal
+        class="py-24 bg-gradient-to-b from-[#FFF3D6] to-[#FFF8EB] scroll-fade-up"
+      >
+        <div class="text-center mb-16">
+          <h3 class="text-4xl md:text-5xl font-extrabold text-amber-600 tracking-tight">
+            Technology Stack
+          </h3>
+          <p class="mt-3 text-gray-600 text-lg">
+            Enterprise Frontend & Backend Architecture
+          </p>
+        </div>
 
-  .tech-icon span {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #374151;
-    letter-spacing: 0.02em;
-  }
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 px-6">
 
-  .tech-icon:hover img {
-    transform: scale(1.18) rotate(-2deg);
-    filter: drop-shadow(0 14px 28px rgba(0,0,0,0.25));
-  }
+          <!-- FRONTEND -->
+          <div appScrollReveal class="tech-card scroll-fade-up">
+            <span class="tech-badge">Frontend</span>
+            <div class="grid grid-cols-3 gap-6 mb-4">
+              <div class="tech-icon flex flex-col items-center"><img src="https://cdn.simpleicons.org/typescript" /><span>TypeScript</span></div>
+              <div class="tech-icon flex flex-col items-center"><img src="/assets/icons/Angular.png" /><span>Angular</span></div>
+              <div class="tech-icon flex flex-col items-center"><img src="https://cdn.simpleicons.org/javascript" /><span>JavaScript</span></div>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="  tech-icon flex flex-col items-center"><img src="https://cdn.simpleicons.org/tailwindcss" /><span>Tailwind CSS</span></div>
+              <div class="tech-icon flex flex-col items-center"><img src="/assets/icons/scss.png" /><span>SCSS</span></div>
+            </div>
+          </div>
 
-  .tech-icon:hover span {
-    color: #d97706;
-  }
+          <!-- BACKEND -->
+          <div appScrollReveal class="tech-card scroll-fade-up">
+            <span class="tech-badge dark">Backend</span>
+            <div class="tech-grid">
+              <div class="tech-icon"><img src="/assets/icons/csharp.png" /><span>C#</span></div>
+              <div class="tech-icon"><img src="https://cdn.simpleicons.org/dotnet" /><span>.NET</span></div>
+              <div class="tech-icon"><img src="/assets/icons/sql.png" /><span>SQL Server</span></div>
+            </div>
+          </div>
 
-  @keyframes floatIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-</style>
+        </div>
+      </section>
 
-<!-- ================= SOURCE CODE – EXPANDE ================= -->
-<section class="mt-20 mb-14 px-2 md:px-8 fade-in-on-scroll scroll-hidden">
+      <!-- ================= ARCHITECTURE OVERVIEW ================= -->
+      <section appScrollReveal class="py-20 px-2 md:px-8 scroll-fade-up">
+        <div class="text-center mb-12">
+          <h3 class="text-3xl md:text-4xl font-extrabold text-amber-600 mb-2 tracking-tight">
+            Architecture Overview
+          </h3>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            High-level overview of the architectural decisions, security practices,
+            and separation of responsibilities across the Expande enterprise platform.
+          </p>
+        </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+
+       <div class="rounded-2xl border border-amber-300 shadow-xl p-8 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-100">
+  <h4 class="font-bold text-center mb-4">Frontend Architecture</h4>
+  <ul class="list-disc list-inside text-gray-800 space-y-3">
+    <li>
+      Modular Angular architecture using standalone components, optimized for scalability and SSR compatibility
+    </li>
+    <li>
+      Strong separation of concerns through reusable shared components and a centralized base modal system
+    </li>
+    <li>
+      Fully typed service layer leveraging RxJS and HttpClient to consume secured RESTful APIs
+    </li>
+    <li>
+      Design system implemented with Tailwind CSS using consistent spacing, color tokens, and responsive layouts
+    </li>
+  </ul>
+</div>
+
+<div class="rounded-2xl border border-amber-400/40 shadow-xl p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <h4 class="font-bold text-center mb-4 text-white">Backend Architecture</h4>
+  <ul class="list-disc list-inside text-gray-200 space-y-3">
+    <li>
+      ASP.NET Core RESTful API following a layered architecture with clear responsibility boundaries
+    </li>
+    <li>
+      Clean Architecture applied with SOLID principles to ensure maintainability, testability, and low coupling
+    </li>
+    <li>
+      SQL Server persistence layer using optimized stored procedures for data integrity and performance
+    </li>
+    <li>
+      Centralized audit logging and transactional tracking to support traceability and enterprise governance
+    </li>
+  </ul>
+</div>
+
+
+        </div>
+      </section>
+
+      <!-- ================= SOURCE CODE ================= -->
+   <section appScrollReveal class="mt-24 mb-16 px-2 md:px-8 scroll-fade-up">
   <div
-    class="max-w-2xl mx-auto
-           bg-gradient-to-br from-neutral-900/80 via-black/70 to-amber-900/60
-           border border-amber-400/30
-           rounded-2xl shadow-2xl p-8
-           flex flex-col items-center
-           backdrop-blur-md relative group
-           animate-fade-in fade-in-on-scroll scroll-hidden"
-    data-aos="zoom-in"
-    data-aos-duration="900"
+    class="max-w-3xl mx-auto
+           bg-gradient-to-br from-amber-50 via-white to-amber-100
+           border-2 border-amber-300/60
+           rounded-3xl shadow-2xl
+           p-12 text-center relative overflow-hidden"
   >
 
-    <h5
-      class="text-2xl font-extrabold text-center mb-3 tracking-tight
-             text-amber-300 drop-shadow"
-      data-aos="fade-up"
-      data-aos-delay="100"
-    >
-      Source Code
-    </h5>
-
-    <div
-      class="text-base text-gray-300 text-center mb-8 max-w-xl"
-      data-aos="fade-up"
-      data-aos-delay="200"
-    >
-      This section provides access to an <strong class="text-amber-300">initial version</strong> of the project’s source code.
-      It showcases the architectural foundation, core patterns, and early implementation
-      of both frontend and backend layers.
+    <!-- Subtle background accent -->
+    <div class="absolute inset-0 pointer-events-none
+                bg-[radial-gradient(circle_at_top,rgba(251,191,36,0.15),transparent_70%)]">
     </div>
 
-    <div
-      class="flex flex-col md:flex-row gap-7 justify-center items-center w-full
-             fade-in-on-scroll scroll-hidden"
-      data-aos="fade-up"
-      data-aos-delay="300"
-    >
+    <!-- Title -->
+    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
+      Source Code Availability
+    </h2>
 
-      <!-- FRONTEND REPO -->
+    <!-- Description -->
+    <p class="text-gray-700 text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
+      Selected portions of the <strong>Expande</strong> platform are publicly available on GitHub.
+      These repositories represent an <strong>early-stage implementation</strong>, shared to
+      demonstrate architectural decisions, coding standards, and overall engineering approach.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+
+      <!-- Frontend -->
       <a
         href="https://github.com/LSvargas25/ExpandeCR"
         target="_blank"
-        class="expande-repo-btn flex items-center gap-3 px-7 py-4 rounded-xl
-               border border-amber-400/40
-               bg-gradient-to-r from-amber-800/80 via-amber-700/60 to-amber-900/80
-               hover:from-amber-600 hover:to-amber-800
-               transition-all text-white font-bold shadow-lg text-lg
-               w-full md:w-auto justify-center"
-        data-aos="zoom-in-up"
-        data-aos-delay="400"
+        class="group flex items-center gap-4 px-8 py-4
+               rounded-xl font-semibold text-gray-900
+               bg-white border border-gray-200
+               shadow-md hover:shadow-xl
+               transition-all duration-300
+               hover:-translate-y-1"
       >
-        <img src="https://cdn.simpleicons.org/github/fff" alt="GitHub" class="w-6 h-6" />
-        Frontend
+        <img
+          src="https://cdn.simpleicons.org/github/181717"
+          alt="GitHub"
+          class="w-6 h-6"
+        />
+        <span>Frontend Repository</span>
       </a>
 
-      <!-- BACKEND REPO -->
+      <!-- Backend -->
       <a
         href="https://github.com/LSvargas25/StoreApi"
         target="_blank"
-        class="expande-repo-btn flex items-center gap-3 px-7 py-4 rounded-xl
-               border border-neutral-400/40
-               bg-gradient-to-r from-neutral-800/80 via-neutral-700/60 to-neutral-900/80
-               hover:from-neutral-700 hover:to-neutral-800
-               transition-all text-white font-bold shadow-lg text-lg
-               w-full md:w-auto justify-center"
-        data-aos="zoom-in-up"
-        data-aos-delay="500"
+        class="group flex items-center gap-4 px-8 py-4
+               rounded-xl font-semibold text-white
+               bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900
+               shadow-md hover:shadow-xl
+               transition-all duration-300
+               hover:-translate-y-1"
       >
-        <img src="https://cdn.simpleicons.org/github/fff" alt="GitHub" class="w-6 h-6" />
-        Backend
+        <img
+          src="https://cdn.simpleicons.org/github/ffffff"
+          alt="GitHub"
+          class="w-6 h-6"
+        />
+        <span>Backend Repository</span>
       </a>
 
     </div>
   </div>
-
-  <!-- ================= EXPANDE SOURCE BUTTON EFFECTS ================= -->
-  <style>
-    .expande-repo-btn {
-      box-shadow:
-        0 2px 16px rgba(255, 193, 7, 0.20),
-        0 1px 8px rgba(0, 0, 0, 0.45);
-      transition:
-        transform 0.25s cubic-bezier(.4,2,.3,1),
-        box-shadow 0.25s cubic-bezier(.4,2,.3,1),
-        filter 0.25s;
-    }
-
-    .expande-repo-btn:hover {
-      transform: scale(1.045) translateY(-4px);
-      box-shadow:
-        0 10px 36px rgba(255, 193, 7, 0.45),
-        0 4px 20px rgba(0, 0, 0, 0.65);
-      filter: brightness(1.1) saturate(1.12);
-      z-index: 2;
-    }
-
-    .expande-repo-btn:active {
-      transform: scale(0.97);
-    }
-  </style>
-
 </section>
+
+
+    </div>
+  </div>
+</div>

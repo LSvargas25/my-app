@@ -1,165 +1,158 @@
 /* Oculta la barra de scroll pero permite el scroll */
-.expande-modal-scrollable {
-  overflow: auto;
+.hide-scrollbar {
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  -ms-overflow-style: none; /* IE y Edge */
 }
-
-.expande-modal-scrollable::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
 }
-/* ======================================================
-   EXPANDE MODAL – ROOT (INTERIOR ONLY)
-   El backdrop, tamaño y centrado viven en HOME
-====================================================== */
-
-
-.expande-modal-inner {
-  /* === SIN LÍMITE DE ALTURA === */
-  max-height: none;
-  max-width: 1600px;
-  min-width: 900px;
-  width: 100%;
-
-  /* === SCROLL INTERNO === */
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  /* === VISUAL (SE QUEDA COMO EXPANDE) === */
-  padding: 0;
-
-  background: linear-gradient(
-    135deg,
-    #f7e9b6 0%,
-    #f4e1a1 45%,
-    #ffe9a7 100%
-  );
-
-  border-radius: 1.5rem;
-
-  box-shadow:
-    0 18px 60px rgba(0, 0, 0, 0.35),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.45);
-
-  position: relative;
-}
-
-
-/* ======================================================
-   ARCHITECTURE / FEATURE CARD
-====================================================== */
-
-.expande-arch-card {
-  width: 100%;
-  max-width: 520px;
-  min-height: 180px;
-
-  padding: 2rem;
-  border-radius: 1.25rem;
-
-  background: linear-gradient(
-    135deg,
-    rgba(255, 248, 220, 0.95),
-    rgba(255, 236, 179, 0.95)
-  );
-
-  border: 2px solid rgba(251, 191, 36, 0.35);
-
-  box-shadow:
-    0 12px 36px rgba(218, 197, 162, 0.6),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  z-index: 1;
-
+/* ================= SCROLL REVEAL ================= */
+.scroll-fade-up {
+  opacity: 0;
+  transform: translateY(32px);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--scroll-delay, 0ms);
 }
 
-.expande-arch-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow:
-    0 18px 48px rgba(218, 197, 162, 0.8);
+.scroll-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
-/* Badge superior */
-.expande-arch-badge {
+.scroll-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ================= MODAL ================= */
+.project-modal-panel {
+  width: 90vw;
+  max-width: 1400px;
+  height: 90vh;
+  border-radius: 1.5rem;
+  background: rgb(255, 248, 230);
+  border: 2px solid rgb(255, 192, 32);
+  overflow-y: auto;
+}
+
+/* ================= FEATURE CARD ================= */
+.expande-feature-card {
+  padding: 2rem;
+  background: white;
+  border-radius: 1.25rem;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  h4 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* ================= TECH STACK ================= */
+.tech-card {
+  position: relative;
+  padding: 3rem;
+  border-radius: 2rem;
+  background: white;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.tech-badge {
   position: absolute;
   top: -0.75rem;
   left: 50%;
   transform: translateX(-50%);
-
-  padding: 0.25rem 0.75rem;
-  font-size: 0.7rem;
+  padding: 0.3rem 1.2rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  border-radius: 999px;
+  background: #f59e0b;
+  color: white;
 
-  background: rgba(180, 83, 9, 0.9);
-  color: #ffffff;
-
-  border-radius: 9999px;
-
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.35);
-}
-
-/* ======================================================
-   TEXT HELPERS (opcional, pero útiles)
-====================================================== */
-
-.expande-muted {
-  color: #8a6d1d;
-  opacity: 0.7;
-}
-
-/* ================= DEBUG STYLES FOR VISIBILITY ================= */
-.project-modal-outer {
-  background: rgba(233, 215, 181, 0.85) !important; /* Step 4: beige overlay for debug */
-  position: fixed;
-  inset: 0;
-  z-index: 1200; /* Ensure above most overlays */
-}
-
-@keyframes modalGoldGlow {
-  0%, 100% {
-    box-shadow:
-      0 0 48px 16px rgba(255, 192, 32, 0.45),
-      0 0 0 0 rgba(255, 192, 32, 0.18),
-      0 8px 32px 0 rgba(0,0,0,0.25);
-    border-color: rgba(255, 192, 32, 0.705);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow:
-      0 0 120px 48px rgba(255, 192, 32, 0.452),
-      0 0 0 32px rgba(255, 192, 32, 0.32),
-      0 8px 32px 0 rgba(0,0,0,0.25);
-    border-color: rgba(255, 219, 100, 0.671);
-    transform: scale(1.025);
+  &.dark {
+    background: #111827;
   }
 }
 
-.project-modal-panel {
-  border: 2px solid rgb(255, 192, 32) !important;
-  border-radius: 20px !important;
-  background: rgb(255, 248, 230) !important;
-  min-width: 400px !important;
-  min-height: 400px !important;
-  width: 50vw !important;
-  height: 90vh !important;
-  max-height: 90vh !important;
-  position: relative !important;
-  z-index: 1300 !important;
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.tech-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  overflow-y: auto;
-  /* animation removed to disable breathing effect */
+  gap: 0.5rem;
+
+  img {
+    width: 52px;
+    height: 52px;
+    transition: transform 0.3s ease;
+  }
+
+  span {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  &:hover img {
+    transform: scale(1.2);
+  }
 }
 
+/* ================= GITHUB ================= */
+.github-card {
+  max-width: 720px;
+  margin: auto;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(to bottom right, #fff7ed, #fffbeb);
+  border: 2px solid #fbbf24;
+  text-align: center;
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+}
+
+.github-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+
+  a {
+    padding: 0.9rem 2rem;
+    border-radius: 1rem;
+    background: #111827;
+    color: white;
+    font-weight: 700;
+    transition: transform 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+}
