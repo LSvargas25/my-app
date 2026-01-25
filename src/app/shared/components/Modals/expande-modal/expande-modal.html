@@ -1,65 +1,459 @@
-<div #modalRoot class="expande-modal-inner" (mousedown)="$event.stopPropagation()">
+<div class="fixed inset-0 flex items-center justify-center bg-white/20 backdrop-blur z-50">
+  <div class="project-modal-panel hide-scrollbar overflow-y-auto expande-modal-scrollable">
 
-  <!-- HEADER -->
-  <header
-    class="mb-10 mx-8 mt-6  rounded-xl
-           px-9 pt-3 pb-3
-           bg-gradient-to-r from-yellow-300 via-yellow-100 to-yellow-300
-           text-yellow-900 shadow-md"
-  >
-    <h4 class="mb-2 font-semibold text-center text-lg relative">
-      Expande – Brand Experience Platform
-    </h4>
-  </header>
+    <!-- ================= HEADER ================= -->
+    <header class="text-center mb-16 mt-14">
+      <div class="flex justify-center items-center gap-12 px-10">
 
-  <!-- ARCH CARD -->
-  <section class="w-full flex justify-center mb-10 px-6">
-    <div class="expande-arch-card relative">
-      <span class="expande-arch-badge">Enterprise Card</span>
+        <!-- LEFT CONTENT -->
+        <div class="flex flex-col items-center text-center max-w-xl">
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
+            Soluciones Expande
+          </h2>
 
-      <div class="w-full h-24 flex items-center justify-center
-                  text-yellow-900 font-semibold text-lg opacity-80">
-        <span class="opacity-70">(Reusable Card Block – Add Content Here)</span>
+          <p class="mt-3 text-gray-600 text-lg md:text-xl">
+            Enterprise Inventory, Sales & Branch Management System
+          </p>
+
+          <!-- LINE -->
+          <span
+            class="mt-6 h-[2px] w-72 md:w-[30rem]
+                   bg-gradient-to-r from-amber-300 via-amber-500 to-amber-300
+                   rounded-full"
+          ></span>
+
+          <!-- BADGE -->
+          <span
+            class="mt-5 inline-flex items-center gap-2 px-6 py-2
+                   text-sm font-semibold rounded-full
+                   bg-amber-100 text-amber-900
+                   ring-1 ring-amber-300"
+          >
+            Enterprise • Full-Stack application
+          </span>
+        </div>
+
+        <!-- LOGO RIGHT -->
+        <div
+          class="w-56 h-56 rounded-full bg-white
+                 flex items-center justify-center
+                 shadow-lg ring-2 ring-amber-300 shrink-0 expande-glow"
+        >
+          <img
+            src="/assets/images/Expande.png"
+            alt="Expande Logo"
+            class="w-40 h-40 object-contain"
+          />
+        </div>
+
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- FEATURES -->
-  <section class="flex flex-col gap-4 w-full max-w-md mx-auto mb-8 px-6">
-    <div class="bg-yellow-100 rounded-xl p-4 shadow text-center">
-      <span class="font-semibold text-yellow-800">Feature 1</span>
-      <p class="text-sm text-yellow-700">
-        Describe a key feature or highlight here.
+    <!-- ================= CONTENT ================= -->
+    <div class="px-6 md:px-12 pb-16">
+
+
+
+      <!-- ================= HERO IMAGE ================= -->
+  <section
+  class="relative max-w-6xl mx-auto mb-24 rounded-3xl overflow-hidden
+         bg-cover bg-center bg-no-repeat shadow-2xl
+         min-h-[45vh] md:min-h-[50vh]
+         flex items-center"
+  style="background-image: url('/assets/images/Fondo.png');"
+>
+
+
+        <!-- OVERLAYS -->
+        <div class="absolute inset-0 bg-black/25"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+
+        <!-- HERO CONTENT -->
+        <div class="relative z-10 px-6 md:px-14 py-20 text-center max-w-4xl mx-auto">
+
+          <p
+            class="text-white leading-relaxed text-lg md:text-xl font-semibold
+                   drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
+          >
+            <strong>Expande</strong> is a purpose-built enterprise platform designed to support
+            real-world operations in the plastic decking industry. It centralizes
+            <strong>branches, inventory, sales, and procurement</strong> into a single,
+            reliable system built for clarity and control.
+          </p>
+
+          <p
+            class="mt-6 text-white/90 leading-relaxed text-lg md:text-xl
+                   drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
+          >
+            More than a management tool, Expande provides a strategic foundation that
+            enhances operational efficiency, strengthens decision-making, and enables
+            businesses to scale with confidence while maintaining full visibility
+            over their processes and data.
+          </p>
+
+        </div>
+      </section>
+
+
+
+
+     <section class="mb-10 -mt-8">
+
+  <!-- SECTION TITLE -->
+  <h3 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">
+    Core Platform Capabilities
+  </h3>
+
+  <p class="text-gray-600 max-w-3xl mx-auto text-center mb-6">
+    Expande is an enterprise-grade inventory and operations platform designed
+    to support multi-branch businesses with scalability, traceability, and
+    architectural robustness at its core.
+  </p>
+
+  <!-- DECORATIVE LINE BELOW PARAGRAPH -->
+  <span
+    class="mb-10 block h-[2px] w-72 md:w-[30rem]
+           bg-gradient-to-r from-amber-300 via-amber-500 to-amber-300
+           rounded-full mx-auto"
+  ></span>
+
+
+
+  <!-- FEATURES GRID -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+    <!-- INVENTORY MANAGEMENT -->
+    <div
+      class="p-8 rounded-2xl border border-gray-200
+             bg-white shadow-sm
+             transition-all duration-300
+             hover:shadow-md hover:-translate-y-1"
+    >
+      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+        Advanced Inventory Management
+      </h4>
+      <p class="text-gray-600 text-sm leading-relaxed text-center">
+        Centralized control of items and item variants, enabling parent–child
+        product structures, stock tracking per branch, and full auditability
+        of every inventory movement.
       </p>
     </div>
 
-    <div class="bg-yellow-50 rounded-xl p-4 shadow text-center">
-      <span class="font-semibold text-yellow-800">Feature 2</span>
-      <p class="text-sm text-yellow-700">
-        Add more details about your project or brand.
+    <!-- BRANCH MANAGEMENT -->
+    <div
+      class="p-8 rounded-2xl border border-gray-200
+             bg-white shadow-sm
+             transition-all duration-300
+             hover:shadow-md hover:-translate-y-1"
+    >
+      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+        Multi-Branch Operations
+      </h4>
+      <p class="text-gray-600 text-sm leading-relaxed text-center">
+        Unlimited branch creation with independent inventories, user
+        assignments, and the ability to transfer stock seamlessly between
+        locations.
       </p>
     </div>
-  </section>
 
-  <!-- ACTIONS -->
-  <div class="mt-6 mb-10 flex gap-4 justify-center">
-    <a
-      href="#"
-      class="px-6 py-2 rounded-lg
-             bg-yellow-700 text-white font-bold
-             shadow hover:bg-yellow-800 transition"
+    <!-- SALES & PURCHASES -->
+    <div
+      class="p-8 rounded-2xl border border-gray-200
+             bg-white shadow-sm
+             transition-all duration-300
+             hover:shadow-md hover:-translate-y-1"
     >
-      Visit Website
-    </a>
+      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+        Sales & Purchasing Control
+      </h4>
+      <p class="text-gray-600 text-sm leading-relaxed text-center">
+        End-to-end tracking of sales and purchases, including customer,
+        supplier, and user management, ensuring complete operational
+        traceability.
+      </p>
+    </div>
 
-    <a
-      href="#"
-      class="px-6 py-2 rounded-lg
-             bg-yellow-400 text-yellow-900 font-bold
-             shadow hover:bg-yellow-300 transition"
+    <!-- SCALABILITY & ARCHITECTURE -->
+    <div
+      class="p-8 rounded-2xl border border-gray-200
+             bg-white shadow-sm
+             transition-all duration-300
+             hover:shadow-md hover:-translate-y-1"
     >
-      See Code
-    </a>
+      <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">
+        Scalable & Decoupled Architecture
+      </h4>
+      <p class="text-gray-600 text-sm leading-relaxed text-center">
+        Built with a clean, layered architecture using controllers, services,
+        interfaces, and repositories to minimize coupling and enable future
+        integrations such as mobile applications or database migrations
+        without breaking the system.
+      </p>
+    </div>
+
+  </div> <!-- ================= TECHNOLOGY STACK – EXPANDE ================= -->
+<section class="py-24 bg-gradient-to-b from-[#FFF3D6] to-[#FFF8EB]">
+  <!-- TITLE -->
+  <div class="text-center mb-16">
+    <h3 class="text-4xl md:text-5xl font-extrabold text-amber-600 tracking-tight">
+      Technology Stack
+    </h3>
+    <p class="mt-3 text-gray-600 text-lg">
+      Enterprise Frontend & Backend Architecture
+    </p>
   </div>
 
-</div>
+  <!-- STACK GRID -->
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 px-6">
+
+    <!-- ================= FRONTEND ================= -->
+    <div
+      class="relative rounded-[2rem] p-10 bg-white
+             border border-amber-100
+             shadow-[0_20px_50px_rgba(245,158,11,0.15)]
+             backdrop-blur transition-all duration-500
+             hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(245,158,11,0.25)]"
+    >
+      <!-- LABEL -->
+      <span
+        class="absolute -top-4 left-1/2 -translate-x-1/2
+               px-8 py-1.5 text-sm font-semibold
+               bg-gradient-to-r from-amber-400 to-amber-500
+               text-white rounded-full shadow-md"
+      >
+        Frontend
+      </span>
+
+      <!-- ICON ROW -->
+      <div class="flex justify-center flex-wrap gap-10 mt-10">
+
+        <!-- TypeScript -->
+        <div class="tech-icon">
+          <img src="https://cdn.simpleicons.org/typescript" />
+          <span>TypeScript</span>
+        </div>
+
+        <!-- Angular -->
+        <div class="tech-icon">
+          <img src="/assets/icons/Angular.png" />
+          <span>Angular</span>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="tech-icon">
+          <img src="https://cdn.simpleicons.org/javascript" />
+          <span>JavaScript</span>
+        </div>
+
+        <!-- Tailwind -->
+        <div class="tech-icon">
+          <img src="https://cdn.simpleicons.org/tailwindcss" />
+          <span>Tailwind CSS</span>
+        </div>
+
+        <!-- SCSS -->
+        <div class="tech-icon">
+          <img src="/assets/icons/scss.png" />
+          <span>SCSS</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= BACKEND ================= -->
+    <div
+      class="relative rounded-[2rem] p-10 bg-white
+             border border-gray-200
+             shadow-[0_20px_50px_rgba(0,0,0,0.12)]
+             transition-all duration-500
+             hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.20)]"
+    >
+      <!-- LABEL -->
+      <span
+        class="absolute -top-4 left-1/2 -translate-x-1/2
+               px-8 py-1.5 text-sm font-semibold
+               bg-gradient-to-r from-gray-800 to-gray-900
+               text-white rounded-full shadow-md"
+      >
+        Backend
+      </span>
+
+      <!-- ICON ROW -->
+      <div class="flex justify-center flex-wrap gap-12 mt-10">
+
+        <!-- C# -->
+        <div class="tech-icon">
+          <img src="/assets/icons/csharp.png" />
+          <span>C#</span>
+        </div>
+
+        <!-- .NET -->
+        <div class="tech-icon">
+          <img src="https://cdn.simpleicons.org/dotnet" />
+          <span>.NET</span>
+        </div>
+
+        <!-- SQL Server -->
+        <div class="tech-icon">
+          <img src="/assets/icons/sql.png" />
+          <span>SQL Server</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= TECH ICON STYLES ================= -->
+<style>
+  .tech-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.4s ease;
+    animation: floatIn 0.8s ease forwards;
+  }
+
+  .tech-icon img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,0.15));
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+
+  .tech-icon span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #374151;
+    letter-spacing: 0.02em;
+  }
+
+  .tech-icon:hover img {
+    transform: scale(1.18) rotate(-2deg);
+    filter: drop-shadow(0 14px 28px rgba(0,0,0,0.25));
+  }
+
+  .tech-icon:hover span {
+    color: #d97706;
+  }
+
+  @keyframes floatIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+</style>
+
+<!-- ================= SOURCE CODE – EXPANDE ================= -->
+<section class="mt-20 mb-14 px-2 md:px-8 fade-in-on-scroll scroll-hidden">
+
+  <div
+    class="max-w-2xl mx-auto
+           bg-gradient-to-br from-neutral-900/80 via-black/70 to-amber-900/60
+           border border-amber-400/30
+           rounded-2xl shadow-2xl p-8
+           flex flex-col items-center
+           backdrop-blur-md relative group
+           animate-fade-in fade-in-on-scroll scroll-hidden"
+    data-aos="zoom-in"
+    data-aos-duration="900"
+  >
+
+    <h5
+      class="text-2xl font-extrabold text-center mb-3 tracking-tight
+             text-amber-300 drop-shadow"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
+      Source Code
+    </h5>
+
+    <div
+      class="text-base text-gray-300 text-center mb-8 max-w-xl"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+      This section provides access to an <strong class="text-amber-300">initial version</strong> of the project’s source code.
+      It showcases the architectural foundation, core patterns, and early implementation
+      of both frontend and backend layers.
+    </div>
+
+    <div
+      class="flex flex-col md:flex-row gap-7 justify-center items-center w-full
+             fade-in-on-scroll scroll-hidden"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+
+      <!-- FRONTEND REPO -->
+      <a
+        href="https://github.com/LSvargas25/ExpandeCR"
+        target="_blank"
+        class="expande-repo-btn flex items-center gap-3 px-7 py-4 rounded-xl
+               border border-amber-400/40
+               bg-gradient-to-r from-amber-800/80 via-amber-700/60 to-amber-900/80
+               hover:from-amber-600 hover:to-amber-800
+               transition-all text-white font-bold shadow-lg text-lg
+               w-full md:w-auto justify-center"
+        data-aos="zoom-in-up"
+        data-aos-delay="400"
+      >
+        <img src="https://cdn.simpleicons.org/github/fff" alt="GitHub" class="w-6 h-6" />
+        Frontend
+      </a>
+
+      <!-- BACKEND REPO -->
+      <a
+        href="https://github.com/LSvargas25/StoreApi"
+        target="_blank"
+        class="expande-repo-btn flex items-center gap-3 px-7 py-4 rounded-xl
+               border border-neutral-400/40
+               bg-gradient-to-r from-neutral-800/80 via-neutral-700/60 to-neutral-900/80
+               hover:from-neutral-700 hover:to-neutral-800
+               transition-all text-white font-bold shadow-lg text-lg
+               w-full md:w-auto justify-center"
+        data-aos="zoom-in-up"
+        data-aos-delay="500"
+      >
+        <img src="https://cdn.simpleicons.org/github/fff" alt="GitHub" class="w-6 h-6" />
+        Backend
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ================= EXPANDE SOURCE BUTTON EFFECTS ================= -->
+  <style>
+    .expande-repo-btn {
+      box-shadow:
+        0 2px 16px rgba(255, 193, 7, 0.20),
+        0 1px 8px rgba(0, 0, 0, 0.45);
+      transition:
+        transform 0.25s cubic-bezier(.4,2,.3,1),
+        box-shadow 0.25s cubic-bezier(.4,2,.3,1),
+        filter 0.25s;
+    }
+
+    .expande-repo-btn:hover {
+      transform: scale(1.045) translateY(-4px);
+      box-shadow:
+        0 10px 36px rgba(255, 193, 7, 0.45),
+        0 4px 20px rgba(0, 0, 0, 0.65);
+      filter: brightness(1.1) saturate(1.12);
+      z-index: 2;
+    }
+
+    .expande-repo-btn:active {
+      transform: scale(0.97);
+    }
+  </style>
+
+</section>

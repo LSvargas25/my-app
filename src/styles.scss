@@ -101,7 +101,8 @@ body, html {
    EXPANDE – Floating Glow (Enterprise / Premium)
 ====================================================== */
 .expande-glow {
-  animation-name: expandeFloatGlow;
+  animation: expandeFloatGlow 2.6s infinite ease-in-out;
+  will-change: transform, box-shadow;
 }
 
 @keyframes expandeFloatGlow {
