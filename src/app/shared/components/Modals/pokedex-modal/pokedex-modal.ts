@@ -1,13 +1,16 @@
-// ===================== Decorative Pokémon Sprite System =====================
+/* ======================================================
+   Decorative Pokémon Sprite System
+====================================================== */
+
 type PokemonSpriteConfig = {
-  images: Array<{ src: string; alt: string; }>,
-  minSize: number,
-  maxSize: number,
-  minOpacity: number,
-  maxOpacity: number,
-  density: number,
-  zIndex?: number,
-  safePadding?: number,
+  images: Array<{ src: string; alt: string }>;
+  minSize: number;
+  maxSize: number;
+  minOpacity: number;
+  maxOpacity: number;
+  density: number;
+  zIndex?: number;
+  safePadding?: number;
 };
 
 interface SpawnedPokemonSprite {
@@ -20,69 +23,66 @@ interface SpawnedPokemonSprite {
   rot: number;
   size: number;
   opacity: number;
+  curDx: number;
+  curDy: number;
 }
 
-let globalPokemonSpriteLoop: number | null = null;
-let globalPokemonSprites: SpawnedPokemonSprite[] = [];
-let globalPokemonSpriteCleanup: (() => void) | null = null;
+/* ===== Internal State ===== */
+let spriteLoopId: number | null = null;
+let spriteCleanupFn: (() => void) | null = null;
 
-export function spawnDecorativePokemonSprites(config: PokemonSpriteConfig) {
-    // Helper: clamp value between min and max
-    function clamp(val: number, min: number, max: number) {
-      return Math.max(min, Math.min(max, val));
-    }
-  // Clean up any previous sprites
-  if (globalPokemonSpriteCleanup) globalPokemonSpriteCleanup();
-  globalPokemonSprites = [];
-  const outer = document.querySelector('.pokedex-modal-outer') as HTMLElement;
-  const modal = document.querySelector('.pokedex-modal-inner') as HTMLElement;
-  if (!outer || !modal) return;
+/* ======================================================
+   Sprite Spawner
+====================================================== */
+export function spawnDecorativePokemonSprites(
+  config: PokemonSpriteConfig
+): () => void {
+
+  if (spriteCleanupFn) spriteCleanupFn();
+
+  const outer = document.querySelector('.pokedex-modal-outer') as HTMLElement | null;
+  const modal = document.querySelector('.pokedex-modal-inner') as HTMLElement | null;
+  if (!outer || !modal) return () => {};
 
   const outerRect = outer.getBoundingClientRect();
   const modalRect = modal.getBoundingClientRect();
-  const sprites: SpawnedPokemonSprite[] = [];
-  const usedZones: Array<'top'|'bottom'|'left'|'right'> = [];
   const safePadding = config.safePadding ?? 32;
-  const maxTries = 40;
 
-  // Helper: pick a random zone around the modal, bias to right
-  function pickZone() {
-    // Bias: right zone appears 2x as often
-    const zones: Array<'top'|'bottom'|'left'|'right'> = ['top','bottom','left','right','right'];
-    return zones[Math.floor(Math.random()*zones.length)];
-  }
+  const sprites: SpawnedPokemonSprite[] = [];
+  const placedRects: { x: number; y: number; size: number }[] = [];
 
-  // Helper: random between min and max
-  function rand(min: number, max: number) {
-    return min + Math.random() * (max - min);
-  }
+  const rand = (min: number, max: number) => min + Math.random() * (max - min);
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-  // Helper: check if a rect overlaps the modal (but allow passing above and below)
-  function overlapsModal(x: number, y: number, w: number, h: number) {
-    // Only block if inside modal horizontally and vertically
-    const insideHoriz = x + w > modalRect.left + safePadding && x < modalRect.right - safePadding;
-    const insideVert = y + h > modalRect.top + safePadding && y < modalRect.bottom - safePadding;
-    return insideHoriz && insideVert;
-  }
+  const pickZone = (): 'top' | 'bottom' | 'left' | 'right' => {
+    const zones: Array<'top' | 'bottom' | 'left' | 'right'> = [
+      'top', 'bottom', 'left', 'right', 'right'
+    ];
+    return zones[Math.floor(Math.random() * zones.length)];
+  };
 
-  // Try to spawn N sprites, prevent overlap
-  const placedRects: {x:number, y:number, size:number}[] = [];
-  // Precalcular posiciones y datos de todos los sprites
-  const spriteData: Array<{
-    imgConf: { src: string; alt: string },
-    x: number, y: number, size: number, opacity: number,
-    phase: number, driftX: number, driftY: number, rot: number
-  }> = [];
-  for (let i = 0; i < config.density; ++i) {
-    let tries = 0;
+  const overlapsModal = (x: number, y: number, size: number) =>
+    x + size > modalRect.left + safePadding &&
+    x < modalRect.right - safePadding &&
+    y + size > modalRect.top + safePadding &&
+    y < modalRect.bottom - safePadding;
+
+  /* ===================== Placement ===================== */
+  const spriteData = [];
+
+  for (let i = 0; i < config.density; i++) {
     let placed = false;
-    let zone: 'top'|'bottom'|'left'|'right' = pickZone();
+    let tries = 0;
     let x = 0, y = 0, size = 0;
-    let imgConf = config.images[Math.floor(Math.random()*config.images.length)];
-    let opacity = rand(config.minOpacity, config.maxOpacity);
-    while (!placed && tries < maxTries) {
+
+    const zone = pickZone();
+    const img = config.images[Math.floor(Math.random() * config.images.length)];
+    const opacity = rand(config.minOpacity, config.maxOpacity);
+
+    while (!placed && tries < 40) {
       size = rand(config.minSize, config.maxSize);
       const margin = safePadding + size / 2;
+
       if (zone === 'top') {
         x = rand(outerRect.left + margin, outerRect.right - size - margin);
         y = rand(outerRect.top + margin, modalRect.top - size - margin);
@@ -92,218 +92,227 @@ export function spawnDecorativePokemonSprites(config: PokemonSpriteConfig) {
       } else if (zone === 'left') {
         x = rand(outerRect.left + margin, modalRect.left - size - margin);
         y = rand(outerRect.top + margin, outerRect.bottom - size - margin);
-      } else if (zone === 'right') {
+      } else {
         x = rand(modalRect.right + margin, outerRect.right - size - margin);
         y = rand(outerRect.top + margin, outerRect.bottom - size - margin);
       }
-      let overlapsOther = false;
-      for (const r of placedRects) {
-        if (!(x + size < r.x - 8 || x > r.x + r.size + 8 || y + size < r.y - 8 || y > r.y + r.size + 8)) {
-          overlapsOther = true;
-          break;
-        }
-      }
-      if (!overlapsModal(x, y, size, size) && !overlapsOther) {
+
+      const overlap = placedRects.some(r =>
+        !(x + size < r.x - 8 ||
+          x > r.x + r.size + 8 ||
+          y + size < r.y - 8 ||
+          y > r.y + r.size + 8)
+      );
+
+      if (!overlap && !overlapsModal(x, y, size)) {
+        placedRects.push({ x, y, size });
         placed = true;
-        placedRects.push({x, y, size});
-      } else {
-        zone = pickZone();
-        tries++;
       }
+
+      tries++;
     }
+
     if (!placed) continue;
-    spriteData.push({ imgConf, x, y, size, opacity,
-      phase: rand(0, Math.PI * 2), driftX: rand(6, 18), driftY: rand(6, 18), rot: rand(2, 4) });
+
+    spriteData.push({
+      img,
+      x,
+      y,
+      size,
+      opacity,
+      phase: rand(0, Math.PI * 2),
+      driftX: rand(6, 18),
+      driftY: rand(6, 18),
+      rot: rand(2, 4),
+    });
   }
 
-  // Animación de aparición progresiva
-  let appearIndex = 0;
-  function addNextSprite() {
-    if (appearIndex >= spriteData.length) return;
-    const d = spriteData[appearIndex];
-    const el = document.createElement('img');
-    el.src = d.imgConf.src;
-    el.alt = d.imgConf.alt;
-    el.className = 'pokedex-deco-sprite';
-    el.setAttribute('aria-hidden', 'true');
-    el.setAttribute('draggable', 'false');
-    el.style.position = 'fixed';
-    el.style.left = `${d.x}px`;
-    el.style.top = `${d.y}px`;
-    el.style.width = `${d.size}px`;
-    el.style.height = 'auto';
-    el.style.opacity = '0';
-    el.style.pointerEvents = 'none';
-    el.style.userSelect = 'none';
-    el.style.zIndex = String(config.zIndex ?? 1001);
-    el.style.transition = 'opacity 0.7s';
-    el.style.filter = 'drop-shadow(0 0 18px #fff8) drop-shadow(0 0 32px #00e5ff66)';
-    outer.appendChild(el);
-    // For animation loop
-    const sprite = { el, phase: d.phase, baseX: d.x, baseY: d.y, driftX: d.driftX, driftY: d.driftY, rot: d.rot, size: d.size, opacity: d.opacity };
-    (sprite as any).curDx = 0;
-    (sprite as any).curDy = 0;
-    sprites.push(sprite);
-    setTimeout(() => { el.style.opacity = `${d.opacity}`; }, 60);
-    appearIndex++;
-    if (appearIndex < spriteData.length) {
-      setTimeout(addNextSprite, 110); // Intervalo entre apariciones
-    }
-  }
-  addNextSprite();
+  /* ===================== Spawn ===================== */
+  spriteData.forEach((d, i) => {
+    setTimeout(() => {
+      const el = document.createElement('img');
+      el.src = d.img.src;
+      el.alt = d.img.alt;
+      el.className = 'pokedex-deco-sprite';
+      el.setAttribute('aria-hidden', 'true');
+      el.setAttribute('draggable', 'false');
 
-  // Animation loop and mouse repulsion
-  let running = true;
-  let mouseX = -1000, mouseY = -1000;
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+      Object.assign(el.style, {
+        position: 'fixed',
+        left: `${d.x}px`,
+        top: `${d.y}px`,
+        width: `${d.size}px`,
+        opacity: '0',
+        pointerEvents: 'none',
+        zIndex: String(config.zIndex ?? 1001),
+        transition: 'opacity 0.7s',
+      });
+
+      outer.appendChild(el);
+      requestAnimationFrame(() => el.style.opacity = String(d.opacity));
+
+      sprites.push({
+        el,
+        phase: d.phase,
+        baseX: d.x,
+        baseY: d.y,
+        driftX: d.driftX,
+        driftY: d.driftY,
+        rot: d.rot,
+        size: d.size,
+        opacity: d.opacity,
+        curDx: 0,
+        curDy: 0,
+      });
+    }, i * 110);
   });
 
-  function lerp(a: number, b: number, t: number) {
-    return a + (b - a) * t;
-  }
-
-  function animateSprites() {
-    if (!running) return;
-    const t = performance.now() / 1000;
-    for (const s of sprites) {
-      // Sine-based float, drift, and rotation
-      let baseDx = Math.sin(t * 0.7 + s.phase) * s.driftX;
-      let baseDy = Math.cos(t * 0.5 + s.phase) * s.driftY;
-      let rot = Math.sin(t * 0.4 + s.phase) * s.rot;
-
-      // Repel from mouse if close
-      const rect = s.el.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const dist = Math.hypot(centerX - mouseX, centerY - mouseY);
-      let targetDx = baseDx;
-      let targetDy = baseDy;
-      if (dist < 120) {
-        const angle = Math.atan2(centerY - mouseY, centerX - mouseX);
-        const repelStrength = Math.min((120 - dist) * 1.1, 38);
-        targetDx += Math.cos(angle) * repelStrength;
-        targetDy += Math.sin(angle) * repelStrength;
-      }
-      (s as any).curDx = lerp((s as any).curDx, targetDx, 0.22);
-      (s as any).curDy = lerp((s as any).curDy, targetDy, 0.22);
-
-      // Clamp para evitar invasión del modal
-      const spriteBaseX = s.baseX;
-      const spriteBaseY = s.baseY;
-      const spriteSize = s.size;
-      let finalX = spriteBaseX + (s as any).curDx;
-      let finalY = spriteBaseY + (s as any).curDy;
-      if (finalX + spriteSize > modalRect.left + safePadding && finalX < modalRect.right - safePadding &&
-          finalY + spriteSize > modalRect.top + safePadding && finalY < modalRect.bottom - safePadding) {
-        if (finalX < modalRect.left + safePadding) finalX = modalRect.left + safePadding - spriteSize;
-        if (finalX + spriteSize > modalRect.right - safePadding) finalX = modalRect.right - safePadding;
-        if (finalY < modalRect.top + safePadding) finalY = modalRect.top + safePadding - spriteSize;
-        if (finalY + spriteSize > modalRect.bottom - safePadding) finalY = modalRect.bottom - safePadding;
-        (s as any).curDx = finalX - spriteBaseX;
-        (s as any).curDy = finalY - spriteBaseY;
-      }
-      s.el.style.transform = `translate3d(${(s as any).curDx}px,${(s as any).curDy}px,0) rotate(${rot}deg)`;
-    }
-    globalPokemonSpriteLoop = requestAnimationFrame(animateSprites);
-  }
-  animateSprites();
-
-  // Cleanup function
-  globalPokemonSpriteCleanup = () => {
-    running = false;
-    if (globalPokemonSpriteLoop) cancelAnimationFrame(globalPokemonSpriteLoop);
-    for (const s of sprites) {
-      if (s.el.parentNode) s.el.parentNode.removeChild(s.el);
-    }
-    globalPokemonSprites = [];
-    globalPokemonSpriteCleanup = null;
+  /* ===================== Animation ===================== */
+  let mouseX = -1000, mouseY = -1000;
+  const onMouseMove = (e: MouseEvent) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
   };
-  globalPokemonSprites = sprites;
-  return globalPokemonSpriteCleanup;
+  window.addEventListener('mousemove', onMouseMove);
+
+  const animate = () => {
+    const t = performance.now() / 1000;
+
+    sprites.forEach(s => {
+      let dx = Math.sin(t * 0.7 + s.phase) * s.driftX;
+      let dy = Math.cos(t * 0.5 + s.phase) * s.driftY;
+      const rot = Math.sin(t * 0.4 + s.phase) * s.rot;
+
+      const rect = s.el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dist = Math.hypot(cx - mouseX, cy - mouseY);
+
+      if (dist < 120) {
+        const a = Math.atan2(cy - mouseY, cx - mouseX);
+        const f = Math.min((120 - dist) * 1.1, 38);
+        dx += Math.cos(a) * f;
+        dy += Math.sin(a) * f;
+      }
+
+      s.curDx = lerp(s.curDx, dx, 0.22);
+      s.curDy = lerp(s.curDy, dy, 0.22);
+
+      s.el.style.transform =
+        `translate3d(${s.curDx}px, ${s.curDy}px, 0) rotate(${rot}deg)`;
+    });
+
+    spriteLoopId = requestAnimationFrame(animate);
+  };
+
+  animate();
+
+  /* ===================== Cleanup ===================== */
+  spriteCleanupFn = () => {
+    if (spriteLoopId) cancelAnimationFrame(spriteLoopId);
+    sprites.forEach(s => s.el.remove());
+    window.removeEventListener('mousemove', onMouseMove);
+    spriteCleanupFn = null;
+  };
+
+  return spriteCleanupFn;
 }
-import { Component, ElementRef, ViewChild, AfterViewInit, Renderer2, OnDestroy, Output, EventEmitter } from '@angular/core';
+
+/* ======================================================
+   Angular Component
+====================================================== */
+
+
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  Renderer2,
+  OnDestroy,
+  Output,
+  EventEmitter,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-pokedex-modal',
-  imports: [],
   templateUrl: './pokedex-modal.html',
   styleUrls: ['./pokedex-modal.scss'],
 })
 export class PokedexModal implements AfterViewInit, OnDestroy {
-  // Decorative Pokémon sprite logic
-  private pokedexDecoSprites: HTMLElement[] = [];
-  private pokedexDecoObserver: IntersectionObserver | null = null;
-  private pokedexDecoScrollHandler: (() => void) | null = null;
-  @ViewChild('modalRoot', { static: true }) modalRoot!: ElementRef<HTMLElement>;
-  @Output() closed = new EventEmitter<void>();
-  @ViewChild('modalOuter', { static: true }) modalOuter!: ElementRef<HTMLElement>;
-  private originalBodyOverflow = '';
-  private originalHtmlOverflow = '';
-  private originalBodyPaddingRight = '';
-  private scrollBarWidth = 0;
-  private observer: IntersectionObserver | null = null;
-  constructor(private renderer: Renderer2) {}
 
-  ngAfterViewInit() {
-    if (typeof window !== 'undefined') {
-      // 1. Scroll reveal logic (igual que antes)
-      const root = this.modalRoot?.nativeElement;
-      if (root) {
-        // Siempre hacer scroll al principio al abrir el modal
-        root.scrollTop = 0;
-        const elements = Array.from(root.querySelectorAll('.fade-in-on-scroll')) as HTMLElement[];
-        elements.forEach(el => {
-          el.classList.add('scroll-hidden');
-          el.classList.remove('scroll-reveal');
+  @ViewChild('modalRoot', { static: true }) modalRoot!: ElementRef<HTMLElement>;
+  @ViewChild('modalOuter', { static: true }) modalOuter!: ElementRef<HTMLElement>;
+  @Output() closed = new EventEmitter<void>();
+
+  private observer: IntersectionObserver | null = null;
+  private cleanupSprites: (() => void) | null = null;
+
+  constructor(
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const root = this.modalRoot.nativeElement;
+      root.scrollTop = 0;
+
+      const targets = Array.from(
+        root.querySelectorAll('.fade-in-on-scroll')
+      ) as HTMLElement[];
+
+      // Force reveal all modal content immediately on open
+      targets.forEach(el => {
+        el.classList.remove('scroll-hidden');
+        el.classList.add('scroll-reveal');
+      });
+
+      // Optionally, keep IntersectionObserver for scroll-based animation
+      this.observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          e.target.classList.toggle('scroll-reveal', e.isIntersecting);
+          e.target.classList.toggle('scroll-hidden', !e.isIntersecting);
         });
-        this.observer = new IntersectionObserver((entries) => {
+      }, { threshold: 0.18 });
+
+        // NUEVO: Animaciones para scroll-fade-up, scroll-slide-left, scroll-scale-in
+        const scrollAnimated = Array.from(
+          root.querySelectorAll('.scroll-fade-up, .scroll-slide-left, .scroll-scale-in')
+        ) as HTMLElement[];
+
+        const scrollObserver = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('scroll-reveal');
-              entry.target.classList.remove('scroll-hidden');
+              entry.target.classList.add('visible');
             } else {
-              entry.target.classList.remove('scroll-reveal');
-              entry.target.classList.add('scroll-hidden');
+              entry.target.classList.remove('visible');
             }
           });
-        }, {
-          root: null,
-          threshold: 0.18
-        });
-        elements.forEach(el => this.observer!.observe(el));
-      }
+        }, { threshold: 0.18 });
 
-      // Redirigir el scroll del fondo al modal central
-      if (this.modalOuter && this.modalRoot) {
-        const outer = this.modalOuter.nativeElement;
-        const inner = this.modalRoot.nativeElement;
-        outer.addEventListener('wheel', (e: WheelEvent) => {
-          if (e.target === outer) {
-            inner.scrollTop += e.deltaY;
-            e.preventDefault();
-          }
-        }, { passive: false });
-      }
+        scrollAnimated.forEach(el => scrollObserver.observe(el));
+        // Guardar para limpiar en ngOnDestroy
+        (this as any)._scrollObserver = scrollObserver;
 
-      // ===================== Decorative Pokémon Sprite System (NEW) =====================
-      spawnDecorativePokemonSprites({
+      targets.forEach(el => this.observer!.observe(el));
+
+      this.cleanupSprites = spawnDecorativePokemonSprites({
         images: [
           { src: '/assets/images/Bulbasaur.png', alt: 'Bulbasaur' },
           { src: '/assets/images/Pikachu.png', alt: 'Pikachu' },
           { src: '/assets/images/Charizard.png', alt: 'Charizard' },
-          { src: 'assets/images/Bulbasaur.png', alt: 'Bulbasaur' },
-          { src: 'assets/images/Charizard.png', alt: 'Charizard' },
-          { src: 'assets/images/Nidoquen.png', alt: 'Nidoquen' },
-          { src: 'assets/images/Piplup.png', alt: 'Piplup' },
-          { src: 'assets/images/Pokedex.png', alt: 'Pokedex' },
-          { src: 'assets/images/Squirt.png', alt: 'Squirt' },
+          { src: '/assets/images/Nidoquen.png', alt: 'Nidoquen' },
+          { src: '/assets/images/Piplup.png', alt: 'Piplup' },
+          { src: '/assets/images/Squirt.png', alt: 'Squirtle' },
         ],
         minSize: 54,
         maxSize: 110,
         minOpacity: 0.22,
-        maxOpacity: 0.50,
+        maxOpacity: 0.5,
         density: 60,
         zIndex: 1001,
         safePadding: 24,
@@ -311,27 +320,25 @@ export class PokedexModal implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    if (typeof window !== 'undefined') {
-      if (this.observer) this.observer.disconnect();
-      // Clean up decorative sprite system
-      if (globalPokemonSpriteCleanup) globalPokemonSpriteCleanup();
+  ngOnDestroy(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.observer?.disconnect();
+      this.cleanupSprites?.();
+        // Limpiar el nuevo observer de scroll
+        if ((this as any)._scrollObserver) {
+          (this as any)._scrollObserver.disconnect();
+          (this as any)._scrollObserver = null;
+        }
     }
   }
 
-  closeModal() {
+  closeModal(): void {
     this.closed.emit();
   }
 
-  onBackdropClick(event: MouseEvent) {
-    // Cierra el modal si el click es fuera del cuadro (no dentro del modal)
-    const modal = this.modalRoot?.nativeElement;
-    if (!modal) return;
-    // Si el click NO está dentro del modal, cerrar
-    if (!modal.contains(event.target as Node)) {
+  onBackdropClick(event: MouseEvent): void {
+    if ((event.target as HTMLElement).classList.contains('pokedex-modal-outer')) {
       this.closeModal();
     }
   }
-
-  // Animación manual eliminada, todo es scroll reveal
 }
