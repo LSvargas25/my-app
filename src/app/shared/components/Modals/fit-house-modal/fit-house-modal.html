@@ -1,4 +1,378 @@
-<div class="fit-house-modal-inner" appScrollReveal>
-  <h2>FitHouse Project</h2>
-  <p>Aquí va el contenido del modal FitHouse.</p>
+
+<div class="fit-house-modal-outer">
+  <div class="fit-house-modal-inner">
+
+    <div
+      class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur z-50"
+      (click)="onBackdropClick($event)"
+    >
+      <div
+        #modalRoot
+        class="project-modal-panel hide-scrollbar overflow-y-auto fit-house-modal-scrollable relative"
+      >
+        <!-- CLOSE BUTTON -->
+        <button
+          (click)="onCloseClick($event)"
+          class="fit-house-close-btn absolute top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full text-2xl font-bold text-white bg-[#18191a] shadow-lg hover:scale-110 active:scale-95 transition-all z-50"
+          style="border: 2px solid #e53935; box-shadow: 0 4px 24px rgba(229,57,53,0.18);"
+          aria-label="Cerrar modal"
+        >
+          &times;
+        </button>
+
+    <!-- ================= HEADER ================= -->
+    <header appScrollReveal class="text-center mb-10 mt-14 scroll-fade-up">
+      <div class="flex justify-center items-center gap-12 px-10 flex-wrap">
+
+        <!-- LEFT CONTENT -->
+        <div
+          appScrollReveal
+          class="flex flex-col items-center text-center max-w-xl scroll-fade-up"
+        >
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
+            FitHouse
+          </h2>
+
+          <p class="mt-3 text-gray-600 text-lg md:text-xl">
+            Mobile Fitness Management & Workout Tracking Platform
+          </p>
+
+          <span
+            class="mt-6 h-[2px] w-72 md:w-[30rem] rounded-full fit-house-divider"
+          ></span>
+
+          <span
+            class="mt-5 inline-flex items-center gap-2 px-6 py-2
+                   text-sm font-semibold rounded-full fit-house-badge"
+          >
+            Mobile App • Gym Management Solution
+          </span>
+        </div>
+
+        <!-- LOGO -->
+          <div
+            appScrollReveal
+            class="fit-house-logo-outer scroll-scale"
+          >
+            <div class="fit-house-logo-glow">
+              <div class="fit-house-logo-circle">
+                <img
+                  src="/assets/images/FitHouse.png"
+                  alt="FitHouse Logo"
+                  class="fit-house-logo-img"
+                />
+              </div>
+            </div>
+          </div>
+
+      </div>
+      <style>
+        .fit-house-logo-outer {
+          width: 14rem;
+          height: 14rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+        .fit-house-logo-glow {
+          width: 12rem;
+          height: 12rem;
+          border-radius: 50%;
+          background: radial-gradient(circle, #fff 60%, #e53935 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow:
+            0 0 0 8px #e53935,
+            0 0 40px 10px #e53935a0,
+            0 0 80px 20px #e53935a0;
+          animation: fitHouseGlow 2.5s infinite alternate;
+        }
+        .fit-house-logo-circle {
+          width: 9rem;
+          height: 9rem;
+          border-radius: 50%;
+          background: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          box-shadow: 0 2px 24px rgba(229,57,53,0.12);
+          position: relative;
+        }
+        .fit-house-logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+          transition: transform 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+          animation: fitHousePulse 2.5s infinite alternate;
+        }
+        @keyframes fitHouseGlow {
+          0% {
+            box-shadow:
+              0 0 0 8px #e53935,
+              0 0 40px 10px #e53935a0,
+              0 0 80px 20px #e53935a0;
+          }
+          100% {
+            box-shadow:
+              0 0 0 16px #e53935,
+              0 0 60px 20px #e53935cc,
+              0 0 120px 40px #e53935cc;
+          }
+        }
+        @keyframes fitHousePulse {
+          0% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(1.08);
+          }
+        }
+      </style>
+    </header>
+
+    <!-- ================= CONTENT ================= -->
+    <div class="px-6 md:px-12 pb-16">
+
+      <!-- ================= HERO ================= -->
+            <section
+              appScrollReveal
+              class="relative max-w-6xl mx-auto mb-24 rounded-3xl overflow-hidden min-h-[45vh] md:min-h-[55vh] flex items-end fit-house-hero"
+              style="background: url('/assets/images/fithouse-1.png') center center / cover no-repeat;"
+            >
+              <div class="absolute inset-0 fit-house-hero-overlay" style="background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(229,57,53,0.18) 60%, rgba(0,0,0,0.55) 100%);"></div>
+
+              <div class="relative z-10 px-6 md:px-14 py-16 max-w-4xl mx-auto text-center">
+                <div class="fit-house-hero-anim" style="background: rgba(0,0,0,0.32); border-radius: 2rem; padding: 2.5rem 2rem; display: inline-block; box-shadow: 0 8px 32px #0006;">
+                  <h1 class="fit-house-hero-title text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-white fit-house-hero-light" style="text-shadow: 0 4px 32px #000, 0 1px 0 #fff2; position:relative; overflow:hidden;">
+                    <span class="text-[#000000] animate-gradient">FitHouse</span>
+                    <span class="block text-white font-light text-2xl md:text-3xl mt-2 fit-house-hero-light">Mobile-First Fitness Platform</span>
+                  </h1>
+                  <p class="fit-house-hero-text text-lg md:text-xl font-medium text-white mb-6 fit-house-hero-light" style="text-shadow: 0 4px 32px #000, 0 1px 0 #fff2; position:relative; overflow:hidden;">
+                    Designed to help gyms manage clients, routines, and training progress through a structured and guided workout experience.
+                  </p>
+                  <p class="fit-house-hero-subtext text-base md:text-lg text-white font-light fit-house-hero-light" style="text-shadow: 0 4px 32px #000, 0 1px 0 #fff2; position:relative; overflow:hidden;">
+                    By combining <span class="font-semibold text-[#000000] bg-white/20 px-1 rounded">personalized workout plans</span>, <span class="font-semibold text-[#000000] bg-white/20 px-1 rounded">progress tracking</span>, and <span class="font-semibold text-[#000000] bg-white/20 px-1 rounded">centralized data management</span>, FitHouse improves training consistency, member engagement, and long-term fitness outcomes.
+                  </p>
+                  <div class="mt-10 flex justify-center">
+                    <span class="fit-house-hero-divider"></span>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <style>
+              .fit-house-hero-title {
+                letter-spacing: 0.02em;
+                line-height: 1.15;
+              }
+              .fit-house-hero-divider {
+                display: block;
+                width: 8rem;
+                height: 4px;
+                border-radius: 2px;
+                background: linear-gradient(90deg, #000000 0%, #fff 100%);
+                box-shadow: 0 2px 24px rgba(229,57,53,0.18);
+              }
+              .fit-house-hero-anim {
+                will-change: opacity, transform;
+              }
+              .animate-gradient {
+                background: linear-gradient(90deg, #000000 0%, #000000 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                -webkit-text-fill-color: transparent;
+                animation: gradientMove 3s linear infinite alternate;
+              }
+              @keyframes gradientMove {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 100% 50%; }
+              }
+              .animate-fade-in {
+                opacity: 0;
+                animation: fadeIn 10s forwards;
+              }
+              .animate-hero-pop {
+                opacity: 0;
+                transform: scale(0.95);
+                animation: heroPop 10s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+              }
+              @keyframes heroPop {
+                0% { opacity: 0; transform: scale(0.95); }
+                60% { opacity: 1; transform: scale(1.05); }
+                100% { opacity: 1; transform: scale(1); }
+              }
+              .animate-hero-fade-in {
+                opacity: 0;
+                transform: translateY(30px);
+                animation: heroFadeIn 10s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+              }
+              .animate-hero-fade-in.delay-400 {
+                animation-delay: 0.4s;
+              }
+              @keyframes heroFadeIn {
+                0% { opacity: 0; transform: translateY(30px); }
+                100% { opacity: 1; transform: translateY(0); }
+              }
+              .fit-house-hero-light {
+                position: relative;
+                overflow: hidden;
+              }
+              .fit-house-hero-light::after {
+                content: '';
+                position: absolute;
+                top: 0; left: -60%;
+                width: 60%; height: 100%;
+                background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+                pointer-events: none;
+                animation: heroLightSweep 4.5s cubic-bezier(.68,-0.55,.27,1.55) infinite;
+              }
+              @keyframes heroLightSweep {
+                0% { left: -60%; opacity: 0; }
+                10% { opacity: 0.6; }
+                50% { left: 0; opacity: 0.6; }
+                90% { opacity: 0.6; }
+                100% { left: 60%; opacity: 0; }
+              }
+            </style>
+
+      <!-- ================= CORE FEATURES ================= -->
+      <section appScrollReveal class="mb-10 -mt-8 scroll-fade-up">
+
+        <h3 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">
+          Core Application Features
+        </h3>
+
+        <p class="text-gray-600 max-w-3xl mx-auto text-center mb-6">
+          FitHouse focuses on simplifying gym operations while providing
+          athletes with a clear, structured, and motivating training experience.
+        </p>
+
+        <span
+          class="mb-10 block h-[2px] w-72 md:w-[30rem]
+                 rounded-full mx-auto fit-house-divider"
+        ></span>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+          <div appScrollReveal class="fit-house-feature-card scroll-fade-up">
+            <h4 class="text-xl font-semibold mb-3 text-center">
+              Client Profile Management
+            </h4>
+            <p class="text-gray-600 text-sm leading-relaxed text-center">
+              Centralized storage of client information including personal data,
+              fitness goals, physical metrics, and training history.
+            </p>
+          </div>
+
+          <div appScrollReveal class="fit-house-feature-card scroll-fade-up">
+            <h4 class="text-xl font-semibold mb-3 text-center">
+              Personalized Workout Routines
+            </h4>
+            <p class="text-gray-600 text-sm leading-relaxed text-center">
+              Custom workout plans assigned per client, structured by days,
+              muscle groups, exercises, repetitions, and rest times.
+            </p>
+          </div>
+
+          <div appScrollReveal class="fit-house-feature-card scroll-fade-up">
+            <h4 class="text-xl font-semibold mb-3 text-center">
+              Progress & Performance Tracking
+            </h4>
+            <p class="text-gray-600 text-sm leading-relaxed text-center">
+              Tracking of weights, repetitions, time, and training frequency to
+              evaluate progress and optimize future routines.
+            </p>
+          </div>
+
+          <div appScrollReveal class="fit-house-feature-card scroll-fade-up">
+            <h4 class="text-xl font-semibold mb-3 text-center">
+              Mobile-First Experience
+            </h4>
+            <p class="text-gray-600 text-sm leading-relaxed text-center">
+              Built with Xamarin.Forms to deliver a smooth, native-like
+              experience across Android devices.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TECHNOLOGY STACK ================= -->
+      <section appScrollReveal class="py-24 fit-house-tech-section scroll-fade-up">
+        <div class="text-center mb-16">
+          <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight fit-house-title">
+            Technology Stack
+          </h3>
+          <p class="mt-3 text-gray-600 text-lg">
+            Mobile & Backend Architecture
+          </p>
+        </div>
+
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 px-6">
+
+          <!-- MOBILE -->
+          <div appScrollReveal class="fit-house-tech-card scroll-fade-up">
+            <span class="fit-house-tech-badge">Mobile App</span>
+            <div class="tech-grid">
+              <div class="tech-icon"><img src="/assets/icons/csharp.png" /><span>C#</span></div>
+              <div class="tech-icon"><img src="/assets/icons/xamarin.png" /><span>Xamarin.Forms</span></div>
+            </div>
+          </div>
+
+          <!-- BACKEND -->
+          <div appScrollReveal class="fit-house-tech-card scroll-fade-up">
+            <span class="fit-house-tech-badge dark">Backend</span>
+            <div class="tech-grid">
+              <div class="tech-icon"><img src="/assets/icons/dotnet.png" /><span>.NET API</span></div>
+              <div class="tech-icon"><img src="/assets/icons/sql.png" /><span>SQL Server</span></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= ARCHITECTURE ================= -->
+      <section appScrollReveal class="py-20 px-2 md:px-8 scroll-fade-up">
+        <div class="text-center mb-12">
+          <h3 class="text-3xl md:text-4xl font-extrabold mb-2 fit-house-title">
+            Architecture Overview
+          </h3>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Design principles and architectural decisions behind the FitHouse platform.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+
+          <div class="fit-house-architecture-card light">
+            <h4 class="font-bold text-center mb-4">Mobile Architecture</h4>
+            <ul class="list-disc list-inside space-y-3">
+              <li>Xamarin.Forms MVVM pattern for clear separation of UI and logic</li>
+              <li>Reusable views and components for scalability</li>
+              <li>Service-based communication with RESTful APIs</li>
+            </ul>
+          </div>
+
+          <div class="fit-house-architecture-card dark">
+            <h4 class="font-bold text-center mb-4 text-white">Backend Architecture</h4>
+            <ul class="list-disc list-inside space-y-3 text-gray-200">
+              <li>ASP.NET Core Web API with layered architecture</li>
+              <li>Controllers, services, interfaces, and repositories</li>
+              <li>SQL Server persistence with stored procedures</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+
+	</div>
 </div>

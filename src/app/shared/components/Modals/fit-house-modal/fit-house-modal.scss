@@ -1,10 +1,20 @@
 
 
+
+// ================= FIT HOUSE DESIGN SYSTEM =================
+$fit-house-red: #e53935;
+$fit-house-black: #18191a;
+$fit-house-gray: #e5e7eb;
+$fit-house-dark-gray: #23272b;
+$fit-house-white: #fff;
+$fit-house-divider: linear-gradient(90deg, $fit-house-black 0%, $fit-house-red 50%, $fit-house-black 100%);
+$fit-house-glow: 0 0 32px 0 rgba(229,57,53,0.18), 0 2px 24px 0 rgba(24,25,26,0.12);
+
 .fit-house-modal-outer {
 	position: fixed;
 	inset: 0;
 	z-index: 1000;
-	background: rgba(10, 16, 24, 0.7);
+	background: linear-gradient(120deg, $fit-house-red 0%, $fit-house-white 100%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -19,4 +29,213 @@
 }
 .fit-house-modal-inner::-webkit-scrollbar {
 	display: none; /* Chrome, Safari, Opera */
+}
+
+// ================= ANIMATIONS (SSR-SAFE) =================
+.scroll-fade-up {
+	opacity: 0;
+	transform: translateY(32px);
+	transition:
+		opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+		transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+	transition-delay: var(--scroll-delay, 0ms);
+}
+.scroll-scale {
+	opacity: 0;
+	transform: scale(0.96);
+	transition:
+		opacity 0.7s ease,
+		transform 0.7s ease;
+}
+.scroll-visible {
+	opacity: 1 !important;
+	transform: none !important;
+}
+.scroll-hidden {
+	opacity: 0 !important;
+}
+
+// ================= MODAL PANEL =================
+.project-modal-panel {
+	width: 90vw;
+	max-width: 1400px;
+	height: 90vh;
+	border-radius: 1.5rem;
+	background: $fit-house-white;
+	border: 2px solid $fit-house-red;
+	overflow-y: auto;
+	box-shadow: 0 12px 32px rgba(24,25,26,0.10);
+}
+
+// ================= FIT HOUSE UTILITIES =================
+.fit-house-glow {
+	box-shadow: $fit-house-glow;
+	border: 2px solid $fit-house-red;
+	background: $fit-house-white;
+	position: relative;
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		box-shadow: 0 0 64px 8px rgba(229,57,53,0.12);
+		pointer-events: none;
+		z-index: 1;
+	}
+}
+
+.fit-house-divider {
+	background: $fit-house-divider;
+	height: 2px;
+	border: none;
+	display: block;
+}
+
+.fit-house-badge {
+	background: $fit-house-black;
+	color: $fit-house-white;
+	border-radius: 999px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	box-shadow: 0 2px 8px rgba(24,25,26,0.08);
+	border: 1.5px solid $fit-house-red;
+	padding: 0.3rem 1.2rem;
+	font-size: 0.85rem;
+	transition: background 0.2s;
+	&:hover {
+		background: $fit-house-red;
+		color: $fit-house-white;
+		border-color: $fit-house-black;
+	}
+}
+
+.fit-house-feature-card {
+	padding: 2rem;
+	background: $fit-house-white;
+	border-radius: 1.25rem;
+	border: 1.5px solid $fit-house-gray;
+	text-align: center;
+	transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+	box-shadow: 0 4px 24px rgba(24,25,26,0.07);
+	h4 {
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+		color: $fit-house-black;
+	}
+	&:hover {
+		transform: translateY(-6px) scale(1.03);
+		box-shadow: 0 12px 32px rgba(229,57,53,0.13);
+		border-color: $fit-house-red;
+	}
+}
+
+.fit-house-tech-card {
+	position: relative;
+	padding: 2.5rem 2rem 2rem 2rem;
+	border-radius: 2rem;
+	background: $fit-house-white;
+	box-shadow: 0 20px 50px rgba(24,25,26,0.10);
+	border: 1.5px solid $fit-house-gray;
+	.fit-house-tech-badge {
+		position: absolute;
+		top: -0.75rem;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 0.3rem 1.2rem;
+		font-size: 0.75rem;
+		font-weight: 700;
+		border-radius: 999px;
+		background: $fit-house-red;
+		color: $fit-house-white;
+		border: 1.5px solid $fit-house-black;
+		&.dark {
+			background: $fit-house-black;
+			color: $fit-house-white;
+			border-color: $fit-house-red;
+		}
+	}
+	.tech-grid {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 2.5rem;
+		margin-top: 2.5rem;
+	}
+	.tech-icon {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		img {
+			width: 52px;
+			height: 52px;
+			transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+		}
+		span {
+			font-size: 0.75rem;
+			font-weight: 600;
+			color: $fit-house-black;
+		}
+		&:hover img {
+			transform: scale(1.18);
+		}
+	}
+}
+
+.fit-house-architecture-card {
+	border-radius: 2rem;
+	box-shadow: 0 8px 32px rgba(24,25,26,0.10);
+	padding: 2.5rem 2rem 2rem 2rem;
+	background: $fit-house-white;
+	border: 1.5px solid $fit-house-gray;
+	&.dark {
+		background: $fit-house-black;
+		color: $fit-house-white;
+		border-color: $fit-house-red;
+		ul, li {
+			color: $fit-house-gray;
+		}
+		h4 {
+			color: $fit-house-white;
+		}
+	}
+	&.light {
+		background: $fit-house-white;
+		color: $fit-house-black;
+		border-color: $fit-house-red;
+		ul, li {
+			color: $fit-house-black;
+		}
+		h4 {
+			color: $fit-house-black;
+		}
+	}
+}
+
+// ================= HERO SECTION =================
+.fit-house-hero {
+	background: linear-gradient(120deg, $fit-house-black 0%, $fit-house-red 100%);
+	position: relative;
+}
+.fit-house-hero-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(120deg, rgba(24,25,26,0.82) 0%, rgba(229,57,53,0.32) 100%);
+	z-index: 1;
+}
+.fit-house-hero-text {
+	color: $fit-house-white;
+	font-size: 1.18rem;
+	font-weight: 600;
+	text-shadow: 0 2px 8px rgba(24,25,26,0.22);
+}
+.fit-house-hero-subtext {
+	color: $fit-house-gray;
+	font-size: 1rem;
+	font-weight: 400;
+}
+.fit-house-title {
+	color: $fit-house-red;
+	font-weight: 800;
+	letter-spacing: 0.01em;
 }

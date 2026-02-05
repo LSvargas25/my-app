@@ -1,83 +1,62 @@
 <!-- ================= HERO ================= -->
 <section
   id="hero"
-  class="min-h-screen flex flex-col justify-start items-center
-    bg-gradient-to-b from-gray-50 to-white
-    text-center px-6 border-b border-gray-200 pt-6
-    animate-fade-in"
+  class="relative min-h-screen flex flex-col items-center
+         bg-gradient-to-b from-white via-[#f8fbff] to-[#eaf3fa]
+         text-center px-4 md:px-8 border-b border-gray-200
+         pt-2 overflow-hidden"
 >
 
-  <!-- TYPEWRITER -->
-  <h2 class="flex justify-center items-baseline gap-3 text-black mb-8 min-h-[6rem]">
-    <span class="text-3xl md:text-4xl font-extrabold tracking-tight text-blue-600 animate-fade-in-up">
-      I’m
-    </span>
-    <span class="text-xl md:text-2xl font-semibold text-gray-600">
-      <span id="typewriter"></span>
-      <span class="border-r-2 border-b-black animate-pulse ml-1"></span>
-    </span>
-  </h2>
+  <!-- BACKGROUND GLOWS -->
+  <div class="absolute inset-0 pointer-events-none z-0">
+    <div class="absolute -top-40 -left-40 w-[600px] h-[600px]
+                bg-blue-400/20 rounded-full blur-[120px]"></div>
+    <div class="absolute top-1/3 -right-40 w-[500px] h-[500px]
+                bg-cyan-400/20 rounded-full blur-[140px]"></div>
+  </div>
 
-  <!-- FOTO + TARJETA -->
-  <div class="relative mt-16 animate-fade-in-up">
-    <div class="bg-white rounded-2xl shadow-lg px-10 pt-32 pb-10 border border-gray-200 relative">
+  <!-- HERO HEADER (TYPEWRITER – ABOVE PHOTO) -->
+  <div
+    class="relative z-20 flex flex-col items-center justify-center
+           min-h-[80px] md:min-h-[120px]
+           mb-16 md:mb-24 pointer-events-none"
+  >
+    <div class="flex items-baseline gap-3">
+      <span
+        id="hero-im"
+        class="text-3xl md:text-5xl font-extrabold tracking-tight
+               text-black drop-shadow-lg"
+      >
+        I’m
+      </span>
 
-      <img
-        src="assets/images/Principal.jpeg"
-        alt="Profile photo"
-        class="w-64 h-64 rounded-full object-cover
-               absolute -top-36 left-1/2 -translate-x-1/2
-               ring-4 ring-white shadow-md
-               transition-transform duration-500 hover:scale-105"/>
-
-      <h5 class="text-2xl md:text-4xl font-handwritten text-gray-900 mb-4">
-        Luis Steven Vargas Rodriguez
-      </h5>
-
-      <p class="text-sm text-gray-600 max-w-md mt-6">
-        Software Engineer focused on designing and building scalable,
-        business-driven backend and full-stack solutions.
-      </p>
-
-      <!-- CONTACT -->
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
-        <a href="mailto:luisstevenvargasr@gmail.com" class="flex items-center gap-2 px-4 py-2 rounded-full
-           text-sm text-gray-800 border bg-white/60 backdrop-blur
-           hover:bg-blue-50 hover:text-blue-700 transition-all">
-          📧 luisstevenvargasr@gmail.com
-        </a>
-
-        <a href="https://wa.me/50686717413" target="_blank"
-           class="flex items-center gap-2 px-4 py-2 rounded-full
-           text-sm text-gray-800 border bg-white/60 backdrop-blur
-           hover:bg-green-50 hover:text-green-700 transition-all">
-          📱 +506 8671 7413
-        </a>
-      </div>
+      <span
+        id="hero-typewriter-wrap"
+        class="text-xl md:text-3xl font-semibold
+               bg-gradient-to-r from-[#4E342E] via-[#8D6E63] to-[#D4AF37]
+               bg-clip-text text-transparent
+               animate-typewriter overflow-hidden whitespace-nowrap
+               border-r-4 border-[#4E342E]"
+      >
+        <span id="typewriter"></span>
+      </span>
     </div>
   </div>
 
-  <!-- REDES -->
-  <div class="flex gap-3 mt-6 mb-4">
-    <a href="https://github.com/LSvargas25" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
-  </div>
+  <!-- PROFILE CARD COMPONENT -->
+  <app-profile-card
+    name="Luis Steven Vargas Rodríguez"
+    description="Software Engineer specializing in the design and development of scalable, business-driven backend systems and modern full-stack applications."
+    imageSrc="assets/images/Principal.jpeg"
+    languages="Spanish (Native) | English (Advanced)"
+    email="luisstevenvargasr@gmail.com"
+    whatsapp="https://wa.me/50686717413"
+    github="https://github.com/LSvargas25"
+    linkedin="https://www.linkedin.com/in/"
+  ></app-profile-card>
 
-  <!-- IDIOMAS -->
-  <div class="text-sm text-gray-600 mb-8">
-    Spanish (Native) | English (Advanced)
-  </div>
-
-  <!-- BOTONES -->
-  <div class="flex gap-4 flex-wrap justify-center">
-    <a href="#projects" class="px-6 py-3 rounded-full bg-blue-600 text-white font-semibold">
-      View Projects
-    </a>
-    <a href="#contact" class="px-6 py-3 rounded-full border text-gray-800 font-semibold">
-      Contact Me
-    </a>
-  </div>
 </section>
+
 
 <!-- ================= PROFILE ================= -->
 <section id="profile" class="py-12 bg-gray-50 border-b border-gray-200">
@@ -105,11 +84,12 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-10">
 
       <!-- TECHNICAL SKILLS -->
-      <div>
-        <h4 class="font-semibold text-center text-lg mb-6 relative">
-          Technical Skills
-          <span class="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2/3 h-[2px] bg-blue-600"></span>
-        </h4>
+      <div
+        class="relative z-20 flex flex-col items-center justify-center
+               min-h-[80px] md:min-h-[120px]
+               mb-2 md:mb-4 pointer-events-none"
+        style="margin-top: -2.5rem;"
+      >
 
 
         <!-- BACKEND -->
@@ -504,12 +484,9 @@
   <app-expande-modal></app-expande-modal>
 </app-base-project-modal>
 
-<app-base-project-modal
-  [isOpen]="showFitHouseModal"
-  (closed)="closeAllModals()"
->
-  <app-fit-house-modal></app-fit-house-modal>
-</app-base-project-modal>
+
+<!-- DIRECT RENDER FOR DEVELOPMENT: FitHouse modal always visible -->
+<app-fit-house-modal *ngIf="showFitHouseModal" (closed)="showFitHouseModal = false"></app-fit-house-modal>
 
 <app-base-project-modal
   [isOpen]="showVcBikeServiceModal"

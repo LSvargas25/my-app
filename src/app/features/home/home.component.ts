@@ -1,11 +1,19 @@
-import { Component, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PokedexModal } from '../../shared/components/Modals/pokedex-modal/pokedex-modal'; import { ExpandeModal } from '../../shared/components/Modals/expande-modal/expande-modal';
 import { FitHouseModal } from '../../shared/components/Modals/fit-house-modal/fit-house-modal';
+import  { ProfileCardComponent} from  '../../features/home/ProfileCard/profile-card-component/profile-card-component';
+// GSAP/ScrollTrigger/tsParticles types (for SSR safety)
+declare const window: any;
+declare const gsap: any;
+declare const ScrollTrigger: any;
+// tsParticles is loaded via CDN or as a global
+let tsParticles: any = undefined;
+
+// (Removed invalid TypeScript module augmentation for gsap/ScrollTrigger)
 import { VcBikeServiceModal } from '../../shared/components/Modals/vc-bike-service-modal/vc-bike-service-modal';
 import { Footer } from '../../shared/components/Footer/footer/footer';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'; // Removed for SSR/TS compatibility
 import { BaseProjectModalComponent } from '../../shared/components/Modals/base-project-modal/base-project-modal.component/base-project-modal.component';
 
 type SoftSkill = {
@@ -29,7 +37,7 @@ type Skill = {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Footer, BaseProjectModalComponent, PokedexModal, ExpandeModal, FitHouseModal, VcBikeServiceModal],
+  imports: [CommonModule, Footer, BaseProjectModalComponent, PokedexModal, ExpandeModal, FitHouseModal, VcBikeServiceModal, ProfileCardComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements AfterViewInit {
@@ -321,69 +329,220 @@ expertiseItems: Expertise[] = [
 
   gsapRegistered = false;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private ngZone: NgZone) {}
 
   // -----------------------------
   // LIFECYCLE
   // -----------------------------
   ngAfterViewInit(): void {
+    if (typeof window === 'undefined') return;
+    this.startTypewriter();
+
+    // Register ScrollTrigger plugin if available
+    if (window.gsap && window.ScrollTrigger && window.gsap.registerPlugin) {
+      window.gsap.registerPlugin(window.ScrollTrigger);
+    }
+
+    // Defer GSAP/DOM logic to next tick for SSR safety
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.initHeroAnimations();
+        this.initParticlesBackground();
+        this.initProfileCard3D();
+        this.initResumeBtnAnimation();
+        this.initScrollCue();
+        this.initGsapBlocks();
+        this.initProjectsObserver();
+      }, 0);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.projectsObserver) {
+      this.projectsObserver.disconnect();
+    }
+    // Clean up listeners if needed
     if (typeof window !== 'undefined') {
-      this.startTypewriter();
-
-      if (!this.gsapRegistered) {
-        gsap.registerPlugin(ScrollTrigger);
-        this.gsapRegistered = true;
-      }
-
-      const blocks = this.el.nativeElement.querySelectorAll('.gsap-fade');
-
-      blocks.forEach((block: HTMLElement) => {
-        gsap.fromTo(
-          block,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            scrollTrigger: {
-              trigger: block,
-              start: 'top 80%',
-              end: 'bottom 20%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      });
-    const projectsSection = document.getElementById('projects');
-
-if (projectsSection) {
-  this.projectsObserver = new IntersectionObserver(
-    (entries) => {
-      const isAnyModalOpen =
-        this.showPokedexModal ||
-        this.showExpandeModal ||
-        this.showFitHouseModal ||
-        this.showVcBikeServiceModal;
-
-      // Si hay un modal abierto, NO cerramos nada
-      if (isAnyModalOpen) return;
-
-      if (entries[0] && entries[0].intersectionRatio === 0) {
-        this.closeAllModals();
-      }
-    },
-    { threshold: 0 }
-  );
-
-  this.projectsObserver.observe(projectsSection);
-}
-
+      window.removeEventListener('mousemove', this.profileCardTiltHandler as any);
     }
   }
-    ngOnDestroy(): void {
-      if (this.projectsObserver) {
-        this.projectsObserver.disconnect();
-      }
+
+  // ================= HERO ANIMATIONS =================
+  private initHeroAnimations() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    // 1. Staggered entrance for hero texts
+    gsap.timeline({ defaults: { ease: 'expo.out' } })
+      .to('#hero-im', { opacity: 1, y: 0, duration: 0.9 })
+      .to('#hero-typewriter-wrap', { opacity: 1, scale: 1, duration: 0.8 }, '-=0.5')
+      .fromTo(
+        '#profile-card',
+        { opacity: 0, y: 64, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: 'power3.out' },
+        '-=0.4'
+      );
+  }
+
+  private initGsapBlocks() {
+    // Animate .gsap-fade blocks on scroll (if any)
+    if (!window.gsap || !window.ScrollTrigger) return;
+    const blocks = this.el.nativeElement.querySelectorAll('.gsap-fade');
+    blocks.forEach((block: HTMLElement) => {
+      gsap.fromTo(
+        block,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger: block,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+  }
+
+  // 2. Animated background (gradient mesh or tsParticles)
+  private initParticlesBackground() {
+    const bg = document.getElementById('hero-bg-anim');
+    if (!bg) return;
+    // SSR fallback: just gradient
+    if (typeof window === 'undefined') return;
+    // Try to use tsParticles if available
+    tsParticles = window.tsParticles || undefined;
+    if (tsParticles && tsParticles.load) {
+      tsParticles.load('hero-bg-anim', {
+        fpsLimit: 30,
+        background: { color: 'transparent' },
+        particles: {
+          number: { value: 24, density: { enable: true, area: 800 } },
+          color: { value: ['#2563eb', '#06b6d4', '#e0f2fe'] },
+          opacity: { value: 0.13, random: true },
+          size: { value: 32, random: { enable: true, minimumValue: 12 } },
+          move: {
+            enable: true,
+            speed: 0.25,
+            direction: 'none',
+            outModes: { default: 'out' },
+          },
+          shape: { type: 'circle' },
+        },
+        detectRetina: true,
+      });
     }
+    // If not, fallback to static gradient (already in CSS)
+  }
+
+  // 3. 3D Tilt, Floating, and Animated Ring
+  private profileCardTiltHandler: ((e: MouseEvent) => void) | null = null;
+  private initProfileCard3D() {
+    const card = document.getElementById('profile-card');
+    if (!card) return;
+    // 3D tilt on mouse move (desktop only)
+    this.profileCardTiltHandler = (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * 8;
+      const rotateY = ((x - centerX) / centerX) * -10;
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    };
+    card.addEventListener('mousemove', this.profileCardTiltHandler);
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+    // (Floating and animated ring are handled by CSS)
+  }
+
+  // 4. Premium Resume Button Animation
+  private initResumeBtnAnimation() {
+    const resumeBtn = document.getElementById('downloadResumeBtn');
+    if (!resumeBtn || !window.gsap) return;
+    resumeBtn.addEventListener('click', () => {
+      const text = resumeBtn.querySelector('.resume-text') as HTMLElement;
+      const icon = resumeBtn.querySelector('.resume-icon') as HTMLElement;
+      // Prevent double click
+      resumeBtn.setAttribute('disabled', 'true');
+      // Download animation
+      gsap.timeline()
+        .to(icon, {
+          y: 6,
+          opacity: 0,
+          duration: 0.25,
+          ease: 'power2.in',
+        })
+        .to(text, {
+          opacity: 0,
+          duration: 0.2,
+        }, '<')
+        .add(() => {
+          text.textContent = 'Downloading...';
+          icon.textContent = '⏳';
+        })
+        .to([text, icon], {
+          opacity: 1,
+          y: 0,
+          duration: 0.25,
+        })
+        .to({}, { duration: 0.8 }) // fake download delay
+        .add(() => {
+          text.textContent = 'Downloaded';
+          icon.textContent = '✔️';
+          // Trigger real download
+          const link = document.createElement('a');
+          link.href = resumeBtn.getAttribute('href') || 'assets/Steven.Resumen.pdf';
+          link.download = resumeBtn.getAttribute('download') || 'Steven.Resumen.pdf';
+          link.click();
+        })
+        .to(resumeBtn, {
+          boxShadow: '0 0 20px rgba(34,197,94,0.6)',
+          duration: 0.3,
+        })
+        .add(() => {
+          // Reset after a short delay
+          setTimeout(() => {
+            text.textContent = 'Download Resume';
+            icon.textContent = '⬇️';
+            resumeBtn.removeAttribute('disabled');
+            gsap.to(resumeBtn, { boxShadow: '0 2px 16px #3b82f640', duration: 0.3 });
+          }, 1200);
+        });
+    });
+  }
+
+  // 5. Scroll Cue Animation
+  private initScrollCue() {
+    const cue = document.getElementById('scroll-cue');
+    if (!cue || !window.gsap) return;
+    gsap.to(cue, { opacity: 1, y: 0, duration: 1.2, delay: 1.2, ease: 'power3.out' });
+  }
+
+  // 6. Projects Section Modal Observer (unchanged)
+  private initProjectsObserver() {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      this.projectsObserver = new IntersectionObserver(
+        (entries) => {
+          const isAnyModalOpen =
+            this.showPokedexModal ||
+            this.showExpandeModal ||
+            this.showFitHouseModal ||
+            this.showVcBikeServiceModal;
+          if (isAnyModalOpen) return;
+          if (entries[0] && entries[0].intersectionRatio === 0) {
+            this.closeAllModals();
+          }
+        },
+        { threshold: 0 }
+      );
+      this.projectsObserver.observe(projectsSection);
+    }
+  }
+    // ngOnDestroy handled above
 
   // -----------------------------
   // TYPEWRITER LOGIC
@@ -416,4 +575,8 @@ if (projectsSection) {
       this.isDeleting ? this.deletingSpeed : this.typingSpeed
     );
   }
+
+
+
+
 }
